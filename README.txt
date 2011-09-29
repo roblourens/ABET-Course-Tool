@@ -1,4 +1,4 @@
-Hey
+
 Directory structure
 
 data
