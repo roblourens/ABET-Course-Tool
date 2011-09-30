@@ -1,6 +1,6 @@
 <?php
 
-public class Course
+class Course
 {
     private $_deptID;
 
@@ -8,11 +8,10 @@ public class Course
 
     // deptID+courseNum
     private $_courseID;
+	
+	private $_courseNamed;
 
     private $_description;
-
-    // True if $_syllabus is a file path
-    private $_syllabusIsFile;
 
     // text of syllabus if not a file
     private $_syllabus;
@@ -27,7 +26,7 @@ public class Course
     private $_homeworks;
 
     // Takes an array from the JSON representation of this course
-    public _construct($_rawCourseArr)
+    function _construct($_rawCourseArr)
     {
         
     }
@@ -35,7 +34,7 @@ public class Course
     // getters and setters
 
     // Returns the JSON representation of this course
-    public function toJSON()
+    function toJSON()
     {
         
     }
