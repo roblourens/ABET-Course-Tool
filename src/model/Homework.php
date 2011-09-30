@@ -1,28 +1,41 @@
 <?php
 
-public class Homework
+class LOHomework
 {
-    private $_name;
+    public $type;
 
-    private $_type;
+    public $number;
+
+    public $learningOutcomes;
+
+    public function LOHomework($_rawCourseArr)
+    {
+        $this->type =             $_rawCourseArr->type;
+        $this->number =           $_rawCourseArr->number;
+        $this->learningOutcomes = $_rawCourseArr->outcomes;
+    }
+}
+
+class ExampleHomework
+{
+    public $name;
+
+    public $type;
 
     // url-encoded name?
-    private $_fileName;
+    public $assignmentName;
 
     // random number, or uploaded file name
-    private $_solutionAFileName;
-
-    private $_solutionBFileName;
-
-    private $_solutionCFileName;
+    public $exampleNames;
 
     // Takes an array from the JSON representation of this course
-    public _construct($_rawCourseArr)
+    public function ExampleHomework($_rawCourseArr)
     {
-        
+        $this->name =     $_rawCourseArr->name;
+        $this->type =     $_rawCourseArr->type;
+        $this->assignmentName =   $_rawCourseArr->assignmentName;
+        $this->exampleNames =     $_rawCourseArr->exampleNames;
     }
-
-    // getters and setters
 
     // Returns the JSON representation of this course
     public function toJSON()

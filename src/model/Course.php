@@ -1,38 +1,48 @@
 <?php
 
-public class Course
-{
-    private $_deptID;
+require_once('Homework.php');
 
-    private $_courseNum;
+class Course
+{
+    public $deptID;
+
+    public $courseNum;
 
     // deptID+courseNum
-    private $_courseID;
+    public $courseID;
 
-    private $_description;
+    public $description;
 
-    // True if $_syllabus is a file path
-    private $_syllabusIsFile;
+    public $courseLearningOutcomes;
 
-    // text of syllabus if not a file
-    private $_syllabus;
+    public $syllabus;
 
-    // Array of [description, how does this apply]?
-    private $_otherLearningOutcomes;
-
-    // Array of ['a', 'b'] etc.
-    private $_learningOutcomes;
+    // Array of LOHomework objects
+    public $learningOutcomeHomeworks;
 
     // Array of Homework objects
-    private $_homeworks;
+    public $homeworks;
 
-    // Takes an array from the JSON representation of this course
-    public _construct($_rawCourseArr)
+    // Takes an object from the JSON representation of this course
+    public function Course($_courseObj)
     {
-        
-    }
+        $this->deptID =      $_courseObj->deptID;
+        $this->courseNum =   $_courseObj->courseNum;
+        $this->courseID =    $_courseObj->courseID;
+        $this->description = $_courseObj->description;
+        $this->courseLearningOutcomes= $_courseObj->courseLearningOutcomes;
+        $this->syllabus=     $_courseObj->syllabus;
+        $this->learningOutcomeHomeworks = array();
+        $this->homeworks = array();
 
-    // getters and setters
+        foreach($_courseObj->loHomeworks as $loHomeworkArr)
+                array_push($this->learningOutcomeHomeworks, 
+                    new LOHomework($loHomeworkArr));
+        
+        foreach($_courseObj->homeworks as $homeworkArr)
+            array_push($this->homeworks, 
+                new ExampleHomework($homeworkArr));
+    }
 
     // Returns the JSON representation of this course
     public function toJSON()
