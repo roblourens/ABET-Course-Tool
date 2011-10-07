@@ -1,3 +1,16 @@
+function toggle() {
+	var ele = document.getElementById("toggleText");
+	var text = document.getElementById("displayText");
+	if(ele.style.display == "block") {
+    		ele.style.display = "none";
+		text.value = "Show More Info";
+  	}
+	else {
+		ele.style.display = "block";
+		text.value = "Show Less Info";
+	}
+} 
+
 function get_num_rows()
 {
 	var num_of_rows = document.getElementById('number_of_rows').value;
@@ -7,8 +20,12 @@ function get_num_rows()
 
 function get_raw_html(num)
 {
+	str = "";
+	if(num % 2 == 0){
+		str = "bgcolor=\"#b6b7bc\"";
+	}
 return ""+	
-" <tr>"+
+" <tr "+str+">"+
 "        <td width='53'>"+num+"</td>"+
 "        <td width='54'><select name='assignment_type_"+num+"'>"+
 "          <option value='0' selected='selected'>Select Value</option>"+

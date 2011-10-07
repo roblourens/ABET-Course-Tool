@@ -8,14 +8,37 @@ fclose($fh);
 $course = json_decode($theData, true);
 if(!is_numeric($course_array['number_of_rows']) || $course_array['number_of_rows'] < 1) $course_array['number_of_rows'] = 1;
 ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>ABET: Course Information</title>
+    <link href="css/abet.css" rel="stylesheet" type="text/css" />
+	<script type="application/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+	<script type="application/javascript" src="scripts/js/abet.js"></script>
+</head>
+<body>
+    <div class="page">
+        <div class="header">
+            <div class="title">
+                <h1>
+                    ABET Software Application
+                </h1>
+            </div>
+            <div class="loginDisplay">
+                [ <a href="" id="HeadLoginView_HeadLoginStatus">Log In</a> ]
+            </div>
+        </div>
+        <div class="main">
+            <h2>
+                Course Information
+            </h2>
+            <hr />
+            
 
-<script type="application/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-<script type="application/javascript" src="scripts/js/abet.js"></script>
 
-<h1>ABET Course Tool</h1>
 <form action="" method="post">
 
-<table width="100%" height="100%" border="1">
+<table width="100%" border="0">
   <tr>
     <td colspan="13"><input type="submit" name="button_save" id="button_save" value="Save Course Info" /></td>
   </tr>
@@ -46,45 +69,52 @@ if(!is_numeric($course_array['number_of_rows']) || $course_array['number_of_rows
   <tr>
     <td colspan="13"><input type="submit" name="button_save" id="button_save" value="Save Course Info" /></td>
   </tr>
-  <tr>
-    <td colspan="13"><p>Assignments That Follow ABET</p></td>
+   <tr>
+    <td colspan="13"><input type="button" name="button_save" id="displayText" onclick="javascript:toggle();" value="Show More Info" /></td>
   </tr>
- 
+  </table>
+  <div id="toggleText" style="display: none">
+  <hr />
+  <table width="100%" border="0">
+  <tr>
+    <td colspan="13"><h2>Assignments That Follow ABET:</h2></td>
+  </tr>
+ <tr height="10px"></tr>
   <tr>
     <td colspan="13">
     <input id="number_of_rows" name="number_of_rows" type="hidden" value="<?php echo $course['number_of_rows']; ?>"/>
     <?php error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);?>
-    <table id="assignmentsTable" border="1">
+    <table id="assignmentsTable" border="0">
       <tr>
-        <td width="53">Index</td>
-        <td width="54">Assignment Type</td>
-        <td>Assignment#</td>
-		<td id="a" align="center"  
-			      title="Ability to apply knowledge of mathematics, science, engineering.">a</td>
-                          <td id="b" align="center"
-			      title="An ability to design and conduct experiments, as well as to analyze and interpret data.">b</td>
-                          <td id="c" align="center"
-			      title = "Ability to design a system, component or process to meet desired needs within realistic constraints.">c</td>
-                          <td id="d" align="center"
-			      title="Ability to function on multidisciplinary teams.">d</td>
-                          <td id="e" align="center"
-			      title="Ability to identify, formulate and solve engineering problems.">e</td>
-                          <td id="f" align="center"
-			      title="Understanding of professional and ethical responsibility.">f</td>
-                          <td id="g" align="center"
-			      title="Ability to communicate effectively.">g</td>
-                          <td id="h" align="center"
-			      title="The broad education necessary to understand the impact of engineering solutions in a global, economic, environmental and societal context.">h</td>
-                          <td id="i" align="center"
-			      title="Recognition of the need for and an ability to engage in lifelong learning.">i</td>
-                          <td id="j" align="center"
-			      title="Knowledge of contemporary issues.">j</td>
-                          <td id="k" align="center"
-			      title="Ability to use the techniques, skills and modern engineering tools necessary for engineering practice.">k</td>
+        <th width="53">Index</th>
+        <th width="54">Assignment Type</th>
+        <th>Assignment#</th>
+		<th id="a" align="center"  
+			      title="Ability to apply knowledge of mathematics, science, engineering.">A</th>
+                          <th id="b" align="center"
+			      title="An ability to design and conduct experiments, as well as to analyze and interpret data.">B</th>
+                          <th id="c" align="center"
+			      title = "Ability to design a system, component or process to meet desired needs within realistic constraints.">C</th>
+                          <th id="d" align="center"
+			      title="Ability to function on multidisciplinary teams.">D</th>
+                          <th id="e" align="center"
+			      title="Ability to identify, formulate and solve engineering problems.">E</th>
+                          <th id="f" align="center"
+			      title="Understanding of professional and ethical responsibility.">F</th>
+                          <th id="g" align="center"
+			      title="Ability to communicate effectively.">G</th>
+                          <th id="h" align="center"
+			      title="The broad education necessary to understand the impact of engineering solutions in a global, economic, environmental and societal context.">H</th>
+                          <th id="i" align="center"
+			      title="Recognition of the need for and an ability to engage in lifelong learning.">I</th>
+                          <th id="j" align="center"
+			      title="Knowledge of contemporary issues.">J</th>
+                          <th id="k" align="center"
+			      title="Ability to use the techniques, skills and modern engineering tools necessary for engineering practice.">K</th>
       </tr>
       <?php error_reporting(E_ERROR);?>
       <?php for($i = 1 ; $i <= $course['number_of_rows'] ; $i++):?>
-      <tr>
+      <tr <?php if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
         <td><?php echo $i; ?></td>
         <td>
         <select id = "assignment_type_<?php echo $i; ?>" name="assignment_type_<?php echo $i; ?>">
@@ -128,9 +158,13 @@ if(!is_numeric($course_array['number_of_rows']) || $course_array['number_of_rows
   <tr>
     <td colspan="13"></form><input type="button" name="add_another_assignment" id="add_another_assignment" value="Add Another Assignment" onClick="add_new_row('#assignmentsTable', get_raw_html(get_num_rows()));" /></td>
   </tr>
+  </table>
+  <hr />
+  <table width="100%" border="0">
   <tr>
-    <td colspan="13">Sample Assignments:</td>
+    <td colspan="13"><h2>Sample Assignments:</h2></td>
   </tr>
+  <tr height="10px"></tr>
   <tr>
     <td colspan="13"><table width="100%" border="1" id="sampleAssignments">
       <tr>
@@ -162,9 +196,17 @@ if(!is_numeric($course_array['number_of_rows']) || $course_array['number_of_rows
   <tr>
     <td colspan="13"><input type="button" name="add_another_sample" id="add_another_sample" value="Add Another Sample" onClick="add_new_row('#sampleAssignments', genNewSampleRow());" /></td>
   </tr>
-  <tr>
-    <td colspan="13"><input type="submit" name="button_save" id="button_save" value="Save Course Info" /></td>
-  </tr>
-</table>
-<p><input type="submit" /></p>
+  </table>
+<hr />
+<input type="submit" name="button_save" id="button_save" value="Save Course Info" />
+
+
+</div>
 </form>
+    
+        </div>
+    </div>
+    <div class="footer"></div>
+</body>
+</html>
+
