@@ -10,7 +10,7 @@ if(!is_numeric($course_array['number_of_rows']) || $course_array['number_of_rows
 ?>
 
 <script type="application/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-<script type="application/javascript" src="js/abet.js"></script>
+<script type="application/javascript" src="scripts/js/abet.js"></script>
 
 <h1>ABET Course Tool</h1>
 <form action="" method="post">

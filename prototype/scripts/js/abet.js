@@ -234,7 +234,7 @@ function saveData(data)
 	//ajaxRequest.open("GET", "save.php" + queryString, true);
 	//ajaxRequest.send(null);
 	var parameters="json="+json;
-	ajaxRequest.open("POST", "ajax.saveCourse.php", true)
+	ajaxRequest.open("POST", "scripts/php/ajax.saveCourse.php", true)
 	ajaxRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
 	ajaxRequest.send(parameters)
 }
