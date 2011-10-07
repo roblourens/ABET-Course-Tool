@@ -1,60 +1,47 @@
-<?php require_once('../src/model/data.php'); ?>
-<?php $course = getCourseForID("se329");?>
-<?php 
-$COURSE_DEPARTMENT =  $course->deptID;
-$COURSE_NUMBER = $course->courseNum;
-$COURSE_NAMED = $course->courseID;
-$COURSE_DESCRIPTION = $course->description;
-$SYLLABUS_AND_GRADING_GUIDELINES = $course->syllabus;
-$COURSE_LEARNING_OUTCOMES = $course->courseLearningOutcomes;
-
-
+<?php
+if(!isset($_GET['course']))die("ERROR: Course name not given.");
+$course_file = "../data/courses/".$_GET['course']."/".$_GET['course'].".json";
+if(!file_exists($course_file))die("ERROR: The course ".$_GET['course']." does not exist.");
+$fh = fopen($course_file, 'r') or die("ERROR: The data for the course ".$_GET['course']." could not be loaded.");
+$theData = fgets($fh);
+fclose($fh);
+$course = json_decode($theData, true);
+if(!is_numeric($course_array['number_of_rows']) || $course_array['number_of_rows'] < 1) $course_array['number_of_rows'] = 1;
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
-<style type="text/css">
-.hidden{
-	visibility:hidden;
-}
-</style>
+<script type="application/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script type="application/javascript" src="js/abet.js"></script>
 
-<script src="js/ABETJavascripts.js" type="text/javascript" ></script>
-
-</head>
-
-<body>
 <h1>ABET Course Tool</h1>
+<form action="" method="post">
+
 <table width="100%" height="100%" border="1">
   <tr>
     <td colspan="13"><input type="submit" name="button_save" id="button_save" value="Save Course Info" /></td>
   </tr>
   <tr>
     <td width="317">Course Department:</td>
-    <td width="487" colspan="10"><?php echo $COURSE_DEPARTMENT; ?></td>
+    <td width="487" colspan="10"><?php echo $course['course_department']; ?><input name="course_department" type="hidden" value="<?php echo $course['course_department']; ?>"/></td>
   </tr>
   <tr>
     <td>Course Number:</td>
-    <td colspan="10"><?php echo $COURSE_NUMBER; ?></td>
+    <td colspan="10"><?php echo $course['course_number']; ?><input name="course_number" type="hidden" value="<?php echo $course['course_number']; ?>"/></td>
   </tr>
   <tr>
     <td>Course Named:</td>
-    <td colspan="10"><?php echo $COURSE_NAMED; ?></td>
+    <td colspan="10"><?php echo $course['course_named']; ?><input name="course_named" type="hidden" value="<?php echo $course['course_named']; ?>"/></td>
   </tr>
   <tr>
     <td>Course Description:</td>
-    <td colspan="10"><textarea name="course_description" id="course_description" cols="45" rows="5"><?php echo $COURSE_DESCRIPTION; ?></textarea></td>
+    <td colspan="10"><textarea name="course_description" cols="45" rows="5"><?php echo $course['course_description']; ?></textarea></td>
   </tr>
   <tr>
     <td>Syllabus &amp; Grading Guidelines:</td>
-    <td colspan="10"><textarea name="syllabus_and_grading" id="syllabus_and_grading" cols="45" rows="5"><?php echo $SYLLABUS_AND_GRADING_GUIDELINES; ?></textarea></td>
+    <td colspan="10"><textarea name="syllabus_and_grading" cols="45" rows="5"><?php echo $course['syllabus_and_grading']; ?></textarea></td>
   </tr>
   <tr>
     <td>Course Learning Outcomes</td>
-    <td colspan="10"><textarea name="course_learning_outcomes" id="course_learning_outcomes" cols="45" rows="5"><?php print_r($COURSE_LEARNING_OUTCOMES); ?></textarea></td>
+    <td colspan="10"><textarea name="course_learning_outcomes" cols="45" rows="5"><?php echo $course['course_learning_outcomes']; ?></textarea></td>
   </tr>
   <tr>
     <td colspan="13"><input type="submit" name="button_save" id="button_save" value="Save Course Info" /></td>
@@ -64,7 +51,10 @@ $COURSE_LEARNING_OUTCOMES = $course->courseLearningOutcomes;
   </tr>
  
   <tr>
-    <td colspan="13"><table id="assignmentsTable" border="1">
+    <td colspan="13">
+    <input id="number_of_rows" name="number_of_rows" type="hidden" value="<?php echo $course['number_of_rows']; ?>"/>
+    <?php error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);?>
+    <table id="assignmentsTable" border="1">
       <tr>
         <td width="53">Index</td>
         <td width="54">Assignment Type</td>
@@ -92,46 +82,51 @@ $COURSE_LEARNING_OUTCOMES = $course->courseLearningOutcomes;
                           <td id="k" align="center"
 			      title="Ability to use the techniques, skills and modern engineering tools necessary for engineering practice.">k</td>
       </tr>
+      <?php error_reporting(E_ERROR);?>
+      <?php for($i = 1 ; $i <= $course['number_of_rows'] ; $i++):?>
       <tr>
-        <td>1</td>
-        <td><select name="assignment_type_3" id="assignment_type_3">
-          <option value="0" selected="selected">Select Value</option>
-          <option value="homework">Homework</option>
-          <option value="test">Test</option>
-          <option value="lab">Lab</option>
-          <option value="quiz">Quiz</option>
-          <option value="midterm">Midterm</option>
-          <option value="final">Final</option>
+        <td><?php echo $i; ?></td>
+        <td>
+        <select id = "assignment_type_<?php echo $i; ?>" name="assignment_type_<?php echo $i; ?>">
+          <option <?php if($course['assignment_type_'.$i] == 0) echo "selected"; ?> value="0" selected="selected">Select Value</option>
+          <option <?php if($course['assignment_type_'.$i] == "homework") echo "selected"; ?> value="homework">Homework</option>
+          <option <?php if($course['assignment_type_'.$i] == "test") echo "selected"; ?> value="test">Test</option>
+          <option <?php if($course['assignment_type_'.$i] == "lab") echo "selected"; ?> value="lab">Lab</option>
+          <option <?php if($course['assignment_type_'.$i] == "quiz") echo "selected"; ?> value="quiz">Quiz</option>
+          <option <?php if($course['assignment_type_'.$i] == "midterm") echo "selected"; ?> value="midterm">Midterm</option>
+          <option <?php if($course['assignment_type_'.$i] == "final") echo "selected"; ?> value="final">Final</option>
         </select></td>
-        <td><select name="select" id="select">
-          <option value="0">Select Number</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
+        <td><select name="assignment_number_<?php echo $i; ?>" id="select">
+          <option <?php if($course['assignment_number_'.$i] == 0) echo "selected"; ?> value="0">Select Number</option>
+          <option <?php if($course['assignment_number_'.$i] == 1) echo "selected"; ?> value="1">1</option>
+          <option <?php if($course['assignment_number_'.$i] == '2') echo "selected"; ?> value="2">2</option>
+          <option <?php if($course['assignment_number_'.$i] == 3) echo "selected"; ?> value="3">3</option>
+          <option <?php if($course['assignment_number_'.$i] == 4) echo "selected"; ?> value="4">4</option>
+          <option <?php if($course['assignment_number_'.$i] == 5) echo "selected"; ?> value="5">5</option>
+          <option <?php if($course['assignment_number_'.$i] == 6) echo "selected"; ?> value="6">6</option>
+          <option <?php if($course['assignment_number_'.$i] == 7) echo "selected"; ?> value="7">7</option>
+          <option <?php if($course['assignment_number_'.$i] == 8) echo "selected"; ?> value="8">8</option>
+          <option <?php if($course['assignment_number_'.$i] == 9) echo "selected"; ?> value="9">9</option>
+          <option <?php if($course['assignment_number_'.$i] == 10) echo "selected"; ?> value="10">10</option>
         </select></td>
-        <td><input type="checkbox" name="checkbox12" id="checkbox12" /></td>
-        <td><input type="checkbox" name="checkbox12" id="checkbox13" /></td>
-        <td><input type="checkbox" name="checkbox12" id="checkbox14" /></td>
-        <td><input type="checkbox" name="checkbox12" id="checkbox15" /></td>
-        <td><input type="checkbox" name="checkbox12" id="checkbox16" /></td>
-        <td><input type="checkbox" name="checkbox12" id="checkbox17" /></td>
-        <td><input type="checkbox" name="checkbox12" id="checkbox18" /></td>
-        <td><input type="checkbox" name="checkbox12" id="checkbox19" /></td>
-        <td><input type="checkbox" name="checkbox12" id="checkbox20" /></td>
-        <td><input type="checkbox" name="checkbox12" id="checkbox21" /></td>
-        <td><input type="checkbox" name="checkbox12" id="checkbox22" /></td>
+        <td><input type="checkbox" <?php if($course['checkboxA_'.$i] == 'on')echo "checked"?> name="checkboxA_<?php echo $i; ?>" /></td>
+        <td><input type="checkbox" <?php if($course['checkboxB_'.$i] == 'on')echo "checked"?> name="checkboxB_<?php echo $i; ?>" /></td>
+        <td><input type="checkbox" <?php if($course['checkboxC_'.$i] == 'on')echo "checked"?> name="checkboxC_<?php echo $i; ?>" /></td>
+        <td><input type="checkbox" <?php if($course['checkboxD_'.$i] == 'on')echo "checked"?> name="checkboxD_<?php echo $i; ?>" /></td>
+        <td><input type="checkbox" <?php if($course['checkboxE_'.$i] == 'on')echo "checked"?> name="checkboxE_<?php echo $i; ?>" /></td>
+        <td><input type="checkbox" <?php if($course['checkboxF_'.$i] == 'on')echo "checked"?> name="checkboxF_<?php echo $i; ?>" /></td>
+        <td><input type="checkbox" <?php if($course['checkboxG_'.$i] == 'on')echo "checked"?> name="checkboxG_<?php echo $i; ?>" /></td>
+        <td><input type="checkbox" <?php if($course['checkboxH_'.$i] == 'on')echo "checked"?> name="checkboxH_<?php echo $i; ?>" /></td>
+        <td><input type="checkbox" <?php if($course['checkboxI_'.$i] == 'on')echo "checked"?> name="checkboxI_<?php echo $i; ?>" /></td>
+        <td><input type="checkbox" <?php if($course['checkboxJ_'.$i] == 'on')echo "checked"?> name="checkboxJ_<?php echo $i; ?>" /></td>
+        <td><input type="checkbox" <?php if($course['checkboxK_'.$i] == 'on')echo "checked"?> name="checkboxK_<?php echo $i; ?>" /></td>
       </tr>
+      <?php endfor; ?>
+      <?php error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);?>
       </table></td>
   </tr>
   <tr>
-    <td colspan="13"><input type="submit" name="add_another_assignment" id="add_another_assignment" value="Add Another Assignment" onClick="add_new_row('#assignmentsTable', get_raw_html());" /></td>
+    <td colspan="13"></form><input type="button" name="add_another_assignment" id="add_another_assignment" value="Add Another Assignment" onClick="add_new_row('#assignmentsTable', get_raw_html(get_num_rows()));" /></td>
   </tr>
   <tr>
     <td colspan="13">Sample Assignments:</td>
@@ -142,7 +137,7 @@ $COURSE_LEARNING_OUTCOMES = $course->courseLearningOutcomes;
         <td>Assignment Name:<br />
           <input type="text" name="textfield" id="textfield" /></td>
         <td>Assignment Type:<br />
-          <select name="assignment_type_2" id="assignment_type_2">
+          <select name="assignment_type_" id="assignment_type_">
             <option value="0" selected="selected">Select Value</option>
             <option value="homework">Homework</option>
             <option value="test">Test</option>
@@ -165,11 +160,11 @@ $COURSE_LEARNING_OUTCOMES = $course->courseLearningOutcomes;
     </table></td>
   </tr>
   <tr>
-    <td colspan="13"><input type="submit" name="add_another_sample" id="add_another_sample" value="Add Another Sample" onClick="add_new_row('#sampleAssignments', genNewSampleRow());" /></td>
+    <td colspan="13"><input type="button" name="add_another_sample" id="add_another_sample" value="Add Another Sample" onClick="add_new_row('#sampleAssignments', genNewSampleRow());" /></td>
   </tr>
   <tr>
     <td colspan="13"><input type="submit" name="button_save" id="button_save" value="Save Course Info" /></td>
   </tr>
 </table>
-</body>
-</html>
+<p><input type="submit" /></p>
+</form>
