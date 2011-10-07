@@ -1,6 +1,6 @@
 <?php
 
-require_once('Course.php');
+require_once('../src/model/Course.php');
 
 //$ROOT = '../../data/';
 $ROOT = '/Users/rob/Sites/ABET-Course-Tool/data/';
@@ -24,8 +24,10 @@ function getCourseIDsForUser()
 function getCourseForID($courseID)
 {
     global $COURSE;
-
-    $path = $COURSE.$courseID.'/'.$courseID.'.json';
+	//echo getcwd();
+	//die;
+    $path = '../data/courses/se329/se329.json';
+	
     if (!file_exists($path))
         throw new Exception($path.' does not exist!');
 

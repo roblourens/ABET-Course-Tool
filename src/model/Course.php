@@ -1,10 +1,7 @@
 <?php
 
-<<<<<<< HEAD
-=======
 require_once('Homework.php');
 
->>>>>>> origin/master
 class Course
 {
     public $deptID;

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <title>ABET: Search by Learning Outcome</title>
-    <link href="Site.css" rel="stylesheet" type="text/css" />
+    <link href="css/site.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
         #main_table {
             width: 70%;
