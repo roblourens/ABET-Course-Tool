@@ -17,9 +17,8 @@ print("\n");
 
 print("getCourseForID('se329')\n");
 $course = getCourseForID('se329');
-print_r($course->asdf);
-print_r($course->deptID);
-print_r($course->toJSON());
+$course->description = "new description!";
+updateCourse($course);
 print("\n");
 
 ?>
