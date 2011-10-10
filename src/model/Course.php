@@ -1,55 +1,44 @@
 <?php
 
 require_once('Homework.php');
+require_once('../lib/jsonschemaphp/jsonSchema.php');
 
 class Course
 {
-    public $deptID;
+    private $storage;
 
-    public $courseNum;
-
-    // deptID+courseNum
-    public $courseID;
-
-    public $description;
-
-    public $courseLearningOutcomes;
-
-    public $syllabus;
-
-    // Array of LOHomework objects
-    public $learningOutcomeHomeworks;
-
-    // Array of Homework objects
-    public $homeworks;
-
-    // Takes an object from the JSON representation of this course
-    public function Course($_courseObj)
+    public function Course($_courseObj, $_courseID)
     {
-        $this->deptID =      $_courseObj->deptID;
-        $this->courseNum =   $_courseObj->courseNum;
-        $this->courseID =    $_courseObj->courseID;
-        $this->description = $_courseObj->description;
-        $this->courseLearningOutcomes= $_courseObj->courseLearningOutcomes;
-        $this->syllabus=     $_courseObj->syllabus;
-        $this->learningOutcomeHomeworks = array();
-        $this->homeworks = array();
+        global $ROOT;
+        $schemaPath = $ROOT.'utils/courseSchema.json';
 
-        foreach($_courseObj->loHomeworks as $loHomeworkArr)
-                array_push($this->learningOutcomeHomeworks, 
-                    new LOHomework($loHomeworkArr));
-        
-        foreach($_courseObj->homeworks as $homeworkArr)
-            array_push($this->homeworks, 
-                new ExampleHomework($homeworkArr));
+        $schemaF = fopen($schemaPath, 'r');
+        $schema = json_decode(fread($schemaF, filesize($schemaPath)));
+        $result = JsonSchema::validate( $_courseObj, $schema);
+
+        if (!$result->valid) {
+            echo "Errors while validating ".$_courseID.": \n";
+            print_r($result->errors);
+        }
+        $this->storage = $_courseObj;
+    }
+
+    public function __get($name)
+    {
+        return $this->storage->$name;
+    }
+
+    public function __set($name, $value)
+    {
+        $this->storage->$name = $value;
     }
 
     // Returns the JSON representation of this course
-    function toJSON()
+    public function toJSON()
     {
-        
+        echo "toJSON()\n";
+        return json_encode($this->storage);
     }
 }
-
 
 ?>
