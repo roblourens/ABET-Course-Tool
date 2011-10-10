@@ -75,7 +75,7 @@ if(!is_numeric($course['sample_assignment_row_count']) || $course['sample_assign
     <td colspan="13"><input type="button" name="button_save" id="displayText" onclick="javascript:toggle();" value="Show More Info" /></td>
   </tr>
   </table>
-  <div id="toggleText" style="display: ">
+  <div id="toggleText" style="display: none">
   <hr />
   <table width="100%" border="0">
   <tr>

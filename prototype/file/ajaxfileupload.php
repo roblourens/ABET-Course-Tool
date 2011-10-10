@@ -1,4 +1,11 @@
-
+<?php 
+if($_GET['delete'] == 'true'){
+$file_location = "../../data/courses/".$_GET['course']."/".$_GET['filetype'].".pdf";
+if(file_exists($file_location)){
+	unlink($file_location);
+}
+}
+?>
 <link href="ajaxfileupload.css" type="text/css" rel="stylesheet">
 	<script type="text/javascript" src="jquery.js"></script>
 	<script type="text/javascript" src="ajaxfileupload.js"></script>
@@ -30,8 +37,7 @@
 							alert(data.error);
 						}else
 						{
-							//alert(data.msg);
-							//document.getElementById("linktofile").innerHTML = "<a target=\"new\" href=../../data/courses/<?php echo $_GET['course']?>/<?php echo $_GET['filetype']?>.pdf>View</a>&nbsp;| <a href=\"delete.php?course=<?php //echo $_GET['course']?>&filetype=<?php //echo $_GET['filetype']?>\">Delete</a>";
+							document.getElementById("linktofile").innerHTML = "<a target=\"new\" href=../../data/courses/<?php echo $_GET['course']?>/<?php echo $_GET['filetype']?>.pdf>View</a>&nbsp;| <a href=\"ajaxfileupload.php?delete=true&course=<?php echo $_GET['course']?>&filetype=<?php echo $_GET['filetype']?>\">Delete</a>";
 						}
 					}
 				},
@@ -45,6 +51,9 @@
 		return false;
 
 	}
+	
+	
+	
 	</script>	
 	</head>
  	
@@ -57,11 +66,9 @@
 				<input id="fileToUpload" type="file" name="fileToUpload" class="input">
 <button class="button" id="buttonUpload" onClick="return ajaxFileUpload();">Upload</button>
 		</form> 
-            <?php if(file_exists("../../data/courses/".$_GET['course']."/".$_GET['filetype'].".pdf")):?>
-    <a target=\"new\" href="../../data/courses/<?php echo $_GET['course']?>/<?php echo $_GET['filetype']?>.pdf">View</a>&nbsp;| <a href="delete.php?course=<?php echo $_GET['course']?>&filetype=<?php echo $_GET['filetype']?>">Delete</a>
-        <?php endif;?>   	
-    </div>
-    <div id="linktofile"></div>
+    <div id="linktofile">
+                <?php if(file_exists("../../data/courses/".$_GET['course']."/".$_GET['filetype'].".pdf")):?>
+    <a target=\"new\" href="../../data/courses/<?php echo $_GET['course']?>/<?php echo $_GET['filetype']?>.pdf">View</a>&nbsp;| <a href="ajaxfileupload.php?delete=true&course=<?php echo $_GET['course']?>&filetype=<?php echo $_GET['filetype']?>">Delete</a>
+        <?php endif;?> 
 
-	</body>
-</html>
+</div>
