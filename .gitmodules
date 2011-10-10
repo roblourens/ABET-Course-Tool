@@ -1,0 +1,3 @@
+[submodule "lib/jsonschemaphp"]
+	path = lib/jsonschemaphp
+	url = https://github.com/jesstelford/jsonschemaphp.git

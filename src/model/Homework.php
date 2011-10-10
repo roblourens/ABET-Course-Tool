@@ -12,7 +12,7 @@ class LOHomework
     {
         $this->type =             $_rawCourseArr->type;
         $this->number =           $_rawCourseArr->number;
-        $this->learningOutcomes = $_rawCourseArr->outcomes;
+        $this->learningOutcomes = $_rawCourseArr->learningOutcomes;
     }
 }
 

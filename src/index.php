@@ -10,8 +10,15 @@ print("getCourseIDsForDeptID('se')\n");
 var_dump(getCourseIDsForDeptID('se'));
 print("\n");
 
+print("getCourseForID('se329')->toJSON()\n");
+print_r(getCourseForID('se329')->toJSON());
+print("\n");
+print("\n");
+
 print("getCourseForID('se329')\n");
-print_r(getCourseForID('se329'));
+$course = getCourseForID('se329');
+$course->description = "new description!";
+updateCourse($course);
 print("\n");
 
 ?>

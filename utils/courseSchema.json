@@ -1,0 +1,118 @@
+{
+    "type": "object", 
+    "properties": {
+        "deptID": {
+            "additionalProperties": false, 
+            "required": true, 
+            "type": "string"
+        }, 
+        "description": {
+            "additionalProperties": false, 
+            "required": true, 
+            "type": "string"
+        }, 
+        "learningOutcomeHomeworks": {
+            "additionalProperties": false, 
+            "items": {
+                "type": "object", 
+                "properties": {
+                    "type": {
+                        "additionalProperties": false, 
+                        "required": true, 
+                        "type": "string"
+                    }, 
+                    "number": {
+                        "additionalProperties": false, 
+                        "required": true, 
+                        "type": "string"
+                    }, 
+                    "learningOutcomes": {
+                        "additionalProperties": false, 
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "required": true, 
+                        "type": "array"
+                    }
+                }
+            }, 
+            "required": true, 
+            "type": "array"
+        }, 
+        "courseID": {
+            "additionalProperties": false, 
+            "required": true, 
+            "type": "string"
+        }, 
+        "courseName": {
+            "additionalProperties": false, 
+            "required": true, 
+            "type": "string"
+        }, 
+        "courseLearningOutcomes": {
+            "additionalProperties": false, 
+            "items": {
+                "type": "string"
+            }, 
+            "required": true, 
+            "type": "array"
+        }, 
+        "syllabus": {
+            "additionalProperties": false, 
+            "required": true, 
+            "type": "string"
+        }, 
+        "courseNum": {
+            "additionalProperties": false, 
+            "required": true, 
+            "type": "string"
+        }, 
+        "homeworks": {
+            "additionalProperties": false, 
+            "items": {
+                "type": "object", 
+                "properties": {
+                    "assignmentName": {
+                        "additionalProperties": false, 
+                        "required": true, 
+                        "type": "string"
+                    }, 
+                    "exampleNames": {
+                        "additionalProperties": false, 
+                        "required": true, 
+                        "type": "object", 
+                        "properties": {
+                            "a": {
+                                "additionalProperties": false, 
+                                "required": true, 
+                                "type": "string"
+                            }, 
+                            "c": {
+                                "additionalProperties": false, 
+                                "required": true, 
+                                "type": "string"
+                            }, 
+                            "b": {
+                                "additionalProperties": false, 
+                                "required": true, 
+                                "type": "string"
+                            }
+                        }
+                    }, 
+                    "type": {
+                        "additionalProperties": false, 
+                        "required": true, 
+                        "type": "string"
+                    }, 
+                    "name": {
+                        "additionalProperties": false, 
+                        "required": true, 
+                        "type": "string"
+                    }
+                }
+            }, 
+            "required": true, 
+            "type": "array"
+        }
+    }
+}

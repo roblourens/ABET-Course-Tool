@@ -1,12 +1,12 @@
 <?php
 
-require_once('../src/model/Course.php');
+require_once('Course.php');
 
-//$ROOT = '../../data/';
-$ROOT = '/Users/rob/Sites/ABET-Course-Tool/data/';
-$MASTER_FILE = $ROOT.'master/index.json';
-$PROGRAM = $ROOT.'program/';
-$COURSE = $ROOT.'courses/';
+$ROOT = '/Users/rob/Sites/ABET-Course-Tool/';
+$DATA_ROOT = $ROOT.'data/';
+$MASTER_FILE = $DATA_ROOT.'master/index.json';
+$PROGRAM = $DATA_ROOT.'program/';
+$COURSE = $DATA_ROOT.'courses/';
 
 // Returns whether login was successful
 function login($username, $pw)
@@ -24,12 +24,10 @@ function getCourseIDsForUser()
 function getCourseForID($courseID)
 {
     global $COURSE;
-	//echo getcwd();
-	//die;
-    $path = '../data/courses/se329/se329.json';
-	
+
+    $path = filePathForCourseID($courseID);
     if (!file_exists($path))
-        throw new Exception($path.' does not exist!');
+        throw new Exception('courseID: '.$courseID.' does not exist!');
 
     $f = fopen($path, 'r');
     flock($f, LOCK_SH);
@@ -37,13 +35,28 @@ function getCourseForID($courseID)
     fclose($f);
 
     $result = json_decode($json);
-    return new Course($result);
+    return new Course($result, $courseID);
 }
 
 // Updates the course with the given courseID using the given JSON
-function updateCourseForID($courseID, $courseJSON)
+function updateCourse($course)
 {
-    
+    global $COURSE;
+
+    $courseID = $course->courseID;
+    $path = filePathForCourseID($courseID);
+    if (!file_exists($path))
+        throw new Exception('path: '.$path.' does not exist!');
+
+    $f = fopen($path, 'w');
+    if ($f)
+    {
+        flock($f, LOCK_EX);
+        fwrite($f, $course->toJSON());
+        fclose($f);
+    }
+    else
+        throw new Exception('Could not open '.$path." for writing");
 }
 
 // Returns all department IDs
@@ -84,6 +97,12 @@ function getCourseIDsForDeptID($deptID)
 function getCoursesForOutcomes($outcomes)
 {
     
+}
+
+function filePathForCourseID($courseID)
+{
+    global $COURSE;
+    return $COURSE.$courseID.'/'.$courseID.'.json';
 }
 
 ?>
