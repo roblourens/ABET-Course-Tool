@@ -1,3 +1,6 @@
+
+
+
 function toggle() {
 	var ele = document.getElementById("toggleText");
 	var text = document.getElementById("displayText");

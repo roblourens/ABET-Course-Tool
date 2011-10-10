@@ -111,6 +111,7 @@ if(!is_numeric($course_array['number_of_rows']) || $course_array['number_of_rows
 			      title="Knowledge of contemporary issues.">J</th>
                           <th id="k" align="center"
 			      title="Ability to use the techniques, skills and modern engineering tools necessary for engineering practice.">K</th>
+                 
       </tr>
       <?php error_reporting(E_ERROR);?>
       <?php for($i = 1 ; $i <= $course['number_of_rows'] ; $i++):?>
@@ -150,7 +151,7 @@ if(!is_numeric($course_array['number_of_rows']) || $course_array['number_of_rows
         <td><input type="checkbox" <?php if($course['checkboxI_'.$i] == 'on')echo "checked"?> name="checkboxI_<?php echo $i; ?>" /></td>
         <td><input type="checkbox" <?php if($course['checkboxJ_'.$i] == 'on')echo "checked"?> name="checkboxJ_<?php echo $i; ?>" /></td>
         <td><input type="checkbox" <?php if($course['checkboxK_'.$i] == 'on')echo "checked"?> name="checkboxK_<?php echo $i; ?>" /></td>
-      </tr>
+              </tr>
       <?php endfor; ?>
       <?php error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);?>
       </table></td>
