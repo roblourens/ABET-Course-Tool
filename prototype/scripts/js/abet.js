@@ -1,6 +1,5 @@
 
 
-
 function toggle() {
 	var ele = document.getElementById("toggleText");
 	var text = document.getElementById("displayText");
@@ -16,13 +15,32 @@ function toggle() {
 
 function get_num_rows()
 {
-	var num_of_rows = document.getElementById('number_of_rows').value;
-	document.getElementById('number_of_rows').value = parseInt(num_of_rows) + 1;
-	return  number_of_rows.value;	
+	
+	//var num_of_rows = document.getElementById('number_of_rows').value;
+	var num_of_rows2 = document.getElementById('assignment_row_count').defaultValue;
+	
+	document.getElementById('assignment_row_count').defaultValue = parseInt(num_of_rows2) + 1;
+	
+	return  num_of_rows2	
 }
 
-function get_raw_html(num)
+function get_num_sample_rows()
 {
+	
+	
+	//var num_of_rows = document.getElementById('number_of_rows').value;
+	var num_of_rows2 = document.getElementById('sample_assignment_row_count').defaultValue;
+	
+	document.getElementById('sample_assignment_row_count').defaultValue = parseInt(num_of_rows2) + 1;
+	
+	return  num_of_rows2	
+}
+
+function get_raw_html()
+{
+	
+	var num = get_num_rows();
+	num++;
 	str = "";
 	if(num % 2 == 0){
 		str = "bgcolor=\"#b6b7bc\"";
@@ -124,7 +142,7 @@ function genNewAssignmentRow()
 	rowCount++;
 	
 	return ""+
-	"<table width='100%' border='1'>"+
+	"<table width='50%' border='1'>"+
      " <tr>"+
 	 "<td width='53' rowspan='2'>"+rowCount+"</td>"+
       "  <td width='109' rowspan='2'><select name='assignment_type_"+rowCount+"' id='assignment_type_"+rowCount+"'>"+
@@ -177,14 +195,17 @@ function genNewAssignmentRow()
     "</table>";
 }
 
-function genNewSampleRow()
+function genNewSampleRow(course)
 {
+	
+	var num = get_num_sample_rows();
+	num++;
 	return ""+
 	      "<tr>"+
         "<td>Assignment Name:<br />"+
-         " <input type='text' name='textfield' id='textfield' /></td>"+
+         " <input type='text' name='sample_assignment_name_'"+num+" id='sample_assignment_name_'"+num+" /></td>"+
         "<td>Assignment Type:<br />"+
-         " <select name='assignment_type_2' id='assignment_type_2'>"+
+         " <select name='sample_assignment_type_'"+num+" id='sample_assignment_type_'"+num+">"+
           "  <option value='0' selected='selected'>Select Value</option>"+
            " <option value='homework'>Homework</option>"+
             "<option value='test'>Test</option>"+
@@ -193,8 +214,8 @@ function genNewSampleRow()
             "<option value='midterm'>Midterm</option>"+
             "<option value='final'>Final</option>"+
           "</select></td>"+
-        "<td>Upload Assignment:<br />"+
-         " <input type='file' name='fileField4' id='fileField4' /><br /></td>"+
+        "<td>Upload Assignment:"+
+         "<iframe height=\"60px\" frameBorder=\"0\" src=\"file/ajaxfileupload.php?course="+course+"&filetype=sample_assignment_filelocation_"+num+"\"></iframe></td>"+
       "</tr>"+
       "<tr>"+
        " <td>Upload sample solution worth of an &quot;A&quot;:<br />"+

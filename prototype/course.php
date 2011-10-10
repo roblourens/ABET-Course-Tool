@@ -6,7 +6,8 @@ $fh = fopen($course_file, 'r') or die("ERROR: The data for the course ".$_GET['c
 $theData = fgets($fh);
 fclose($fh);
 $course = json_decode($theData, true);
-if(!is_numeric($course_array['number_of_rows']) || $course_array['number_of_rows'] < 1) $course_array['number_of_rows'] = 1;
+if(!is_numeric($course['assignment_row_count']) || $course['assignment_row_count'] < 1) $course['assignment_row_count'] = 1;
+if(!is_numeric($course['sample_assignment_row_count']) || $course['sample_assignment_row_count'] < 1) $course['sample_assignment_row_count'] = 1;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -14,6 +15,7 @@ if(!is_numeric($course_array['number_of_rows']) || $course_array['number_of_rows
     <title>ABET: Course Information</title>
     <link href="css/abet.css" rel="stylesheet" type="text/css" />
 	<script type="application/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
 	<script type="application/javascript" src="scripts/js/abet.js"></script>
 </head>
 <body>
@@ -73,7 +75,7 @@ if(!is_numeric($course_array['number_of_rows']) || $course_array['number_of_rows
     <td colspan="13"><input type="button" name="button_save" id="displayText" onclick="javascript:toggle();" value="Show More Info" /></td>
   </tr>
   </table>
-  <div id="toggleText" style="display: none">
+  <div id="toggleText" style="display: ">
   <hr />
   <table width="100%" border="0">
   <tr>
@@ -82,10 +84,11 @@ if(!is_numeric($course_array['number_of_rows']) || $course_array['number_of_rows
  <tr height="10px"></tr>
   <tr>
     <td colspan="13">
-    <input id="number_of_rows" name="number_of_rows" type="hidden" value="<?php echo $course['number_of_rows']; ?>"/>
+    
+    <input type="hidden" id="assignment_row_count" name="assignment_row_count" value="<?php echo $course['assignment_row_count']?>"/>
     <?php error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);?>
     <table id="assignmentsTable" border="0">
-      <tr>
+      <tr width="100%">
         <th width="53">Index</th>
         <th width="54">Assignment Type</th>
         <th>Assignment#</th>
@@ -114,7 +117,7 @@ if(!is_numeric($course_array['number_of_rows']) || $course_array['number_of_rows
                  
       </tr>
       <?php error_reporting(E_ERROR);?>
-      <?php for($i = 1 ; $i <= $course['number_of_rows'] ; $i++):?>
+      <?php for($i = 1 ; $i <= $course['assignment_row_count'] ; $i++):?>
       <tr <?php if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
         <td><?php echo $i; ?></td>
         <td>
@@ -157,34 +160,43 @@ if(!is_numeric($course_array['number_of_rows']) || $course_array['number_of_rows
       </table></td>
   </tr>
   <tr>
-    <td colspan="13"></form><input type="button" name="add_another_assignment" id="add_another_assignment" value="Add Another Assignment" onClick="add_new_row('#assignmentsTable', get_raw_html(get_num_rows()));" /></td>
+    <td colspan="13"></form><input type="button" name="add_another_assignment" id="add_another_assignment" value="Add Another Assignment" onClick="add_new_row('#assignmentsTable', get_raw_html());" /></td>
   </tr>
   </table>
   <hr />
   <table width="100%" border="0">
   <tr>
     <td colspan="13"><h2>Sample Assignments:</h2></td>
+    <input type="hidden" id="sample_assignment_row_count" name="sample_assignment_row_count" value="<?php echo $course['sample_assignment_row_count']?>"/>
   </tr>
   <tr height="10px"></tr>
   <tr>
     <td colspan="13"><table width="100%" border="1" id="sampleAssignments">
-      <tr>
+      <?php error_reporting(E_ERROR);?>
+      <?php $i = 0;?>
+      <?php for($i = 1 ; $i <= $course['sample_assignment_row_count'] ; $i++): ?>
+      <tr <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
+
         <td>Assignment Name:<br />
-          <input type="text" name="textfield" id="textfield" /></td>
+          <input type="text" name="sample_assignment_name_<?php echo $i?>" id="sample_assignment_name_<?php echo $i?>" value="<?php echo $course['sample_assignment_name_'.$i];?>" /></td>
         <td>Assignment Type:<br />
-          <select name="assignment_type_" id="assignment_type_">
-            <option value="0" selected="selected">Select Value</option>
-            <option value="homework">Homework</option>
-            <option value="test">Test</option>
-            <option value="lab">Lab</option>
-            <option value="quiz">Quiz</option>
-            <option value="midterm">Midterm</option>
-            <option value="final">Final</option>
+          <select name="sample_assignment_type_<?php echo $i?>" id="sample_assignment_type_<?php echo $i?>">
+            <option <?php if($course['sample_assignment_type_'.$i] == '0') echo "selected"; ?> value="0" selected="selected">Select Value</option>
+            <option <?php if($course['sample_assignment_type_'.$i] == 'homework') echo "selected"; ?> value="homework">Homework</option>
+            <option <?php if($course['sample_assignment_type_'.$i] == 'test') echo "selected"; ?> value="test">Test</option>
+            <option <?php if($course['sample_assignment_type_'.$i] == 'lab') echo "selected"; ?> value="lab">Lab</option>
+            <option <?php if($course['sample_assignment_type_'.$i] == 'quiz') echo "selected"; ?> value="quiz">Quiz</option>
+            <option <?php if($course['sample_assignment_type_'.$i] == 'midterm') echo "selected"; ?> value="midterm">Midterm</option>
+            <option <?php if($course['sample_assignment_type_'.$i] == 'final') echo "selected"; ?> value="final">Final</option>
           </select></td>
-        <td>Upload Assignment:<br />
-          <input type="file" name="fileField4" id="fileField4" /><br /></td>
-      </tr>
-      <tr>
+        <td>Upload Assignment:
+<iframe height="60px"  frameBorder="0" src="file/ajaxfileupload.php?course=<?php echo $_GET['course'];?>&filetype=<?php echo "sample_assignment_filelocation_".$i?>">
+</iframe>
+          
+          
+         </td>
+      </tr >
+      <tr <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
         <td>Upload sample solution worth of an &quot;A&quot;:<br />
           <input type="file" name="fileField" id="fileField" /></td>
         <td>Upload sample solution worth of an &quot;B&quot;:<br />
@@ -192,10 +204,13 @@ if(!is_numeric($course_array['number_of_rows']) || $course_array['number_of_rows
         <td>Upload sample solution worth of an &quot;C&quot;:<br />
           <input type="file" name="fileField3" id="fileField3" /></td>
       </tr>
+      <?php endfor; ?>
     </table></td>
   </tr>
+  
+  <?php error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);?>
   <tr>
-    <td colspan="13"><input type="button" name="add_another_sample" id="add_another_sample" value="Add Another Sample" onClick="add_new_row('#sampleAssignments', genNewSampleRow());" /></td>
+    <td colspan="13"><input type="button" name="add_another_sample" id="add_another_sample" value="Add Another Sample" onClick="add_new_row('#sampleAssignments', genNewSampleRow('se319'))" /></td>
   </tr>
   </table>
 <hr />
