@@ -1,6 +1,5 @@
 <?php
 
-require_once('Homework.php');
 require_once('../lib/jsonschemaphp/jsonSchema.php');
 
 class Course
@@ -36,7 +35,6 @@ class Course
     // Returns the JSON representation of this course
     public function toJSON()
     {
-        echo "toJSON()\n";
         return json_encode($this->storage);
     }
 }
