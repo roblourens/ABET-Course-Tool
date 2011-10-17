@@ -1,42 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-    <title>ABET: Welcome</title>
-    <link href="css/abet.css" rel="stylesheet" type="text/css" />
-    <script type="application/javascript" src="http://code.jquery.com/jquery-1.6.4.js"></script>
-    <script type="application/javascript" src="https://raw.github.com/jamespadolsey/prettyPrint.js/master/prettyprint.js" ></script>
-	
-
-
-	
-    <style type="text/css">
-        #main_table {
-            width: 50%;
-            margin: auto;
-        }
-        td {
-
-            vertical-align:top;
-        }
-
-        .view_link {
-            margin-top: 10px;
-        }
-    </style>
-
-</head>
-<body>
-    <div class="page">
-        <div class="header">
-            <div class="title">
-                <h1>
-                    ABET Software Application
-                </h1>
-            </div>
-            <div class="loginDisplay">
-                [ <a href="" id="HeadLoginView_HeadLoginStatus">Log In</a> ]
-            </div>
-        </div>
+<?php require_once("include/header.php");?>
         <div class="main">
             <h2>
                 Welcome
@@ -88,12 +50,6 @@
                     </td>
                 </tr>
             </table>
-        </div>
-    </div>
-    <div class="footer">
-    </div>
-    <script type='text/javascript'>        new Sys.WebForms.Menu({ element: 'NavigationMenu', disappearAfter: 500, orientation: 'horizontal', tabIndex: 0, disabled: false });</script>
-    </form>
-</body>
-</html>
+             </form>
+<?php require_once("include/footer.php"); ?>
 

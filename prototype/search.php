@@ -1,37 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-    <title>ABET: Search by Learning Outcome</title>
-    <link href="css/abet.css" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-        #main_table {
-            width: 70%;
-            margin: auto;
-        }
-
-        td {
-            vertical-align:top;
-        }
-
-        #search_button {
-            margin-left: 440px;
-            margin-right: 440px;
-        }
-    </style>
-
-</head>
-<body>
-    <div class="page">
-        <div class="header">
-            <div class="title">
-                <h1>
-                    ABET Software Application
-                </h1>
-            </div>
-            <div class="loginDisplay">
-                [ <a href="" id="HeadLoginView_HeadLoginStatus">Log In</a> ]
-            </div>
-        </div>
+<?php require_once("include/header.php");?>
+<form>
         <div class="main">
             <h2>
                 Search by Learning Outcome
@@ -57,7 +25,7 @@
                         Ability to apply knowledge of mathematics, science, engineering.
                     </td>
                     <td class="style3">
-                        <input type="checkbox" type="checkbox" />
+                        <input type="checkbox" />
                     </td>
                 </tr>
                 <tr>
@@ -177,14 +145,7 @@
                 </tr>
             </table>
             <input id="search_button" type="submit" value="Search" />
-
-        </div>
-    </div>
-    <div class="footer">
-    </div>
-    <script type='text/javascript'>        new Sys.WebForms.Menu({ element: 'NavigationMenu', disappearAfter: 500, orientation: 'horizontal', tabIndex: 0, disabled: false });</script>
-    </form>
-</body>
-</html>
+			</form>
+<?php require_once("include/footer.php"); ?>
 
 
