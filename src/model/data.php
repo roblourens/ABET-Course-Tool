@@ -1,7 +1,5 @@
 <?php
 
-require_once('Course.php');
-
 $ROOT = '/Users/rob/Sites/ABET-Course-Tool/';
 $DATA_ROOT = $ROOT.'data/';
 $MASTER_ROOT = $DATA_ROOT.'master/';
