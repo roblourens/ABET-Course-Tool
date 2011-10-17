@@ -136,8 +136,9 @@ function updateCourse($course)
         throw new Exception('Could not open '.$path." for writing");
 }
 
-// Returns all department IDs
-function getDepartmentIDs()
+// Returns all department IDs and department names
+// as [ { "short": "se", "full": "Software Engineering" }, ... ]
+function getDepartments()
 {
     global $MASTER_FILE;
     
