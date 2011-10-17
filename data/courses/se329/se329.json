@@ -1,1 +1,44 @@
-{"deptID":"se","courseNum":"329","courseID":"se329","courseName":"Software Architecture","description":"new description!","courseLearningOutcomes":["Learn a lot","Learn some more"],"syllabus":"Meets way too often","learningOutcomeHomeworks":[{"type":"Lab","number":"1","learningOutcomes":["a","b","j"]},{"type":"Homework","number":"3","learningOutcomes":["c","d","h"]}],"homeworks":[{"name":"hw1","type":"homework","assignmentName":"hw1","exampleNames":{"a":"file","b":"","c":""}}]}
+{
+    "deptID":       "se",
+    "courseNum":    "329",
+    "courseID":     "se329",
+    "courseName":   "Software Architecture",
+    "description":  "A totally sweet class.",
+    "courseLearningOutcomes":   [
+                                    "Learn a lot",
+                                    "Learn some more"
+                                ],
+    "syllabus": "Meets way too often",
+    "learningOutcomeHomeworks":  [
+                        {
+                            "type": "Lab",
+                            "number": "1",
+                            "learningOutcomes": [
+                                            "a",
+                                            "b",
+                                            "j"
+                                        ]
+                        },
+                        {
+                            "type": "Homework",
+                            "number": "3",
+                            "learningOutcomes": [
+                                            "c",
+                                            "d",
+                                            "h"
+                            ]
+                        }
+                    ],
+    "homeworks":    [
+                        {
+                            "name": "hw1",
+                            "type": "homework",
+                            "assignmentName": "hw1",
+                            "exampleNames": {
+                                            "a": "file",
+                                            "b": "",
+                                            "c": ""
+                            }
+                        }
+                    ]
+}
