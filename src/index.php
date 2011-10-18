@@ -1,9 +1,12 @@
 <?php
 
-include('model/data.php');
+include('../src/include.php');
+print("getDepartments()\n");
+print_r(getDepartments());
+print("\n");
 
-print("getDepartmentIDs()\n");
-var_dump(getDepartmentIDs());
+print("getCourseNumsForDeptID('se')\n");
+var_dump(getCourseNumsForDeptID('se'));
 print("\n");
 
 print("getCourseIDsForDeptID('se')\n");
