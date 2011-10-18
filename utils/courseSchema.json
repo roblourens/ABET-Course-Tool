@@ -11,34 +11,6 @@
             "required": true, 
             "type": "string"
         }, 
-        "learningOutcomeHomeworks": {
-            "additionalProperties": false, 
-            "items": {
-                "type": "object", 
-                "properties": {
-                    "type": {
-                        "additionalProperties": false, 
-                        "required": true, 
-                        "type": "string"
-                    }, 
-                    "number": {
-                        "additionalProperties": false, 
-                        "required": true, 
-                        "type": "string"
-                    }, 
-                    "learningOutcomes": {
-                        "additionalProperties": false, 
-                        "items": {
-                            "type": "string"
-                        }, 
-                        "required": true, 
-                        "type": "array"
-                    }
-                }
-            }, 
-            "required": true, 
-            "type": "array"
-        }, 
         "courseID": {
             "additionalProperties": false, 
             "required": true, 
@@ -67,12 +39,12 @@
             "required": true, 
             "type": "string"
         }, 
-        "homeworks": {
+        "assignments": {
             "additionalProperties": false, 
             "items": {
                 "type": "object", 
                 "properties": {
-                    "assignmentName": {
+                    "assignment_name": {
                         "additionalProperties": false, 
                         "required": true, 
                         "type": "string"
@@ -99,16 +71,11 @@
                             }
                         }
                     }, 
-                    "type": {
+                    "assignment_type": {
                         "additionalProperties": false, 
                         "required": true, 
                         "type": "string"
                     }, 
-                    "name": {
-                        "additionalProperties": false, 
-                        "required": true, 
-                        "type": "string"
-                    }
                 }
             }, 
             "required": true, 
