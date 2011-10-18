@@ -98,12 +98,12 @@ $course = getCourseForID($_GET['course']);
                  
       </tr>
      
-      <?php for($i = 0 ; $i < count($course->assignments); $i++):?>
+      <?php for($i = 1 ; $i <= count($course->assignments); $i++):?>
       <tr <?php if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
         <td><?php echo $i; ?></td>
         <td>
         <select id = "assignment_type_<?php echo $i; ?>" name="assignment_type_<?php echo $i; ?>">
-          <?php $assignmentType = $course->assignments[$i]->assignment_type; ?>
+          <?php $assignmentType = $course->assignments[$i-1]->assignment_type; ?>
           <option <?php if($assignmentType == 0) echo "selected"; ?> value="0">Select Value</option>
           <option <?php if($assignmentType == "homework") echo "selected"; ?> value="homework">Homework</option>
           <option <?php if($assignmentType == "test") echo "selected"; ?> value="test">Test</option>
@@ -113,7 +113,7 @@ $course = getCourseForID($_GET['course']);
           <option <?php if($assignmentType == "final") echo "selected"; ?> value="final">Final</option>
         </select></td>
         <td><select name="assignment_number_<?php echo $i; ?>" id="select">
-          <?php $assignment_number = $course->assignments[$i]->assignment_number; ?>
+          <?php $assignment_number = $course->assignments[$i-1]->assignment_number; ?>
           <option <?php if($assignment_number == 0) echo "selected"; ?> value="0">Select Number</option>
           <option <?php if($assignment_number == 1) echo "selected"; ?> value="1">1</option>
           <option <?php if($assignment_number == 2) echo "selected"; ?> value="2">2</option>
@@ -126,17 +126,17 @@ $course = getCourseForID($_GET['course']);
           <option <?php if($assignment_number == 9) echo "selected"; ?> value="9">9</option>
           <option <?php if($assignment_number == 10) echo "selected"; ?> value="10">10</option>
         </select></td>
-        <td><input type="checkbox" <?php if(in_array('a', $course->assignments[$i]->learningOutcomes)) echo "checked"?> name="checkboxA_<?php echo $i; ?>" /></td>
-        <td><input type="checkbox" <?php if(in_array('b', $course->assignments[$i]->learningOutcomes)) echo "checked"?> name="checkboxB_<?php echo $i; ?>" /></td>
-        <td><input type="checkbox" <?php if(in_array('c', $course->assignments[$i]->learningOutcomes)) echo "checked"?> name="checkboxC_<?php echo $i; ?>" /></td>
-        <td><input type="checkbox" <?php if(in_array('d', $course->assignments[$i]->learningOutcomes)) echo "checked"?> name="checkboxD_<?php echo $i; ?>" /></td>
-        <td><input type="checkbox" <?php if(in_array('e', $course->assignments[$i]->learningOutcomes)) echo "checked"?> name="checkboxE_<?php echo $i; ?>" /></td>
-        <td><input type="checkbox" <?php if(in_array('f', $course->assignments[$i]->learningOutcomes)) echo "checked"?> name="checkboxF_<?php echo $i; ?>" /></td>
-        <td><input type="checkbox" <?php if(in_array('g', $course->assignments[$i]->learningOutcomes)) echo "checked"?> name="checkboxG_<?php echo $i; ?>" /></td>
-        <td><input type="checkbox" <?php if(in_array('h', $course->assignments[$i]->learningOutcomes)) echo "checked"?> name="checkboxH_<?php echo $i; ?>" /></td>
-        <td><input type="checkbox" <?php if(in_array('i', $course->assignments[$i]->learningOutcomes)) echo "checked"?> name="checkboxI_<?php echo $i; ?>" /></td>
-        <td><input type="checkbox" <?php if(in_array('j', $course->assignments[$i]->learningOutcomes)) echo "checked"?> name="checkboxJ_<?php echo $i; ?>" /></td>
-        <td><input type="checkbox" <?php if(in_array('k', $course->assignments[$i]->learningOutcomes)) echo "checked"?> name="checkboxK_<?php echo $i; ?>" /></td>
+        <td><input type="checkbox" <?php if(in_array('a', $course->assignments[$i-1]->learningOutcomes)) echo "checked"?> name="checkboxA_<?php echo $i; ?>" /></td>
+        <td><input type="checkbox" <?php if(in_array('b', $course->assignments[$i-1]->learningOutcomes)) echo "checked"?> name="checkboxB_<?php echo $i; ?>" /></td>
+        <td><input type="checkbox" <?php if(in_array('c', $course->assignments[$i-1]->learningOutcomes)) echo "checked"?> name="checkboxC_<?php echo $i; ?>" /></td>
+        <td><input type="checkbox" <?php if(in_array('d', $course->assignments[$i-1]->learningOutcomes)) echo "checked"?> name="checkboxD_<?php echo $i; ?>" /></td>
+        <td><input type="checkbox" <?php if(in_array('e', $course->assignments[$i-1]->learningOutcomes)) echo "checked"?> name="checkboxE_<?php echo $i; ?>" /></td>
+        <td><input type="checkbox" <?php if(in_array('f', $course->assignments[$i-1]->learningOutcomes)) echo "checked"?> name="checkboxF_<?php echo $i; ?>" /></td>
+        <td><input type="checkbox" <?php if(in_array('g', $course->assignments[$i-1]->learningOutcomes)) echo "checked"?> name="checkboxG_<?php echo $i; ?>" /></td>
+        <td><input type="checkbox" <?php if(in_array('h', $course->assignments[$i-1]->learningOutcomes)) echo "checked"?> name="checkboxH_<?php echo $i; ?>" /></td>
+        <td><input type="checkbox" <?php if(in_array('i', $course->assignments[$i-1]->learningOutcomes)) echo "checked"?> name="checkboxI_<?php echo $i; ?>" /></td>
+        <td><input type="checkbox" <?php if(in_array('j', $course->assignments[$i-1]->learningOutcomes)) echo "checked"?> name="checkboxJ_<?php echo $i; ?>" /></td>
+        <td><input type="checkbox" <?php if(in_array('k', $course->assignments[$i-1]->learningOutcomes)) echo "checked"?> name="checkboxK_<?php echo $i; ?>" /></td>
               </tr>
       <?php endfor; ?>
       </table>
@@ -158,46 +158,46 @@ $course = getCourseForID($_GET['course']);
     <td colspan="13"><table width="100%" border="1" id="sampleAssignments">
       
       
-      <?php for($i = 0 ; $i < count($course->assignments); $i++): ?>
+      <?php for($i = 1 ; $i <= count($course->assignments); $i++): ?>
       <tr <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
 
         <td width="33%" height="103">Assignment Type:<br />
           <select id = "sample_assignment_type_<?php echo $i; ?>" name="sample_assignment_type_<?php echo $i; ?>">
-            <option <?php if($course->assignments[$i]->assignment_type == 0) echo "selected"; ?> value="0" selected="selected">Select Value</option>
-            <option <?php if($course->assignments[$i]->assignment_type == "homework") echo "selected"; ?> value="homework">Homework</option>
-            <option <?php if($course->assignments[$i]->assignment_type == "test") echo "selected"; ?> value="test">Test</option>
-            <option <?php if($course->assignments[$i]->assignment_type == "lab") echo "selected"; ?> value="lab">Lab</option>
-            <option <?php if($course->assignments[$i]->assignment_type == "quiz") echo "selected"; ?> value="quiz">Quiz</option>
-            <option <?php if($course->assignments[$i]->assignment_type == "midterm") echo "selected"; ?> value="midterm">Midterm</option>
-            <option <?php if($course->assignments[$i]->assignment_type == "final") echo "selected"; ?> value="final">Final</option>
+            <option <?php if($course->assignments[$i-1]->assignment_type == 0) echo "selected"; ?> value="0" selected="selected">Select Value</option>
+            <option <?php if($course->assignments[$i-1]->assignment_type == "homework") echo "selected"; ?> value="homework">Homework</option>
+            <option <?php if($course->assignments[$i-1]->assignment_type == "test") echo "selected"; ?> value="test">Test</option>
+            <option <?php if($course->assignments[$i-1]->assignment_type == "lab") echo "selected"; ?> value="lab">Lab</option>
+            <option <?php if($course->assignments[$i-1]->assignment_type == "quiz") echo "selected"; ?> value="quiz">Quiz</option>
+            <option <?php if($course->assignments[$i-1]->assignment_type == "midterm") echo "selected"; ?> value="midterm">Midterm</option>
+            <option <?php if($course->assignments[$i-1]->assignment_type == "final") echo "selected"; ?> value="final">Final</option>
           </select></td>
         <td width="33%">Assignment Number:<br />
           <select name="sample_assignment_number_<?php echo $i; ?>" id="sample_assignment_number_<?php echo $i; ?>">
-            <option <?php if($course->assignments[$i]->assignment_number == 0) echo "selected"; ?> value="0">Select Number</option>
-            <option <?php if($course->assignments[$i]->assignment_number == 1) echo "selected"; ?> value="1">1</option>
-            <option <?php if($course->assignments[$i]->assignment_number == '2') echo "selected"; ?> value="2">2</option>
-            <option <?php if($course->assignments[$i]->assignment_number == 3) echo "selected"; ?> value="3">3</option>
-            <option <?php if($course->assignments[$i]->assignment_number == 4) echo "selected"; ?> value="4">4</option>
-            <option <?php if($course->assignments[$i]->assignment_number == 5) echo "selected"; ?> value="5">5</option>
-            <option <?php if($course->assignments[$i]->assignment_number == 6) echo "selected"; ?> value="6">6</option>
-            <option <?php if($course->assignments[$i]->assignment_number == 7) echo "selected"; ?> value="7">7</option>
-            <option <?php if($course->assignments[$i]->assignment_number == 8) echo "selected"; ?> value="8">8</option>
-            <option <?php if($course->assignments[$i]->assignment_number == 9) echo "selected"; ?> value="9">9</option>
-            <option <?php if($course->assignments[$i]->assignment_number == 10) echo "selected"; ?> value="10">10</option>
+            <option <?php if($course->assignments[$i-1]->assignment_number == 0) echo "selected"; ?> value="0">Select Number</option>
+            <option <?php if($course->assignments[$i-1]->assignment_number == 1) echo "selected"; ?> value="1">1</option>
+            <option <?php if($course->assignments[$i-1]->assignment_number == 2) echo "selected"; ?> value="2">2</option>
+            <option <?php if($course->assignments[$i-1]->assignment_number == 3) echo "selected"; ?> value="3">3</option>
+            <option <?php if($course->assignments[$i-1]->assignment_number == 4) echo "selected"; ?> value="4">4</option>
+            <option <?php if($course->assignments[$i-1]->assignment_number == 5) echo "selected"; ?> value="5">5</option>
+            <option <?php if($course->assignments[$i-1]->assignment_number == 6) echo "selected"; ?> value="6">6</option>
+            <option <?php if($course->assignments[$i-1]->assignment_number == 7) echo "selected"; ?> value="7">7</option>
+            <option <?php if($course->assignments[$i-1]->assignment_number == 8) echo "selected"; ?> value="8">8</option>
+            <option <?php if($course->assignments[$i-1]->assignment_number == 9) echo "selected"; ?> value="9">9</option>
+            <option <?php if($course->assignments[$i-1]->assignment_number == 10) echo "selected"; ?> value="10">10</option>
           </select></td>
         <td width="33%">Upload Assignment:<br />
-			<iframe height="50%" width="100%"  frameBorder="0" src="file/ajaxfileupload.php?course=<?php echo $course['course_named'] ?>&type=assignmnet&number=<?php echo $i?>"></iframe>
+			<iframe height="50%" width="100%"  frameBorder="0" src="file/ajaxfileupload.php?course=<?php echo $course->courseID ?>&type=assignmnet&number=<?php echo $i?>"></iframe>
         </td>
       </tr >
       <tr <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
         <td width="33%">Upload sample solution worth of an &quot;A&quot;:<br />
-          <iframe height="50%" width="100%"  frameBorder="0" src="file/ajaxfileupload.php?course=<?php echo $course['course_named'] ?>&type=A&number=<?php echo $i?>"></iframe>
+          <iframe height="50%" width="100%"  frameBorder="0" src="file/ajaxfileupload.php?course=<?php echo $course->courseID; ?>&type=A&number=<?php echo $i?>"></iframe>
         </td>
         <td width="33%">Upload sample solution worth of an &quot;B&quot;:<br />
-         <iframe height="50%" width="100%"  frameBorder="0" src="file/ajaxfileupload.php?course=<?php echo $course['course_named'] ?>&type=B&number=<?php echo $i?>"></iframe>
+         <iframe height="50%" width="100%"  frameBorder="0" src="file/ajaxfileupload.php?course=<?php echo $course->courseID; ?>&type=B&number=<?php echo $i?>"></iframe>
         </td>
         <td width="33%">Upload sample solution worth of an &quot;C&quot;:<br />
-          <iframe height="50%" width="100%"  frameBorder="0" src="file/ajaxfileupload.php?course=<?php echo $course['course_named'] ?>&type=C&number=<?php echo $i?>"></iframe>
+          <iframe height="50%" width="100%"  frameBorder="0" src="file/ajaxfileupload.php?course=<?php echo $course->courseID; ?>&type=C&number=<?php echo $i?>"></iframe>
           </td>
       </tr>
       <?php endfor; ?>

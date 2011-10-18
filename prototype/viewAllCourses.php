@@ -1,29 +1,29 @@
-<?php require_once("include/header.php"); ?>
+<?php 
+require_once("include/header.php"); 
+require_once('../src/include.php');
+
+$depts = getDepartments();
+?>
+
 <div class="main">
-            <h2>
-                View All Courses
-            </h2>
-            <hr />
+    <h2>
+    View All Courses
+    </h2>
+<hr />
+
 <?php
-if ($handle = opendir('../data/courses')) {
-    while (false !== ($file = readdir($handle))) {
-        if ($file != "." && $file != "..") {
+foreach ($depts as $dept)
+{
+    $deptCourses = getCourseNumsForDeptId($dept->short);
+    echo "<h3 class='dept_name'>".$dept->long."</h3>";
 
-
-			//if(!isset($_GET['course']))die("ERROR: Course name not given.");
-			$course_file = "../data/courses/".$file."/".$file.".json";
-			if(!file_exists($course_file))die("ERROR: The course ".$file." does not exist.");
-			$fh = fopen($course_file, 'r') or die("ERROR: The data for the course ".$file." could not be loaded.");
-			$theData = fgets($fh);
-			fclose($fh);
-			$course = json_decode($theData, true);
-			if(!is_numeric($course['assignment_row_count']) || $course['assignment_row_count'] < 1) $course['assignment_row_count'] = 1;
-			if(!is_numeric($course['sample_assignment_row_count']) || $course['sample_assignment_row_count'] < 1) $course['sample_assignment_row_count'] = 1;
-			//print_r($course);
-            echo "<h3><a href='course.php?course=$file'>".$course['course_department']." ".$course['course_number']."</a></h3><br/>";
-        }
+    foreach ($deptCourses as $courseNum)
+    {
+        $courseID = $dept->short.$courseNum;
+        echo "<div class='course_name'><a href='course.php?course=$courseID'>".$dept->long." ".$courseNum."</a></div>";
     }
-    closedir($handle);
+
+    echo "<br />";
 }
 ?>
 </div>
