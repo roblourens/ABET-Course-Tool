@@ -202,29 +202,80 @@ function genNewSampleRow(course)
 	num++;
 	return ""+
 	      "<tr>"+
-        "<td>Assignment Name:<br />"+
-         " <input type='text' name='sample_assignment_name_'"+num+" id='sample_assignment_name_'"+num+" /></td>"+
-        "<td>Assignment Type:<br />"+
-         " <select name='sample_assignment_type_'"+num+" id='sample_assignment_type_'"+num+">"+
-          "  <option value='0' selected='selected'>Select Value</option>"+
-           " <option value='homework'>Homework</option>"+
-            "<option value='test'>Test</option>"+
-            "<option value='lab'>Lab</option>"+
-            "<option value='quiz'>Quiz</option>"+
-            "<option value='midterm'>Midterm</option>"+
-            "<option value='final'>Final</option>"+
-          "</select></td>"+
-        "<td>Upload Assignment:"+
-         "<iframe height=\"60px\" frameBorder=\"0\" src=\"file/ajaxfileupload.php?course="+course+"&filetype=sample_assignment_filelocation_"+num+"\"></iframe></td>"+
-      "</tr>"+
-      "<tr>"+
-       " <td>Upload sample solution worth of an &quot;A&quot;:<br />"+
-        "  <input type='file' name='fileField' id='fileField' /></td>"+
-        "<td>Upload sample solution worth of an &quot;B&quot;:<br />"+
-        "  <input type='file' name='fileField2' id='fileField2' /></td>"+
-        "<td>Upload sample solution worth of an &quot;C&quot;:<br />"+
-        "  <input type='file' name='fileField3' id='fileField3' /></td>"+
+
+
+"<td width='33%' height='103'>Assignment Type:<br />"+
+
+ "         <select id = 'sample_assignment_type_"+num+"' name='sample_assignment_type_"+num+"'>"+
+
+  "          <option selected value='0' selected='selected'>Select Value</option>"+
+
+ "           <option  value='homework'>Homework</option>"+
+
+  "          <option  value='test'>Test</option>"+
+
+   "         <option  value='lab'>Lab</option>"+
+
+    "        <option  value='quiz'>Quiz</option>"+
+
+     "       <option  value='midterm'>Midterm</option>"+
+
+"             <option  value='final'>Final</option>"+
+
+  "         </select></td>"+
+
+    "     <td width='33%'>Assignment Number:<br />"+
+
+      "     <select name='sample_assignment_number_"+num+"' id='sample_assignment_number_"+num+"'>"+
+
+        "     <option selected  value='0'>Select Number</option>"+
+
+          "   <option  value='1'>1</option>"+
+
+            " <option  value='2'>2</option>"+
+
+            " <option  value='3'>3</option>"+
+
+        "     <option  value='4'>4</option>"+
+
+          "   <option  value='5'>5</option>"+
+
+         "    <option  value='6'>6</option>"+
+
+           "  <option  value='7'>7</option>"+
+
+         "    <option  value='8'>8</option>"+
+
+           "  <option  value='9'>9</option>"+
+
+        "     <option  value='10'>10</option>"+
+
+        "   </select></td>"+
+
+		  
+		  
+		  
+		  
+"		        <td width=\"33%\">Upload Assignment:<br />"+
+"			<iframe height=\"50%\" width=\"100%\"  frameBorder=\"0\" src=\"file/ajaxfileupload.php?course="+course+"&type=assignmnet&number="+(num )+"\"></iframe>"+
+ "       </td>"+
+ "     </tr >"+
+  "    <tr >"+
+   "     <td width=\"33%\">Upload sample solution worth of an &quot;A&quot;:<br />"+
+    "      <iframe height=\"50%\" width=\"100%\"  frameBorder=\"0\" src=\"file/ajaxfileupload.php?course="+course+"&type=A&number="+(num )+"\"></iframe>"+
+     "   </td>"+
+      "  <td width=\"33%\">Upload sample solution worth of an &quot;B&quot;:<br />"+
+       "  <iframe height=\"50%\" width=\"100%\"  frameBorder=\"0\" src=\"file/ajaxfileupload.php?course="+course+"&type=B&number="+(num )+"\"></iframe>"+
+  "      </td>"+
+   "     <td width=\"33%\">Upload sample solution worth of an &quot;C&quot;:<br />"+
+    "      <iframe height=\"50%\" width=\"100%\"  frameBorder=\"0\" src=\"file/ajaxfileupload.php?course="+course+"&type=C&number="+(num )+"\"></iframe>"+
+     "     </td>"+
       "</tr>";
+		  
+		  
+		  
+		  
+       
 }
 
 function unhide()

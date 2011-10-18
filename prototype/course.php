@@ -38,7 +38,7 @@ if(!is_numeric($course['sample_assignment_row_count']) || $course['sample_assign
     <td>Course Number:</td>
     <td colspan="10"><?php echo $course['course_number']; ?><input name="course_number" type="hidden" value="<?php echo $course['course_number']; ?>"/></td>
     </tr>
-		<input name="course_named" type="text" value="<?php echo $course['course_named']; ?>"/>
+		<input name="course_named" type="hidden" value="<?php echo $course['course_named']; ?>"/>
     <tr>
     <td>Course Description:</td>
     <td colspan="10"><textarea name="course_description" cols="45" rows="5"><?php echo $course['course_description']; ?></textarea></td>
@@ -161,7 +161,7 @@ if(!is_numeric($course['sample_assignment_row_count']) || $course['sample_assign
       <?php for($i = 1 ; $i <= $course['sample_assignment_row_count'] ; $i++): ?>
       <tr <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
 
-        <td width="33%" height="103">Assignment Number:<br />
+        <td width="33%" height="103">Assignment Type:<br />
           <select id = "sample_assignment_type_<?php echo $i; ?>" name="sample_assignment_type_<?php echo $i; ?>">
             <option <?php if($course['sample_assignment_type_'.$i] == 0) echo "selected"; ?> value="0" selected="selected">Select Value</option>
             <option <?php if($course['sample_assignment_type_'.$i] == "homework") echo "selected"; ?> value="homework">Homework</option>
@@ -205,7 +205,7 @@ if(!is_numeric($course['sample_assignment_row_count']) || $course['sample_assign
   </tr>
   
   <tr>
-    <td colspan="13"><input type="button" name="add_another_sample" id="add_another_sample" value="Add Another Sample" onClick="add_new_row('#sampleAssignments', genNewSampleRow('se319'))" /></td>
+    <td colspan="13"><input type="button" name="add_another_sample" id="add_another_sample" value="Add Another Sample" onClick="add_new_row('#sampleAssignments', genNewSampleRow('<?php echo $course['course_named']?>'))" /></td>
   </tr>
   </table>
 <hr />

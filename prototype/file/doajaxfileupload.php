@@ -46,15 +46,16 @@
 			move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $dir);
 			
 
-			$course_file = "../../data/courses/".$_GET['course']."/".$_GET['course'].".json";
+			$course_file = "../../data/courses/".$_GET['course']."/".$_GET['course'].".fileLocations.json";
 			//if(!file_exists($course_file))die("ERROR: The course ".$_GET['course']." does not exist.");
 			$fh = fopen($course_file, 'r') or die("ERROR: The data for the course ".$_GET['course']." could not be loaded.");
 			$theData = fgets($fh);
 			fclose($fh);
 			$course = json_decode($theData, true);
 			$course['assignment_filepath_'.$_GET['type'].'_'.$_GET['number']] = time().$_FILES['fileToUpload']['name'];
+			$msg = time().$_FILES['fileToUpload']['name'];
 			
-			$course_file = "../../data/courses/".$_GET['course']."/".$_GET['course'].".json";
+			$course_file = "../../data/courses/".$_GET['course']."/".$_GET['course'].".fileLocations.json";
 			//if(!file_exists($course_file))die("ERROR: The course ".$_GET['course']." does not exist.");
 			$fh = fopen($course_file, 'w') or die("ERROR: The data for the course ".$_GET['course']." could not be loaded.");
 			//$stringData = $course;
