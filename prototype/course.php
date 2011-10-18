@@ -10,9 +10,6 @@ fclose($fh);
 $course = json_decode($theData, true);
 if(!is_numeric($course['assignment_row_count']) || $course['assignment_row_count'] < 1) $course['assignment_row_count'] = 1;
 if(!is_numeric($course['sample_assignment_row_count']) || $course['sample_assignment_row_count'] < 1) $course['sample_assignment_row_count'] = 1;
-
-$course['assignment_row_count'] = 1;
-$course['sample_assignment_row_count'] = 1;
 ?>
 </h1>
 
@@ -41,7 +38,7 @@ $course['sample_assignment_row_count'] = 1;
     <td>Course Number:</td>
     <td colspan="10"><?php echo $course['course_number']; ?><input name="course_number" type="hidden" value="<?php echo $course['course_number']; ?>"/></td>
     </tr>
-		<input name="course_named" type="hidden" value="<?php echo $course['course_named']; ?>"/>
+		<input name="course_named" type="text" value="<?php echo $course['course_named']; ?>"/>
     <tr>
     <td>Course Description:</td>
     <td colspan="10"><textarea name="course_description" cols="45" rows="5"><?php echo $course['course_description']; ?></textarea></td>
@@ -164,7 +161,7 @@ $course['sample_assignment_row_count'] = 1;
       <?php for($i = 1 ; $i <= $course['sample_assignment_row_count'] ; $i++): ?>
       <tr <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
 
-        <td>Assignment Number:<br />
+        <td width="33%" height="103">Assignment Number:<br />
           <select id = "sample_assignment_type_<?php echo $i; ?>" name="sample_assignment_type_<?php echo $i; ?>">
             <option <?php if($course['sample_assignment_type_'.$i] == 0) echo "selected"; ?> value="0" selected="selected">Select Value</option>
             <option <?php if($course['sample_assignment_type_'.$i] == "homework") echo "selected"; ?> value="homework">Homework</option>
@@ -174,7 +171,7 @@ $course['sample_assignment_row_count'] = 1;
             <option <?php if($course['sample_assignment_type_'.$i] == "midterm") echo "selected"; ?> value="midterm">Midterm</option>
             <option <?php if($course['sample_assignment_type_'.$i] == "final") echo "selected"; ?> value="final">Final</option>
           </select></td>
-        <td>Assignment Number:<br />
+        <td width="33%">Assignment Number:<br />
           <select name="sample_assignment_number_<?php echo $i; ?>" id="sample_assignment_number_<?php echo $i; ?>">
             <option <?php if($course['sample_assignment_number_'.$i] == 0) echo "selected"; ?> value="0">Select Number</option>
             <option <?php if($course['sample_assignment_number_'.$i] == 1) echo "selected"; ?> value="1">1</option>
@@ -188,19 +185,20 @@ $course['sample_assignment_row_count'] = 1;
             <option <?php if($course['sample_assignment_number_'.$i] == 9) echo "selected"; ?> value="9">9</option>
             <option <?php if($course['sample_assignment_number_'.$i] == 10) echo "selected"; ?> value="10">10</option>
           </select></td>
-        <td>Upload Assignment:
-			<iframe height="60px"  frameBorder="0" src="file/ajaxfileupload.php?course=<?php echo $_GET['course'];?>&filetype=<?php echo "sample_assignment_filelocation_".$i?>"></iframe>
+        <td width="33%">Upload Assignment:<br />
+			<iframe height="50%" width="100%"  frameBorder="0" src="file/ajaxfileupload.php?course=<?php echo $course['course_named'] ?>&type=assignmnet&number=<?php echo $i?>"></iframe>
         </td>
       </tr >
       <tr <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
-        <td>Upload sample solution worth of an &quot;A&quot;:<br />
-          <iframe height="60px"  frameBorder="0" src="file/ajaxfileupload.php?course=<?php echo $_GET['course'];?>&filetype=<?php echo "sample_assignment_filelocation_".$i?>"></iframe>
+        <td width="33%">Upload sample solution worth of an &quot;A&quot;:<br />
+          <iframe height="50%" width="100%"  frameBorder="0" src="file/ajaxfileupload.php?course=<?php echo $course['course_named'] ?>&type=A&number=<?php echo $i?>"></iframe>
         </td>
-        <td>Upload sample solution worth of an &quot;B&quot;:<br />
-          <iframe height="60px"  frameBorder="0" src="file/ajaxfileupload.php?course=<?php echo $_GET['course'];?>&filetype=<?php echo "sample_assignment_filelocation_".$i?>"></iframe>
+        <td width="33%">Upload sample solution worth of an &quot;B&quot;:<br />
+         <iframe height="50%" width="100%"  frameBorder="0" src="file/ajaxfileupload.php?course=<?php echo $course['course_named'] ?>&type=B&number=<?php echo $i?>"></iframe>
         </td>
-        <td>Upload sample solution worth of an &quot;C&quot;:<br />
-          <input type="file" name="fileField3" id="fileField3" /></td>
+        <td width="33%">Upload sample solution worth of an &quot;C&quot;:<br />
+          <iframe height="50%" width="100%"  frameBorder="0" src="file/ajaxfileupload.php?course=<?php echo $course['course_named'] ?>&type=C&number=<?php echo $i?>"></iframe>
+          </td>
       </tr>
       <?php endfor; ?>
     </table></td>

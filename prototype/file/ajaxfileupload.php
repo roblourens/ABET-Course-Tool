@@ -1,20 +1,27 @@
-<?php 
-if(!isset($_GET['view_only'])) $_GET['view_only'] = 'false';
-if(!isset($_GET['delete'])) $_GET['delete'] = 'false';
-if($_GET['delete'] == 'true'){
-$file_location = "../../data/courses/".$_GET['course']."/".$_GET['filetype'].".pdf";
-if(file_exists($file_location)){
-	unlink($file_location);
-}
-}
-?>
+        <?php
+		if(!isset($_GET['course']))die("ERROR: Course name not given.");
+		$course_file = "../../data/courses/".$_GET['course']."/".$_GET['course'].".json";
+		if(!file_exists($course_file))die("ERROR: The course ".$_GET['course']." does not exist.");
+		$fh = fopen($course_file, 'r') or die("ERROR: The data for the course ".$_GET['course']." could not be loaded.");
+		$theData = fgets($fh);
+		fclose($fh);
+		$course = json_decode($theData, true);
+		
+		$filepath = "../../data/courses/".$_GET['course']."/".$course['assignment_filepath_'.$_GET['type'].'_'.$_GET['number']];
+		if(file_exists($filepath)){
+			echo "<a tagart='_blank' href='$filepath'>View File</a>";
+		}
 
-<?php if($_GET['view_only'] == 'false'): ?>
-<link href="ajaxfileupload.css" type="text/css" rel="stylesheet">
+		else{
+		?>
+
+
+
+
 	<script type="text/javascript" src="jquery.js"></script>
 	<script type="text/javascript" src="ajaxfileupload.js"></script>
 	<script type="text/javascript">
-	function ajaxFileUpload()
+	function ajaxFileUpload(course, type, number)
 	{
 		$("#loading")
 		.ajaxStart(function(){
@@ -27,7 +34,7 @@ if(file_exists($file_location)){
 		$.ajaxFileUpload
 		(
 			{
-				url:'doajaxfileupload.php?course=<?php echo $_GET['course']?>&filetype=<?php echo $_GET['filetype']?>',
+				url:'doajaxfileupload.php?course='+course+'&type='+type+'&number='+number,
 				secureuri:false,
 				fileElementId:'fileToUpload',
 				dataType: 'json',
@@ -41,7 +48,7 @@ if(file_exists($file_location)){
 							alert(data.error);
 						}else
 						{
-							document.getElementById("linktofile").innerHTML = "<a target=\"new\" href=../../data/courses/<?php echo $_GET['course']?>/<?php echo $_GET['filetype']?>.pdf>View</a>&nbsp;| <a href=\"ajaxfileupload.php?delete=true&course=<?php echo $_GET['course']?>&filetype=<?php echo $_GET['filetype']?>\">Delete</a>";
+							alert(data.msg);
 						}
 					}
 				},
@@ -55,33 +62,14 @@ if(file_exists($file_location)){
 		return false;
 
 	}
-	
-	
-	
 	</script>	
-	</head>
- 	
-    
-
-		<img id="loading" src="loading.gif" style="display:none;">
 		<form name="form" action="" method="POST" enctype="multipart/form-data">
-		
-		
-				<input id="fileToUpload" type="file" name="fileToUpload" class="input">
-<button class="button" id="buttonUpload" onClick="return ajaxFileUpload();">Upload</button>
-		</form> 
-    <div id="linktofile">
-    
-    <?php endif; ?>
-                <?php if(file_exists("../../data/courses/".$_GET['course']."/".$_GET['filetype'].".pdf")):?>
-    <a target=\"new\" href="../../data/courses/<?php echo $_GET['course']?>/<?php echo $_GET['filetype']?>.pdf">View</a>
-    
-    
-    <?php if($_GET['view_only'] == 'false'): ?>
-    
-    &nbsp;| <a href="ajaxfileupload.php?delete=true&course=<?php echo $_GET['course']?>&filetype=<?php echo $_GET['filetype']?>">Delete</a>
-    <?php endif;?> 
+<input id="fileToUpload" type="file" size="45" name="fileToUpload" class="input"><button class="button" id="buttonUpload" onClick="return ajaxFileUpload('<?php echo $_GET['course'] ?>','<?php echo $_GET['type'] ?>', '<?php echo $_GET['number'] ?>');">Upload</button>
+		</form>   
+        
+        
+<?php }?>
 
-        <?php endif;?> 
-
-</div>
+        
+        
+      
