@@ -1,6 +1,6 @@
 <?php
 
-$ROOT = '/Users/rob/Sites/ABET-Course-Tool/';
+global $ROOT;
 $DATA_ROOT = $ROOT.'data/';
 $MASTER_ROOT = $DATA_ROOT.'master/';
 $MASTER_FILE = $MASTER_ROOT.'index.json';
@@ -137,13 +137,13 @@ function updateCourse($course)
 }
 
 // Returns all department IDs and department names
-// as [ { "short": "se", "full": "Software Engineering" }, ... ]
+// as array of objects [ { "short": "se", "long": "Software Engineering" }, ... ]
 function getDepartments()
 {
     global $MASTER_FILE;
     
     if (!file_exists($MASTER_FILE))
-        throw new Exception('Master file doesn\'t exist!');
+        throw new Exception('Master file doesn\'t exist at '.$MASTER_FILE.'!');
 
     $f = fopen($MASTER_FILE, 'r');
     // should block until lock obtained
@@ -154,8 +154,21 @@ function getDepartments()
     return json_decode($json);
 }
 
-// Returns all course IDs for the given department ID
+// Returns a sorted list of all course IDs for the given department ID
 function getCourseIDsForDeptID($deptID)
+{
+    $courseNums = getCourseNumsForDeptID($deptID);
+
+    foreach($courseNums as $courseNum)
+    {
+        $courseIDs[] = $deptID . $courseNum;
+    }
+
+    return $courseIDs;
+}
+
+// Returns a sorted list of course numbers for this department
+function getCourseNumsForDeptID($deptID)
 {
     global $PROGRAM;
     $path = $PROGRAM.$deptID.'.json';
@@ -168,7 +181,9 @@ function getCourseIDsForDeptID($deptID)
     $json = fread($f, filesize($path));
     fclose($f);
 
-    return json_decode($json);
+    $courseNums = json_decode($json);
+    sort($courseNums);
+    return $courseNums;
 }
 
 // Takes array of learning outcome IDs (like ['a', 'c', 'g']), returns matching Courses

@@ -1,6 +1,10 @@
 [
     {
-        "short": "se"
+        "short": "se",
         "long": "Software Engineering"
+    },
+    {
+        "short": "cpre",
+        "long": "Computer Engineering"
     }
 ]
