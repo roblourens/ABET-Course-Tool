@@ -1,6 +1,6 @@
 <?php require_once("include/header.php");?>
-<form>
-        <div class="main">
+<form action="submitSearch.php" method="POST">
+       
             <h2>
                 Search by Learning Outcome
             </h2>

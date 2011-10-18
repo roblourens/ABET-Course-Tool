@@ -36,14 +36,10 @@
                             My Courses
                         </h3>
                         <table>
+                       
                             <tr>
                                 <td>
-                                    <a href="view.php?course=cpre101">CprE 101</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="view.php?course=se319">SE 319</a>
+                                    <a href="course.php?course=se319">SE 319</a>
                                 </td>
                             </tr>
                         </table>
