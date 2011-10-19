@@ -22,13 +22,9 @@
                             <input type="submit" value="Go"/>
                         </div>
                         <div class="view_link">
-                            <input type="submit" value="View all courses" />
-                        </div>
-                        <div class="view_link">
-                            <input type="submit" value="Search by learning outcome" />
-                        </div>
-                        <div class="view_link">
-                            <input type="submit" value="View all learning outcomes" />
+       <a href="viewAllCourses.php">View All Courses</a><br />
+   <a href="search.php">Search By Learning Outcome</a><br />
+   <a href="">View All Learning Outcomes</a><br />
                         </div>
                     </td>
                     <td>
