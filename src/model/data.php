@@ -154,6 +154,19 @@ function getDepartments()
     return json_decode($json);
 }
 
+function getDepartmentLongNameForID($deptID)
+{
+    $depts = getDepartments();
+
+    foreach ($depts as $dept)
+    {
+        if ($dept->short == $deptID)
+            return $dept->long;
+    }
+
+    return "";
+}
+
 // Returns a sorted list of all course IDs for the given department ID
 function getCourseIDsForDeptID($deptID)
 {

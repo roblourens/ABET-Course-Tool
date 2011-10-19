@@ -26,4 +26,4 @@
     <td width="33%" align="center"><a href="">View All Learning Outcomes</a></td>
   </tr>
 </table>
-<?php error_reporting(E_ERROR);?>
+<?php error_reporting(E_ALL);?>

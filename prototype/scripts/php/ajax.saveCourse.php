@@ -1,78 +1,24 @@
 <?php
+require_once('../../../src/include.php');
 if(!isset($_POST['json']))die("ERROR:  No data was sent from the client");
-$data = json_decode($_POST['json'], true);
-$course_file = "../../../data/courses/".$data['course_named']."/".$data['course_named'].".json";
-if(!file_exists($course_file))die("ERROR: The course ".$data['course_named']." does not exist.");
-$fh = fopen($course_file, 'w') or die("ERROR: The course data for '".$data['course_named']."' could not be saved.");
-$stringData = $_POST['json'];
-fwrite($fh, $stringData);
-fclose($fh);
-echo "Save was successful";
-die;
+$data = json_decode(str_replace('\\', '', $_POST['json']), true);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$course = getCourseForId($data['course_id']);
-$course->descirption = $data['course_description'];
+$course = getCourseForID($data['course_id']);
+$course->description = $data['course_description'];
+$course->courseLearningOutcomes = split('\. ', $data['course_learning_outcomes']);
+$course->syllabus = $data['syllabus_and_grading'];
 
 for($i = 0 ; $i < $data['assignment_row_count'] ; $i++){
-	$assignments[$i]['assignment_type'] = $data['assignment_type_'.$i];
-	$assignments[$i]['assignment_number'] = $data['assignment_number_'.$i];
-	$assignments[$i]['checkboxA_'.$i] = $data['checkboxA_'.$i];
-	$assignments[$i]['checkboxB_'.$i] = $data['checkboxB_'.$i];
-	$assignments[$i]['checkboxC_'.$i] = $data['checkboxC_'.$i];
-	$assignments[$i]['checkboxD_'.$i] = $data['checkboxD_'.$i];
-	$assignments[$i]['checkboxE_'.$i] = $data['checkboxE_'.$i];
-	$assignments[$i]['checkboxF_'.$i] = $data['checkboxF_'.$i];
-	$assignments[$i]['checkboxG_'.$i] = $data['checkboxG_'.$i];
-	$assignments[$i]['checkboxH_'.$i] = $data['checkboxH_'.$i];
-	$assignments[$i]['checkboxI_'.$i] = $data['checkboxI_'.$i];
-	$assignments[$i]['checkboxJ_'.$i] = $data['checkboxJ_'.$i];
-	$assignments[$i]['checkboxK_'.$i] = $data['checkboxK_'.$i];	
+	$course->assignments[$i]->assignment_type = $data['assignment_type_'.($i+1)];
+	$course->assignments[$i]->assignment_number = $data['assignment_number_'.($i+1)];
+	$course->assignments[$i]->learningOutcomes = array(); 
+
+    foreach (array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k') as $letter)
+        if ($data['checkbox'.strtoupper($letter).'_'.($i+1)] == 'on')
+            $course->assignments[$i]->learningOutcomes[] = $letter;
 }
 
-$course->assignments = $assignments;
-print_r($course);
-die;
+updateCourse($course);
+
+echo "Saved successfully!";
 ?>
