@@ -1,32 +1,16 @@
-        <?php
-		if(!isset($_GET['course']))die("ERROR: Course name not given.");
-		$course_file = "../../data/courses/".$_GET['course']."/".$_GET['course'].".fileLocations.json";
-		//if(!file_exists($course_file))die("ERROR: The course ".$_GET['course']." does not exist.");
-		$fh = fopen($course_file, 'r') or die("ERROR: The data for the course ".$_GET['course']." could not be loaded.");
-		$theData = fgets($fh);
-		fclose($fh);
-		$course = json_decode($theData, true);
+    <?php
+    require_once("../../src/include.php");
+    
+    if(!isset($_GET['course']))die("ERROR: Course name not given.");
+    $course = getCourseForID($_GET['course']);
 
-		
-		
-		
-		
+    $assignment = $course->assignmentForTypeNumber($_GET['type'], $_GET['number']);
+    if (isset($assignment->filename)) {
+        echo "<a target='_blank' href='$assignment->filepath'>View File</a>";
+    }
 
-
-		if(isset($course['assignment_filepath_'.$_GET['type'].'_'.$_GET['number']]))$filepath = "../../data/courses/".$_GET['course']."/".$course['assignment_filepath_'.$_GET['type'].'_'.$_GET['number']];
-		
-		
-		//print_r($course['assignment_filepath_'.$_GET['type'].'_'.$_GET['number']]);
-		//die;
-		if(isset($filepath) && file_exists($filepath)){
-			echo "<a target='_blank' href='$filepath'>View File</a>";
-		}
-
-		else{
-		?>
-
-
-
+    else{
+    ?>
 
 	<script type="text/javascript" src="jquery.js"></script>
 	<script type="text/javascript" src="ajaxfileupload.js"></script>
@@ -58,7 +42,6 @@
 							alert(data.error);
 						}else
 						{
-							//alert(data.msg);
 							document.write("<a target='_blank' href='../../data/courses/"+course+"/"+data.msg+"'>View File</a>");
 						}
 					}

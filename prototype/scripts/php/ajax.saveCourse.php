@@ -7,24 +7,40 @@ $course = getCourseForID($data['course_id']);
 $course->description = $data['course_description'];
 $course->courseLearningOutcomes = split('\. ', $data['course_learning_outcomes']);
 $course->syllabus = $data['syllabus_and_grading'];
-$assignments = array();
+$assignments = $course->assignments;
 
 for($i = 0 ; $i < $data['assignment_row_count'] ; $i++){
-    $assignment = array();
 
-	$assignment['assignment_type'] = $data['assignment_type_'.$i];
-	$assignment['assignment_number'] = $data['assignment_number_'.$i];
-	$assignment['learningOutcomes'] = array(); 
+	$type = $data['assignment_type_'.$i];
+	$number = $data['assignment_number_'.$i];
+    $assignment = $course->assignmentForTypeNumber($type, $number);
 
-    foreach (array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K') as $letter)
-        if ($data['checkbox'.$letter.'_'.$i] == 'on')
-            $assignment['learningOutcomes'][] = $letter;
+    if ($assignment == null)
+    {
+        $assignment = array();
+        $assignment['assignment_type'] = $type;
+        $assignment['assignment_number'] = $number;
+        $assignment['learningOutcomes'] = array();
 
-    $assignments[] = $assignment;
+        foreach (array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K') as $letter)
+            if ($data['checkbox'.$letter.'_'.$i] == 'on')
+                $assignment['learningOutcomes'][] = $letter;
+
+        $assignments[] = $assignment;
+    }
+    else
+    {
+        // reset the learning outcomes every time, easier than selectively
+        // adding and deleting as needed
+        $assignment->learningOutcomes = array();
+        foreach (array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K') as $letter)
+            if ($data['checkbox'.$letter.'_'.$i] == 'on')
+                $assignment->learningOutcomes[] = $letter;
+    }
 }
 
+// I don't know why this is necessary, but it is
 $course->assignments = $assignments;
-
 updateCourse($course);
 
 echo "Saved successfully!";
