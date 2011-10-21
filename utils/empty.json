@@ -1,0 +1,14 @@
+{
+    "deptID":       "",
+    "courseNum":    "",
+    "courseID":     "",
+    "courseName":   "",
+    "description":  "",
+    "courseLearningOutcomes":   [
+                                ],
+    "syllabus": "",
+    "assignments":    [
+                        {
+                        }
+                    ]
+}
