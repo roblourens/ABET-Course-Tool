@@ -12,12 +12,12 @@ $assignments = array();
 for($i = 0 ; $i < $data['assignment_row_count'] ; $i++){
     $assignment = array();
 
-	$assignment['assignment_type'] = $data['assignment_type_'.($i+1)];
-	$assignment['assignment_number'] = $data['assignment_number_'.($i+1)];
+	$assignment['assignment_type'] = $data['assignment_type_'.$i];
+	$assignment['assignment_number'] = $data['assignment_number_'.$i];
 	$assignment['learningOutcomes'] = array(); 
 
-    foreach (array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k') as $letter)
-        if ($data['checkbox'.strtoupper($letter).'_'.($i+1)] == 'on')
+    foreach (array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K') as $letter)
+        if ($data['checkbox'.$letter.'_'.$i] == 'on')
             $assignment['learningOutcomes'][] = $letter;
 
     $assignments[] = $assignment;
