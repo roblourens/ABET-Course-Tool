@@ -5,7 +5,7 @@ $data = json_decode(str_replace('\\', '', $_POST['json']), true);
 
 $course = getCourseForID($data['course_id']);
 $course->description = $data['course_description'];
-$course->courseLearningOutcomes = split('\. ', $data['course_learning_outcomes']);
+$course->courseLearningOutcomes = array_filter(split('\.( *)', $data['course_learning_outcomes']), "isNonEmptyString");
 $course->syllabus = $data['syllabus_and_grading'];
 $assignments = $course->assignments;
 
@@ -44,4 +44,9 @@ $course->assignments = $assignments;
 updateCourse($course);
 
 echo "Saved successfully!";
+
+function isNonEmptyString($str)
+{
+    return !(strcmp(trim($str), "") == 0);
+}
 ?>
