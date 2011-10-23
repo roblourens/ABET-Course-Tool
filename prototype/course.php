@@ -46,7 +46,7 @@ $course = getCourseForID($_GET['course']);
     <td colspan="10"><textarea name="course_learning_outcomes" cols="45" rows="5"><?php 
     $lo = "";
     foreach ($course->courseLearningOutcomes as $learningOutcome)
-        $lo.=$learningOutcome.". ";
+        $lo.=$learningOutcome."\n";
     echo $lo; ?></textarea></td>
   </tr>
   <tr>

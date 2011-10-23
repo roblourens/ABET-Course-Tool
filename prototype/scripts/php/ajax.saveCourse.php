@@ -1,11 +1,17 @@
 <?php
 require_once('../../../src/include.php');
 if(!isset($_POST['json']))die("ERROR:  No data was sent from the client");
-$data = json_decode(str_replace('\\', '', $_POST['json']), true);
+// preprocess the posted json by first replacing all \r\n with "\n" newline,
+// then removing all the other escapes that will be added for some reason
+// also, newlines not allowed in json, so put them back after removing other \'s
+$json = str_replace('\\\\r\\\\n', "\n", $_POST['json']);
+$json = str_replace('\\', '', $json);
+$json = str_replace("\n", '\\n', $json);
+$data = json_decode($json, true);
 
 $course = getCourseForID($data['course_id']);
 $course->description = $data['course_description'];
-$course->courseLearningOutcomes = array_filter(split('\.( *)', $data['course_learning_outcomes']), "isNonEmptyString");
+$course->courseLearningOutcomes = array_filter(split("\n", $data['course_learning_outcomes']), "isNonEmptyString");
 $course->syllabus = $data['syllabus_and_grading'];
 $assignments = $course->assignments;
 
