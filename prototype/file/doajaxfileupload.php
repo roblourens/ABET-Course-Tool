@@ -1,4 +1,4 @@
-<?php
+<?php 
     require_once("../../src/include.php");
 	$error = "";
 	$msg = "";
@@ -39,7 +39,7 @@
 		$error = 'No file was uploaded..';
 	}else 
 	{
-            $fileName = time().$_FILES['fileToUpload']['name']:
+            $fileName = time().$_FILES['fileToUpload']['name'];
             // save path, relative to this file
 			$filePath = "../../data/courses/".$_GET['course']."/".$fileName; 
 			move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $filePath);
