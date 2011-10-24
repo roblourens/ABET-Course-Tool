@@ -199,3 +199,46 @@ jQuery.extend({
     }
 })
 
+	function ajaxFileUpload(course, type, number)
+	{
+		$("#loading")
+		.ajaxStart(function(){
+			$(this).show();
+		})
+		.ajaxComplete(function(){
+			$(this).hide();
+		});
+
+		$.ajaxFileUpload
+		(
+			{
+				url:'doajaxfileupload.php?course='+course+'&type='+type+'&number='+number,
+				secureuri:false,
+				fileElementId:'fileToUpload',
+				dataType: 'json',
+				data:{name:'logan', id:'id'},
+				success: function (data, status)
+				{
+					if(typeof(data.error) != 'undefined')
+					{
+						if(data.error != '')
+						{
+							alert(data.error);
+						}else
+						{
+							//alert(data.msg);
+							document.write("<a target='_blank' href='../../data/courses/"+course+"/"+data.msg+"'>View File</a>");
+						}
+					}
+				},
+				error: function (data, status, e)
+				{
+					alert(e);
+				}
+			}
+		)
+		
+		return false;
+
+	}
+

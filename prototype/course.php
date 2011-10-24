@@ -56,7 +56,7 @@ $course = getCourseForID($_GET['course']);
     <td colspan="13"><input type="button" name="button_save" id="displayText" onClick="javascript:toggle();" value="Show More Info" /></td>
   </tr>
   </table>
-  <div id="toggleText" style="display: none">
+  <div id="toggleText">
   <hr />
   <table width="100%" border="0">
   <tr>
@@ -191,14 +191,14 @@ $course = getCourseForID($_GET['course']);
       </tr >
       <tr <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
         <td width="33%">Upload sample solution worth of an &quot;A&quot;:<br />
-          <iframe height="50%" width="100%"  frameBorder="0" src="file/ajaxfileupload.php?course=<?php echo $course->courseID; ?>&type=A&number=<?php echo $i?>"></iframe>
+<input id="fileToUpload" type="file" name="fileToUpload" class="input"><input type="button" name="upload_a" id="upload_" value="Upload" onClick="ajaxFileUpload('<?php echo $course->courseID; ?>','C', '<?php echo $course->courseNum; ?>');" />
         </td>
         <td width="33%">Upload sample solution worth of an &quot;B&quot;:<br />
-         <iframe height="50%" width="100%"  frameBorder="0" src="file/ajaxfileupload.php?course=<?php echo $course->courseID; ?>&type=B&number=<?php echo $i?>"></iframe>
+         <input id="fileToUpload" type="file" name="fileToUpload" class="input"><input type="button" name="upload_b" id="upload_b" value="Upload" onClick="ajaxFileUpload('<?php echo $course->courseID; ?>','B', '<?php echo $course->courseNum; ?>');" />
         </td>
-        <td width="33%">Upload sample solution worth of an &quot;C&quot;:<br />
-          <iframe height="50%" width="100%"  frameBorder="0" src="file/ajaxfileupload.php?course=<?php echo $course->courseID; ?>&type=C&number=<?php echo $i?>"></iframe>
-          </td>
+        <td width="33%">Upload sample solution worth of an &quot;C&quot;:<br />	
+<input id="fileToUpload" type="file" name="fileToUpload" class="input"><input type="button" name="upload_c" id="upload_c" value="Upload" onClick="ajaxFileUpload('<?php echo $course->courseID; ?>','C', '<?php echo $course->courseNum; ?>');" />
+		</td>
       </tr>
       <?php endfor; ?>
     </table></td>

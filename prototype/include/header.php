@@ -5,6 +5,7 @@
     <link href="css/abet.css" rel="stylesheet" type="text/css" />
 	<script type="application/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 	<script type="application/javascript" src="scripts/js/abet.js"></script>
+    <script type="application/javascript" src="scripts/js/ajaxfileupload.js"></script>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
