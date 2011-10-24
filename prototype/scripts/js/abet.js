@@ -38,11 +38,10 @@ function get_num_sample_rows()
 
 function get_raw_html()
 {
-	
+    // rows are 0-indexed now
 	var num = get_num_rows();
-	num++;
 	str = "";
-	if(num % 2 == 0){
+	if(num % 2 == 1){
 		str = "bgcolor=\"#b6b7bc\"";
 	}
 return ""+	

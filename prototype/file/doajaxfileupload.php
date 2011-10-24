@@ -1,4 +1,5 @@
 <?php
+    require_once("../../src/include.php");
 	$error = "";
 	$msg = "";
 	$fileElementName = 'fileToUpload';
@@ -38,36 +39,30 @@
 		$error = 'No file was uploaded..';
 	}else 
 	{
-			
-			$msg .= " File Name: " . $_FILES['fileToUpload']['name'] . ", ";
-			$msg .= " File Size: " . @filesize($_FILES['fileToUpload']['tmp_name']);
+            $fileName = time().$_FILES['fileToUpload']['name']:
+            // save path, relative to this file
+			$filePath = "../../data/courses/".$_GET['course']."/".$fileName; 
+			move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $filePath);
 
-			$dir = "../../data/courses/".$_GET['course']."/".time().$_FILES['fileToUpload']['name']; 
-			move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $dir);
-			
+            $course = getCourseForID($_GET['course']);
+            $assignment = $course->assignmentForTypeNumber($_GET['type'], $_GET['number']);
+            if ($assignment == null)
+            {
+                $assignments = $course->assignments;
+                $assignment = array();
+                $assignment['assignment_type'] = $_GET['type'];
+                $assignment['assignment_number'] = $_GET['number'];
+                $assignment['learning_outcomes'] = array();
+                // view path, relative to course.php
+                // TODO resolve the array/object assignment thing
+                $assignment['filepath'] = "../data/courses/".$_GET['course']."/".$fileName;
+                $assignments[] = $assignment;
+            }
+            else
+                $assignment->filepath = "../data/courses/".$_GET['course']."/".$fileName;
 
-			$course_file = "../../data/courses/".$_GET['course']."/".$_GET['course'].".fileLocations.json";
-			//if(!file_exists($course_file))die("ERROR: The course ".$_GET['course']." does not exist.");
-			$fh = fopen($course_file, 'r') or die("ERROR: The data for the course ".$_GET['course']." could not be loaded.");
-			$theData = fgets($fh);
-			fclose($fh);
-			$course = json_decode($theData, true);
-			$course['assignment_filepath_'.$_GET['type'].'_'.$_GET['number']] = time().$_FILES['fileToUpload']['name'];
-			$msg = time().$_FILES['fileToUpload']['name'];
-			
-			$course_file = "../../data/courses/".$_GET['course']."/".$_GET['course'].".fileLocations.json";
-			//if(!file_exists($course_file))die("ERROR: The course ".$_GET['course']." does not exist.");
-			$fh = fopen($course_file, 'w') or die("ERROR: The data for the course ".$_GET['course']." could not be loaded.");
-			//$stringData = $course;
-			fwrite($fh, json_encode($course));
-			fclose($fh);
-
-
-			
-			
-			
-			
-	
+			$msg = $fileName;
+            updateCourse($course);
 	}		
 	echo "{";
 	echo				"error: '" . $error . "',\n";

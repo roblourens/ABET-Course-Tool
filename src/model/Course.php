@@ -20,6 +20,16 @@ class Course
         $this->storage = $_courseObj;
     }
 
+    public function assignmentForTypeNumber($type, $number)
+    {
+        foreach ($this->assignments as $assignment)
+            if ($assignment->assignment_type == $type && 
+                $assignment->assignment_number == $number)
+                return $assignment;
+
+        return null;
+    }
+
     public function __get($name)
     {
         return $this->storage->$name;
