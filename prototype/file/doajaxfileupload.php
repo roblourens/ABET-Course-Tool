@@ -2,7 +2,7 @@
     require_once("../../src/include.php");
 	$error = "";
 	$msg = "";
-	$fileElementName = 'fileToUpload';
+	$fileElementName = 'fileToUpload_'.$_GET['type'];
 	if(!empty($_FILES[$fileElementName]['error']))
 	{
 		switch($_FILES[$fileElementName]['error'])
@@ -34,15 +34,17 @@
 			default:
 				$error = 'No error code avaiable';
 		}
-	}elseif(empty($_FILES['fileToUpload']['tmp_name']) || $_FILES['fileToUpload']['tmp_name'] == 'none')
+	}
+	elseif(empty($_FILES[$fileElementName]['tmp_name']) || $_FILES[$fileElementName]['tmp_name'] == 'none')
 	{
 		$error = 'No file was uploaded..';
-	}else 
+	}
+	else 
 	{
-            $fileName = time().$_FILES['fileToUpload']['name'];
+            $fileName = time().$_FILES[$fileElementName]['name'];
             // save path, relative to this file
 			$filePath = "../../data/courses/".$_GET['course']."/".$fileName; 
-			move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $filePath);
+			move_uploaded_file($_FILES[$fileElementName]['tmp_name'], $filePath);
 
             $course = getCourseForID($_GET['course']);
             $assignment = $course->assignmentForTypeNumber($_GET['type'], $_GET['number']);

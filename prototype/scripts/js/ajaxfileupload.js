@@ -216,7 +216,7 @@ jQuery.extend({
 				
 				url:'file/doajaxfileupload.php?course='+course+'&type='+type+'&number='+number,
 				secureuri:false,
-				fileElementId:'fileToUpload',
+				fileElementId:'fileToUpload_'+type,
 				dataType: 'json',
 				data:{name:'logan', id:'id'},
 				success: function (data, status)
@@ -229,7 +229,7 @@ jQuery.extend({
 						}else
 						{
 							//alert(data.msg);
-							document.write("<a target='_blank' href='../data/courses/"+course+"/"+data.msg+"'>View File</a>");
+							document.getElementById("#file_upload_box_"+type+"_"+number+").value = "<a target='_blank' href='../data/courses/"+course+"/"+data.msg+"'>View File</a>";
 						}
 					}
 				},
