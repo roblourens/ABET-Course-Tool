@@ -37,11 +37,12 @@
 	}
 	elseif(empty($_FILES[$fileElementName]['tmp_name']) || $_FILES[$fileElementName]['tmp_name'] == 'none')
 	{
-		$error = 'No file was uploaded..';
+		echo "error";
 	}
 	else 
 	{
-            $fileName = time().$_FILES[$fileElementName]['name'];
+           
+		    $fileName = time().$_FILES[$fileElementName]['name'];
             // save path, relative to this file
 			$filePath = "../../data/courses/".$_GET['course']."/".$fileName; 
 			move_uploaded_file($_FILES[$fileElementName]['tmp_name'], $filePath);

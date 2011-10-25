@@ -185,19 +185,20 @@ $course = getCourseForID($_GET['course']);
             <option <?php if($course->assignments[$i]->assignment_number == 9) echo "selected"; ?> value="9">9</option>
             <option <?php if($course->assignments[$i]->assignment_number == 10) echo "selected"; ?> value="10">10</option>
           </select></td>
-        <td width="33%">Upload Assignment:<br />
-<input id="fileToUpload" type="file" name="fileToUpload" class="input"><input type="button" name="upload_assignment" id="upload_assignment" value="Upload" onClick="ajaxFileUpload('<?php echo $course->courseID; ?>','assignment', '<?php echo $i ?>');" />
+        <td width="33%"><div id="<?php echo "file_upload_box_assignment_".$i?>">Upload Assignment:<br />
+<input id="fileToUpload_assignment" type="file" name="fileToUpload_assignment" class="input"><input type="button" name="upload_assignment" id="upload_assignment" value="Upload" onClick="ajaxFileUpload('<?php echo $course->courseID; ?>','assignment', '<?php echo $i ?>');" />
+</div>
         </td>
       </tr >
       <tr <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
-        <td width="33%">Upload sample solution worth of an &quot;A&quot;:<br />
-<input id="fileToUpload" type="file" name="fileToUpload" class="input"><input type="button" name="upload_a" id="upload_a" value="Upload" onClick="ajaxFileUpload('<?php echo $course->courseID; ?>','C', '<?php echo $i ?>');" />
+        <td width="33%"><div id="<?php echo "file_upload_box_A_".$i?>">Upload sample solution worth of an &quot;A&quot;:<br />
+<input id="fileToUpload_A" type="file" name="fileToUpload_A" class="input"><input type="button" name="upload_a" id="upload_a" value="Upload" onClick="ajaxFileUpload('<?php echo $course->courseID; ?>','C', '<?php echo $i ?>');" /></div>
         </td>
-        <td width="33%">Upload sample solution worth of an &quot;B&quot;:<br />
-         <input id="fileToUpload" type="file" name="fileToUpload" class="input"><input type="button" name="upload_b" id="upload_b" value="Upload" onClick="ajaxFileUpload('<?php echo $course->courseID; ?>','B', '<?php echo $i ?>');" />
+        <td width="33%"><div id="<?php echo "file_upload_box_B_".$i?>">Upload sample solution worth of an &quot;B&quot;:<br />
+         <input id="fileToUpload_B" type="file" name="fileToUpload_B" class="input"><input type="button" name="upload_b" id="upload_b" value="Upload" onClick="ajaxFileUpload('<?php echo $course->courseID; ?>','B', '<?php echo $i ?>');" /></div>
         </td>
-        <td width="33%">Upload sample solution worth of an &quot;C&quot;:<br />	
-<input id="fileToUpload_C" type="file" name="fileToUpload_C" class="input"><input type="button" name="upload_c" id="upload_c" value="Upload" onClick="ajaxFileUpload('<?php echo $course->courseID; ?>','C', '<?php echo $i ?>');" />
+        <td width="33%"><div id="<?php echo "file_upload_box_C_".$i?>">Upload sample solution worth of an &quot;C&quot;:<br />	
+<input id="fileToUpload_C" type="file" name="fileToUpload_C" class="input"><input type="button" name="upload_c" id="upload_c" value="Upload" onClick="ajaxFileUpload('<?php echo $course->courseID; ?>','C', '<?php echo $i ?>');" /></div>
 		</td>
       </tr>
       <?php endfor; ?>

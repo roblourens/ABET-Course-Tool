@@ -202,6 +202,7 @@ jQuery.extend({
 
 	function ajaxFileUpload(course, type, number)
 	{
+		
 		$("#loading")
 		.ajaxStart(function(){
 			$(this).show();
@@ -228,8 +229,7 @@ jQuery.extend({
 							alert(data.error);
 						}else
 						{
-							//alert(data.msg);
-							document.getElementById("#file_upload_box_"+type+"_"+number+").value = "<a target='_blank' href='../data/courses/"+course+"/"+data.msg+"'>View File</a>";
+							document.getElementById("file_upload_box_" + type + "_"+number).innerHTML = "<a href = '../data/courses/"+course+"/"+data.msg+"'>View File</a>";
 						}
 					}
 				},
