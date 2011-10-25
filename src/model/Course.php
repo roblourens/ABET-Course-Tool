@@ -6,28 +6,21 @@ class Course
 
     public function Course($_courseObj, $_courseID)
     {
-        global $ROOT;
-        $schemaPath = $ROOT.'utils/courseSchema.json';
+        //global $ROOT;
+        //$schemaPath = $ROOT.'utils/courseSchema.json';
 
-        $schemaF = fopen($schemaPath, 'r');
-        $schema = json_decode(fread($schemaF, filesize($schemaPath)));
-        $result = JsonSchema::validate( $_courseObj, $schema);
+        //$schemaF = fopen($schemaPath, 'r');
+        //$schema = json_decode(fread($schemaF, filesize($schemaPath)));
+        //$result = JsonSchema::validate( $_courseObj, $schema);
 
-        if (!$result->valid) {
-            echo "Errors while validating ".$_courseID.": \n";
-            print_r($result->errors);
-        }
+        //if (!$result->valid) {
+            //echo "Errors while validating ".$_courseID.": \n";
+            //print_r($result->errors);
+        //}
         $this->storage = $_courseObj;
-    }
 
-    public function assignmentForTypeNumber($type, $number)
-    {
-        foreach ($this->assignments as $assignment)
-            if ($assignment->assignment_type == $type && 
-                $assignment->assignment_number == $number)
-                return $assignment;
-
-        return null;
+        // unpack assignments into array
+        $this->storage->assignments = get_object_vars($_courseObj->assignments);
     }
 
     public function __get($name)

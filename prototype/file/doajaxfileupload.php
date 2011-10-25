@@ -20,7 +20,6 @@
 			case '4':
 				$error = 'No file was uploaded.';
 				break;
-
 			case '6':
 				$error = 'Missing a temporary folder';
 				break;
@@ -41,32 +40,41 @@
 	}
 	else 
 	{
-           
-		    $fileName = time().$_FILES[$fileElementName]['name'];
-            // save path, relative to this file
-			$filePath = "../../data/courses/".$_GET['course']."/".$fileName; 
-			move_uploaded_file($_FILES[$fileElementName]['tmp_name'], $filePath);
+        $fileName = time().$_FILES[$fileElementName]['name'];
+        // save path, relative to this file
+        $filePath = "../../data/courses/".$_GET['course']."/".$fileName; 
+        move_uploaded_file($_FILES[$fileElementName]['tmp_name'], $filePath);
 
-            $course = getCourseForID($_GET['course']);
-            $assignment = $course->assignmentForTypeNumber($_GET['type'], $_GET['number']);
-            if ($assignment == null)
-            {
-                $assignments = $course->assignments;
-                $assignment = array();
-                $assignment['assignment_type'] = $_GET['type'];
-                $assignment['assignment_number'] = $_GET['number'];
-                $assignment['learning_outcomes'] = array();
-                // view path, relative to course.php
-                // TODO resolve the array/object assignment thing
-                $assignment['filepath'] = "../data/courses/".$_GET['course']."/".$fileName;
-                $assignments[] = $assignment;
-            }
-            else
-                $assignment->filepath = "../data/courses/".$_GET['course']."/".$fileName;
+        $course = getCourseForID($_GET['course']);
+        $assignments = $course->assignments;
+        //$assignmentKey = $_GET['type'].$_GET['number'];
+        $assignmentKey = "homework3";
+        if (property_exists($course, $assignmentKey))
+            $assignment = $assignments[$assignmentKey];
+        else
+        {
+            $assignment = new Assignment();
+            $assignment->type = $_GET['assignment_type'];
+            $assignment->number = $_GET['number'];
+        }
 
-			$msg = $fileName;
-            updateCourse($course);
-	}		
+        if ($_GET['type'] == 'assignment')
+            $assignment->assignmentFileName = $fileName;
+        else if ($_GET['type'] == 'A')
+            $assignment->sampleFileNames[0] = $fileName;
+        else if ($_GET['type'] == 'B')
+            $assignment->sampleFileNames[1] = $fileName;
+        else if ($_GET['type'] == 'C')
+            $assignment->sampleFileNames[2] = $fileName;
+
+        $assignments[$assignmentKey] = $assignment;
+        $course->assignments = $assignments;
+
+        updateCourse($course);
+
+        $msg = "../data/courses/".$_GET['course']."/".$fileName;
+	}
+
 	echo "{";
 	echo				"error: '" . $error . "',\n";
 	echo				"msg: '" . $msg . "'\n";
