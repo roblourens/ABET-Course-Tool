@@ -140,7 +140,7 @@ $course = getCourseForID($_GET['course']);
               </tr>
       <?php endfor; ?>
       </table>
-    <input type="button" name="add_another_assignment" id="add_another_assignment" value="Add Another Assignment" onclick="add_new_row('#assignmentsTable', get_raw_html());" />
+    <input type="button" name="add_another_assignment" id="add_another_assignment" value="Add Another Assignment" onclick="add_new_row('#assignmentsTable', add_assignment_row());" />
     </td>
     </tr>
     <br /></td>

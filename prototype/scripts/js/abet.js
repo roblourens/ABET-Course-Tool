@@ -15,13 +15,18 @@ function toggle() {
 
 function get_num_rows()
 {
+	var num_of_rows = document.getElementById('assignment_row_count').defaultValue;
 	
-	//var num_of_rows = document.getElementById('number_of_rows').value;
-	var num_of_rows2 = document.getElementById('assignment_row_count').defaultValue;
+	return  num_of_rows;
+}
+
+function increment_assignment_row_count()
+{
+	var num_of_rows = document.getElementById('assignment_row_count').defaultValue;
+    var new_num = parseInt(num_of_rows) + 1;
+	document.getElementById('assignment_row_count').defaultValue = new_num;
 	
-	document.getElementById('assignment_row_count').defaultValue = parseInt(num_of_rows2) + 1;
-	
-	return  num_of_rows2	
+	return new_num;
 }
 
 function get_num_sample_rows()
@@ -36,12 +41,11 @@ function get_num_sample_rows()
 	return  num_of_rows2	
 }
 
-function get_raw_html()
+function add_assignment_row()
 {
-    // rows are 0-indexed now
-	var num = get_num_rows();
+	var num = increment_assignment_row_count();
 	str = "";
-	if(num % 2 == 1){
+	if(num % 2 == 0){
 		str = "bgcolor=\"#b6b7bc\"";
 	}
 return ""+	
