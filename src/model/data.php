@@ -136,9 +136,9 @@ function updateCourse($course)
         throw new Exception('Could not open '.$path." for writing");
 }
 
-// Returns all department IDs and department names
+// Returns all program course IDs and department names
 // as array of objects [ { "short": "se", "long": "Software Engineering" }, ... ]
-function getDepartments()
+function getPrograms()
 {
     global $MASTER_FILE;
     
@@ -154,37 +154,24 @@ function getDepartments()
     return json_decode($json);
 }
 
-function getDepartmentLongNameForID($deptID)
+function getProgramLongNameForID($deptID)
 {
-    $depts = getDepartments();
+    $programs = getPrograms();
 
-    foreach ($depts as $dept)
+    foreach ($programs as $prog)
     {
-        if ($dept->short == $deptID)
-            return $dept->long;
+        if ($prog->short == $deptID)
+            return $prog->long;
     }
 
     return "";
 }
 
-// Returns a sorted list of all course IDs for the given department ID
-function getCourseIDsForDeptID($deptID)
-{
-    $courseNums = getCourseNumsForDeptID($deptID);
-
-    foreach($courseNums as $courseNum)
-    {
-        $courseIDs[] = $deptID . $courseNum;
-    }
-
-    return $courseIDs;
-}
-
-// Returns a sorted list of course numbers for this department
-function getCourseNumsForDeptID($deptID)
+// Returns a sorted list of course numbers for the given program ID 
+function getCourseIDsForProgramID($progID)
 {
     global $PROGRAM;
-    $path = $PROGRAM.$deptID.'.json';
+    $path = $PROGRAM.$progID.'.json';
 
     if (!file_exists($path))
         throw new Exception($path.' does not exist!');
@@ -194,9 +181,9 @@ function getCourseNumsForDeptID($deptID)
     $json = fread($f, filesize($path));
     fclose($f);
 
-    $courseNums = json_decode($json);
-    sort($courseNums);
-    return $courseNums;
+    $courseIDs = json_decode($json);
+    sort($courseIDs);
+    return $courseIDs;
 }
 
 // Takes array of learning outcome IDs (like ['a', 'c', 'g']), returns matching Courses

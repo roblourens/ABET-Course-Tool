@@ -79,7 +79,7 @@
                 }
             }, 
             "required": true, 
-            "type": "array"
+            "type": "object"
         }
     }
 }

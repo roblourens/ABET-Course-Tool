@@ -2,7 +2,7 @@
 require_once("include/header.php"); 
 require_once('../src/include.php');
 
-$depts = getDepartments();
+$programs = getPrograms();
 ?>
 
 <div class="main">
@@ -12,15 +12,16 @@ $depts = getDepartments();
 <hr />
 
 <?php
-foreach ($depts as $dept)
+foreach ($programs as $prog)
 {
-    $deptCourses = getCourseNumsForDeptId($dept->short);
-    echo "<h3 class='dept_name'>".$dept->long."</h3>";
+    $progCourses = getCourseIDsForProgramID($prog->short);
+    echo "<h3 class='dept_name'>".$prog->long."</h3>";
 
-    foreach ($deptCourses as $courseNum)
+    foreach ($progCourses as $courseID)
     {
-        $courseID = $dept->short.$courseNum;
-        echo "<div class='course_name'><a href='course.php?course=$courseID'>".$dept->long." ".$courseNum."</a></div>";
+        $course = getCourseForID($courseID);
+        $deptName = getProgramLongNameForID($course->deptID);
+        echo "<div class='course_name'><a href='course.php?course=$courseID'>".$deptName." ".$course->courseNum."</a></div>";
     }
 
     echo "<br />";
