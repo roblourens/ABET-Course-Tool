@@ -66,7 +66,8 @@
 
 			$msg = $fileName;
             updateCourse($course);
-	}		
+	}
+	$msg = $_GET['assignment_type'];		
 	echo "{";
 	echo				"error: '" . $error . "',\n";
 	echo				"msg: '" . $msg . "'\n";

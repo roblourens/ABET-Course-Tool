@@ -200,7 +200,7 @@ jQuery.extend({
 })
 
 
-	function ajaxFileUpload(course, type, number)
+	function ajaxFileUpload(assignmentType, course, type, number)
 	{
 		
 		$("#loading")
@@ -215,7 +215,7 @@ jQuery.extend({
 		(
 			{
 				
-				url:'file/doajaxfileupload.php?course='+course+'&type='+type+'&number='+number,
+				url:'file/doajaxfileupload.php?assignmnet_type='+assignmentType+'&course='+course+'&type='+type+'&number='+number,
 				secureuri:false,
 				fileElementId:'fileToUpload_'+type,
 				dataType: 'json',
@@ -229,6 +229,7 @@ jQuery.extend({
 							alert(data.error);
 						}else
 						{
+							alert(data.msg);
 							document.getElementById("file_upload_box_" + type + "_"+number).innerHTML = "<a href = '../data/courses/"+course+"/"+data.msg+"'>View File</a>";
 						}
 					}

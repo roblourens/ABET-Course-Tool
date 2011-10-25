@@ -192,7 +192,7 @@ $course = getCourseForID($_GET['course']);
       </tr >
       <tr <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
         <td width="33%"><div id="<?php echo "file_upload_box_A_".$i?>">Upload sample solution worth of an &quot;A&quot;:<br />
-<input id="fileToUpload_A" type="file" name="fileToUpload_A" class="input"><input type="button" name="upload_a" id="upload_a" value="Upload" onClick="ajaxFileUpload('<?php echo $course->courseID; ?>','C', '<?php echo $i ?>');" /></div>
+<input id="fileToUpload_A" type="file" name="fileToUpload_A" class="input"><input type="button" name="upload_a" id="upload_a" value="Upload" onClick="ajaxFileUpload(document.getElementById(sample_assignment_type_<?php echo $i?>).value,'<?php echo $course->courseID; ?>','A', '<?php echo $i ?>');" /></div>
         </td>
         <td width="33%"><div id="<?php echo "file_upload_box_B_".$i?>">Upload sample solution worth of an &quot;B&quot;:<br />
          <input id="fileToUpload_B" type="file" name="fileToUpload_B" class="input"><input type="button" name="upload_b" id="upload_b" value="Upload" onClick="ajaxFileUpload('<?php echo $course->courseID; ?>','B', '<?php echo $i ?>');" /></div>
