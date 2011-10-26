@@ -1,17 +1,14 @@
-
 Directory structure
 
 data
     courses
         <courseID>
-            homeworks
-                <homework1 name>
-                    <assignment file>
-                    solutions
-            <syllabus file, if necessary>
+            <all assignment-related files>
             <courseID>.json
     program
+        <programName>.json
     master
+        index.json
         users.json
 
 src
