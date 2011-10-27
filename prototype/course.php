@@ -6,8 +6,9 @@ if(!isset($_GET['course']))die("ERROR: Course name not given.");
 $course = getCourseForID($_GET['course']);
 ?>
 </h1>
-
-
+<script type="text/javascript">
+var courseID = '<?php echo $course->courseID; ?>';
+</script>
 
         <div class="main">
             <h2>
@@ -187,20 +188,40 @@ $course = getCourseForID($_GET['course']);
             <option <?php if($assignment->number == 9) echo "selected"; ?> value="9">9</option>
             <option <?php if($assignment->number == 10) echo "selected"; ?> value="10">10</option>
           </select></td>
-        <td width="33%"><div id="<?php echo "file_upload_box_assignment_".$i?>">Upload Assignment:<br />
-<input id="fileToUpload_assignment" type="file" name="fileToUpload_assignment" class="input"><input type="button" name="upload_assignment" id="upload_assignment" value="Upload" onClick="ajaxFileUpload('<?php echo $course->courseID; ?>','assignment', '<?php echo $i ?>');" />
-</div>
+        <td width="33%"><div id="file_upload_box_assignment_<?php echo $i ?>"><?php
+        // Assignment block
+        if ($assignment->assignmentFileName != "")
+            echo "<a href = '../data/course/".$course->courseID."/".$assignment->assignmentFileName."'>View File</a>";
+        else
+            echo "Upload Assignment:<br />
+<input id='fileToUpload_assignment_".$i."' type='file' name='fileToUpload_assignment_".$i."' class='input'>"; ?>
+        </div>
         </td>
       </tr >
       <tr <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
-        <td width="33%"><div id="<?php echo "file_upload_box_A_".$i?>">Upload sample solution worth of an &quot;A&quot;:<br />
-<input id="fileToUpload_A" type="file" name="fileToUpload_A" class="input"><input type="button" name="upload_a" id="upload_a" value="Upload" onClick="ajaxFileUpload(document.getElementById(sample_assignment_type_<?php echo $i?>).value,'<?php echo $course->courseID; ?>','A', '<?php echo $i ?>');" /></div>
+        <td width="33%"><div id="<?php echo "file_upload_box_A_".$i?>"><?php
+        // Sample A block
+        if ($assignment->sampleFileNames[0] != "")
+            echo "<a href = '../data/course/".$course->courseID."/".$assignment->sampleFileNames[0]."'>View File</a>";
+        else
+            echo "Upload sample solution worth of an &quot;A&quot;:
+<input id='fileToUpload_A_".$i."' type='file' name='fileToUpload_A_".$i."' class='input'>"; ?>
         </td>
-        <td width="33%"><div id="<?php echo "file_upload_box_B_".$i?>">Upload sample solution worth of an &quot;B&quot;:<br />
-         <input id="fileToUpload_B" type="file" name="fileToUpload_B" class="input"><input type="button" name="upload_b" id="upload_b" value="Upload" onClick="ajaxFileUpload('<?php echo $course->courseID; ?>','B', '<?php echo $i ?>');" /></div>
+        <td width="33%"><div id="<?php echo "file_upload_box_B_".$i?>"><?php
+        // Sample B block
+        if ($assignment->sampleFileNames[1] != "")
+            echo "<a href = '../data/course/".$course->courseID."/".$assignment->sampleFileNames[1]."'>View File</a>";
+        else
+            echo "Upload sample solution worth of an &quot;B&quot;:<br />
+<input id='fileToUpload_B_".$i."' type='file' name='fileToUpload_B_".$i."' class='input'>"; ?>
         </td>
-        <td width="33%"><div id="<?php echo "file_upload_box_C_".$i?>">Upload sample solution worth of an &quot;C&quot;:<br />	
-<input id="fileToUpload_C" type="file" name="fileToUpload_C" class="input"><input type="button" name="upload_c" id="upload_c" value="Upload" onClick="ajaxFileUpload('<?php echo $course->courseID; ?>','C', '<?php echo $i ?>');" /></div>
+        <td width="33%"><div id="<?php echo "file_upload_box_C_".$i?>"><?php
+        // Sample C block
+        if ($assignment->sampleFileNames[2] != "")
+            echo "<a href = '../data/course/".$course->courseID."/".$assignment->sampleFileNames[2]."'>View File</a>";
+        else
+            echo "Upload sample solution worth of an &quot;C&quot;:<br />
+<input id='fileToUpload_C_".$i."' type='file' name='fileToUpload_C_".$i."' class='input'>"; ?>
 		</td>
       </tr>
       <?php $i++; endforeach; ?>
@@ -208,7 +229,7 @@ $course = getCourseForID($_GET['course']);
   </tr>
   
   <tr>
-    <td colspan="13"><input type="button" name="add_another_sample" id="add_another_sample" value="Add Another Sample" onClick="add_new_row('#sampleAssignments', genNewSampleRow(<?php echo $course->courseID; ?>))" /></td>
+    <td colspan="13"><input type="button" name="add_another_sample" id="add_another_sample" value="Add Another Sample" onClick="add_new_row('#sampleAssignments', genNewSampleRow('<?php echo $course->courseID; ?>'))" /></td>
   </tr>
   </table>
 <hr />

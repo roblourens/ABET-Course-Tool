@@ -2,7 +2,7 @@
     require_once("../../src/include.php");
 	$error = "";
 	$msg = "";
-	$fileElementName = 'fileToUpload_'.$_GET['type'];
+	$fileElementName = $_GET['element_id'];
 	if(!empty($_FILES[$fileElementName]['error']))
 	{
 		switch($_FILES[$fileElementName]['error'])
@@ -36,7 +36,7 @@
 	}
 	elseif(empty($_FILES[$fileElementName]['tmp_name']) || $_FILES[$fileElementName]['tmp_name'] == 'none')
 	{
-		echo "error";
+        $error = '$_FILES[$fileElementName][\'tmp_name\']:'.$_FILES[$fileElementName]['tmp_name'];
 	}
 	else 
 	{
@@ -47,24 +47,22 @@
 
         $course = getCourseForID($_GET['course']);
         $assignments = $course->assignments;
-        //$assignmentKey = $_GET['type'].$_GET['number'];
-        $assignmentKey = "homework3";
-        if (property_exists($course, $assignmentKey))
-            $assignment = $assignments[$assignmentKey];
-        else
+        $assignmentKey = $_GET['assignment_type'].$_GET['assignment_number'];
+        $assignment = $assignments[$assignmentKey];
+        if ($assignment == null)
         {
             $assignment = new Assignment();
             $assignment->type = $_GET['assignment_type'];
-            $assignment->number = $_GET['number'];
+            $assignment->number = $_GET['assignment_number'];
         }
 
-        if ($_GET['type'] == 'assignment')
+        if ($_GET['file_type'] == 'assignment')
             $assignment->assignmentFileName = $fileName;
-        else if ($_GET['type'] == 'A')
+        else if ($_GET['file_type'] == 'A')
             $assignment->sampleFileNames[0] = $fileName;
-        else if ($_GET['type'] == 'B')
+        else if ($_GET['file_type'] == 'B')
             $assignment->sampleFileNames[1] = $fileName;
-        else if ($_GET['type'] == 'C')
+        else if ($_GET['file_type'] == 'C')
             $assignment->sampleFileNames[2] = $fileName;
 
         $assignments[$assignmentKey] = $assignment;
@@ -72,6 +70,7 @@
 
         updateCourse($course);
 
+        // relative to prototype/course.php
         $msg = "../data/courses/".$_GET['course']."/".$fileName;
 	}
 	echo "{";

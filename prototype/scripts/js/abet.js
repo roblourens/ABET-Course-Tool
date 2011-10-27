@@ -29,16 +29,13 @@ function increment_assignment_row_count()
 	return new_num;
 }
 
-function get_num_sample_rows()
+function increment_sample_row_count()
 {
+	var num_of_rows = document.getElementById('sample_assignment_row_count').defaultValue;
+    var new_num = parseInt(num_of_rows) + 1;
+	document.getElementById('sample_assignment_row_count').defaultValue = new_num;
 	
-	
-	//var num_of_rows = document.getElementById('number_of_rows').value;
-	var num_of_rows2 = document.getElementById('sample_assignment_row_count').defaultValue;
-	
-	document.getElementById('sample_assignment_row_count').defaultValue = parseInt(num_of_rows2) + 1;
-	
-	return  num_of_rows2	
+	return new_num;
 }
 
 function add_assignment_row()
@@ -48,19 +45,22 @@ function add_assignment_row()
 	if(num % 2 == 0){
 		str = "bgcolor=\"#b6b7bc\"";
 	}
+
+    // rows are 0-indexed
+    num--;
 return ""+	
 " <tr "+str+">"+
-"        <td width='53'>"+num+"</td>"+
-"        <td width='54'><select name='assignment_type_"+num+"'>"+
+"        <td>"+(num+1)+"</td>"+
+"        <td><select name='type_"+num+"'>"+
 "          <option value='0' selected='selected'>Select Value</option>"+
 "          <option value='homework'>Homework</option>"+
 "          <option value='test'>Test</option>"+
-"         <option value='lab'>Lab</option>"+
+"          <option value='lab'>Lab</option>"+
 "          <option value='quiz'>Quiz</option>"+
 "          <option value='midterm'>Midterm</option>"+
 "          <option value='final'>Final</option>"+
 "          </select></td>"+
-"        <td><select name='assignment_number_"+num+"' id='select2'>"+
+"        <td><select name='number_"+num+"' id='select'>"+
 "          <option value='0'>Select Number</option>"+
 "          <option value='1'>1</option>"+
 "          <option value='2'>2</option>"+
@@ -73,19 +73,20 @@ return ""+
 "          <option value='9'>9</option>"+
 "          <option value='10'>10</option>"+
 "          </select></td>"+
-"        <td width='20'><input type='checkbox' name='checkboxA_"+num+"' id='checkbox' /></td>"+
-"        <td width='20'><input type='checkbox' name='checkboxB_"+num+"' id='checkbox2' /></td>"+
-"        <td width='20'><input type='checkbox' name='checkboxC_"+num+"' id='checkbox3' /></td>"+
-"        <td width='20'><input type='checkbox' name='checkboxD_"+num+"' id='checkbox4' /></td>"+
-"        <td width='20'><input type='checkbox' name='checkboxE_"+num+"' id='checkbox5' /></td>"+
-"        <td width='20'><input type='checkbox' name='checkboxF_"+num+"' id='checkbox6' /></td>"+
-"        <td width='20'><input type='checkbox' name='checkboxG_"+num+"' id='checkbox7' /></td>"+
-"        <td width='20'><input type='checkbox' name='checkboxH_"+num+"' id='checkbox8' /></td>"+
-"        <td width='20'><input type='checkbox' name='checkboxI_"+num+"' id='checkbox9' /></td>"+
-"        <td width='20'><input type='checkbox' name='checkboxJ_"+num+"' id='checkbox10' /></td>"+
-"        <td width='20'><input type='checkbox' name='checkboxK_"+num+"' id='checkbox11' /></td>"+
+"        <td><input type='checkbox' name='checkboxA_"+num+"'/></td>"+
+"        <td><input type='checkbox' name='checkboxB_"+num+"'/></td>"+
+"        <td><input type='checkbox' name='checkboxC_"+num+"'/></td>"+
+"        <td><input type='checkbox' name='checkboxD_"+num+"'/></td>"+
+"        <td><input type='checkbox' name='checkboxE_"+num+"'/></td>"+
+"        <td><input type='checkbox' name='checkboxF_"+num+"'/></td>"+
+"        <td><input type='checkbox' name='checkboxG_"+num+"'/></td>"+
+"        <td><input type='checkbox' name='checkboxH_"+num+"'/></td>"+
+"        <td><input type='checkbox' name='checkboxI_"+num+"'/></td>"+
+"        <td><input type='checkbox' name='checkboxJ_"+num+"'/></td>"+
+"        <td><input type='checkbox' name='checkboxK_"+num+"'/></td>"+
 "      </tr>";
 }
+
 function add_new_row(table,rowcontent){
 	if ($(table).length>0){
     	if ($(table+' > tbody').length==0) $(table).append('<tbody />');
@@ -139,8 +140,6 @@ function addNewRow(){
 
 function genNewAssignmentRow()
 {
-
-	
 	var  rowCount = 0;
 	rowCount++;
 	
@@ -200,16 +199,15 @@ function genNewAssignmentRow()
 
 function genNewSampleRow(course)
 {
-	
-	var num = get_num_sample_rows();
-	num++;
+	var num = increment_sample_row_count();
+    // rows are 0-indexed
+    num--;
 	return ""+
 	      "<tr>"+
 
-
 "<td width='33%' height='103'>Assignment Type:<br />"+
 
- "         <select id = 'sample_assignment_type_"+num+"' name='sample_assignment_type_"+num+"'>"+
+ "         <select id = 'sample_type_"+num+"' name='sample_type_"+num+"'>"+
 
   "          <option selected value='0' selected='selected'>Select Value</option>"+
 
@@ -229,9 +227,9 @@ function genNewSampleRow(course)
 
     "     <td width='33%'>Assignment Number:<br />"+
 
-      "     <select name='sample_assignment_number_"+num+"' id='sample_assignment_number_"+num+"'>"+
+      "     <select name='sample_number_"+num+"' id='sample_number_"+num+"'>"+
 
-        "     <option selected  value='0'>Select Number</option>"+
+        "     <option selected value='0'>Select Number</option>"+
 
           "   <option  value='1'>1</option>"+
 
@@ -254,31 +252,27 @@ function genNewSampleRow(course)
         "     <option  value='10'>10</option>"+
 
         "   </select></td>"+
+		  
+"		        <td width=\"33%\"><div id=file_upload_box_assignment_"+num+">Upload Assignment:</div><br />"+
 
-		  
-		  
-		  
-		  
-"		        <td width=\"33%\">Upload Assignment:<br />"+
-"			<iframe height=\"50%\" width=\"100%\"  frameBorder=\"0\" src=\"file/ajaxfileupload.php?course="+course+"&type=assignmnet&number="+(num )+"\"></iframe>"+
- "       </td>"+
- "     </tr >"+
-  "    <tr >"+
-   "     <td width=\"33%\">Upload sample solution worth of an &quot;A&quot;:<br />"+
-    "      <iframe height=\"50%\" width=\"100%\"  frameBorder=\"0\" src=\"file/ajaxfileupload.php?course="+course+"&type=A&number="+(num )+"\"></iframe>"+
-     "   </td>"+
-      "  <td width=\"33%\">Upload sample solution worth of an &quot;B&quot;:<br />"+
-       "  <iframe height=\"50%\" width=\"100%\"  frameBorder=\"0\" src=\"file/ajaxfileupload.php?course="+course+"&type=B&number="+(num )+"\"></iframe>"+
-  "      </td>"+
-   "     <td width=\"33%\">Upload sample solution worth of an &quot;C&quot;:<br />"+
-    "      <iframe height=\"50%\" width=\"100%\"  frameBorder=\"0\" src=\"file/ajaxfileupload.php?course="+course+"&type=C&number="+(num )+"\"></iframe>"+
-     "     </td>"+
-      "</tr>";
-		  
-		  
-		  
-		  
-       
+"           <input id='fileToUpload_assignment"+num+"' type='file' name='fileToUpload_assignment' class='input'>"+
+"        </div>"+
+"        </td>"+
+"      </tr >"+
+"      <tr>"+
+"        <td width='33%'><div id='file_upload_box_A_"+num+"'>"+
+         "Upload sample solution worth of an &quot;A&quot;:"+
+"           <input id='fileToUpload_A"+num+"' type='file' name='fileToUpload_A"+num+"' class='input'>"+
+"        </td>"+
+"        <td width='33%'><div id='file_upload_box_B_"+num+"'>"+
+         "Upload sample solution worth of an &quot;B&quot;:<br />"+
+"           <input id='fileToUpload_B"+num+"' type='file' name='fileToUpload_B"+num+"' class='input'>"+
+"        </td>"+
+"        <td width='33%'><div id='file_upload_box_C_"+num+"'>"+
+         "Upload sample solution worth of an &quot;C&quot;:<br />"+
+"           <input id='fileToUpload_C"+num+"' type='file' name='fileToUpload_C"+num+"' class='input'>"+
+"		</td>"+
+"     </tr>";
 }
 
 function unhide()
@@ -355,8 +349,21 @@ $.fn.serializeObject = function()
 
 $(function() {
     $('form').submit(function() {
-        //$('#result').text(JSON.stringify($('form').serializeObject()));
+        // Save course data (creates course on server if successful)
 		saveData(JSON.stringify($('form').serializeObject()));
+
+        // upload all files
+        for (var i=0; i<get_num_rows(); i++)
+        {
+            var assignment_type = $('#sample_type_'+i).attr('value');
+            var assignment_number = $('#sample_number_'+i).attr('value');
+
+            ajaxFileUpload(courseID, assignment_type, assignment_number, 'assignment', i);
+            ajaxFileUpload(courseID, assignment_type, assignment_number, 'A', i);
+            ajaxFileUpload(courseID, assignment_type, assignment_number, 'B', i);
+            ajaxFileUpload(courseID, assignment_type, assignment_number, 'C', i);
+        }
+
         return false;
     });
 });

@@ -4,7 +4,7 @@
     if(!isset($_GET['course']))die("ERROR: Course name not given.");
     $course = getCourseForID($_GET['course']);
 
-    $assignment = $course->assignmentForTypeNumber($_GET['type'], $_GET['number']);
+    $assignment = $course->assignments[$_GET['type'].$_GET['number']];
     if (isset($assignment->filename)) {
         echo "<a target='_blank' href='$assignment->filepath'>View File</a>";
     }

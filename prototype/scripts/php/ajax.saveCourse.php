@@ -15,34 +15,26 @@ $course->courseLearningOutcomes = array_filter(split("\n", $data['course_learnin
 $course->syllabus = $data['syllabus_and_grading'];
 $assignments = $course->assignments;
 
-for($i = 0 ; $i < $data['assignment_row_count'] ; $i++){
-
-	$type = $data['assignment_type_'.$i];
-	$number = $data['assignment_number_'.$i];
-    $assignment = $course->assignmentForTypeNumber($type, $number);
+for($i = 0; $i < $data['assignment_row_count']; $i++) 
+{
+	$type = $data['type_'.$i];
+	$number = $data['number_'.$i];
+    $assignmentKey = $type.$number;
+    $assignment = $course->assignments[$assignmentKey];
 
     if ($assignment == null)
     {
-        $assignment = array();
-        $assignment['assignment_type'] = $type;
-        $assignment['assignment_number'] = $number;
-        $assignment['learningOutcomes'] = array();
+        $assignment = new Assignment();
+        $assignment->type = $type;
+        $assignment->number = $number;
 
-        foreach (array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K') as $letter)
-            if ($data['checkbox'.$letter.'_'.$i] == 'on')
-                $assignment['learningOutcomes'][] = $letter;
+        $assignments[$assignmentKey] = $assignment;
+    }
 
-        $assignments[] = $assignment;
-    }
-    else
-    {
-        // reset the learning outcomes every time, easier than selectively
-        // adding and deleting as needed
-        $assignment->learningOutcomes = array();
-        foreach (array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K') as $letter)
-            if ($data['checkbox'.$letter.'_'.$i] == 'on')
-                $assignment->learningOutcomes[] = $letter;
-    }
+    $assignment->learningOutcomes = array();
+    foreach (array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K') as $letter)
+        if ($data['checkbox'.$letter.'_'.$i] == 'on')
+            $assignment->learningOutcomes[] = $letter;
 }
 
 // I don't know why this is necessary, but it is

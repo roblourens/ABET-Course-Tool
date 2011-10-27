@@ -200,9 +200,14 @@ jQuery.extend({
 })
 
 
-	function ajaxFileUpload(assignmentType, course, type, number)
+	function ajaxFileUpload(course, assignment_type, assignment_number, file_type, number)
 	{
-		
+        // if this id doesn't exist, the file is already uploaded (weak)
+        // if the value is empty, no file is to be uploaded
+        var elementId = 'fileToUpload_'+file_type+'_'+number;
+        if ($('#'+elementId).length == 0 || $('#'+elementId).attr('value')=="")
+            return;
+        
 		$("#loading")
 		.ajaxStart(function(){
 			$(this).show();
@@ -215,9 +220,9 @@ jQuery.extend({
 		(
 			{
 				
-				url:'file/doajaxfileupload.php?assignmnet_type='+assignmentType+'&course='+course+'&type='+type+'&number='+number,
+                url:'file/doajaxfileupload.php?course='+course+'&assignment_type='+assignment_type+'&assignment_number='+assignment_number+'&file_type='+file_type+'&element_id='+elementId,
 				secureuri:false,
-				fileElementId:'fileToUpload_'+type,
+				fileElementId:elementId,
 				dataType: 'json',
 				data:{name:'logan', id:'id'},
 				success: function (data, status)
@@ -230,7 +235,7 @@ jQuery.extend({
 						}else
 						{
 							alert(data.msg);
-							document.getElementById("file_upload_box_" + type + "_"+number).innerHTML = "<a href = '../data/courses/"+course+"/"+data.msg+"'>View File</a>";
+							$("#file_upload_box_" + file_type + "_"+number).html("<a href = '"+data.msg+"'>View File</a>");
 						}
 					}
 				},

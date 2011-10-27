@@ -8,7 +8,7 @@ class Assignment
 
     public $assignmentFileName = "";
 
-    public $sampleFileNames = array();
+    public $sampleFileNames = array("", "", "");
 
     public $learningOutcomes = array();
 }

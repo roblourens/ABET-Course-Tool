@@ -199,7 +199,7 @@ jQuery.extend({
     }
 })
 
-	function ajaxFileUpload(course, type, number)
+	function ajaxFileUpload(course, assignment_type, assignment_number, file_type)
 	{
 		$("#loading")
 		.ajaxStart(function(){
@@ -212,7 +212,7 @@ jQuery.extend({
 		$.ajaxFileUpload
 		(
 			{
-				url:'doajaxfileupload.php?course='+course+'&type='+type+'&number='+number,
+				url:'doajaxfileupload.php?course='+course+'&assignment_type='+assignment_type+'&assignment_number='+assignment_number+'&file_type='+file_type,
 				secureuri:false,
 				fileElementId:'fileToUpload',
 				dataType: 'json',
