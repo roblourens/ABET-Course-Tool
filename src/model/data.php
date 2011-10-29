@@ -104,7 +104,7 @@ function getCourseForID($courseID)
 
     $path = filePathForCourseID($courseID);
     if (!file_exists($path))
-        throw new Exception('courseID: '.$courseID.' does not exist!');
+        return null;
 
     $f = fopen($path, 'r');
     flock($f, LOCK_SH);
@@ -113,6 +113,18 @@ function getCourseForID($courseID)
 
     $result = json_decode($json);
     return new Course($result, $courseID);
+}
+
+function getEmptyCourse()
+{
+    global $ROOT;
+
+    $emptyCoursePath = $ROOT.'utils/empty.json';
+    $f = fopen($emptyCoursePath, 'r');
+    $json = fread($f, filesize($emptyCoursePath));
+    fclose($f);
+
+    return $json;
 }
 
 // Updates the course with the given courseID using the given JSON
@@ -136,6 +148,32 @@ function updateCourse($course)
         throw new Exception('Could not open '.$path." for writing");
 }
 
+function addCourse($course, $progID)
+{
+    global $PROGRAM;
+    $path = $PROGRAM.$progID.'.json';
+
+    if (!file_exists($path))
+        throw new Exception($path.' does not exist!');
+
+    $f = fopen($path, 'w');
+    if ($f)
+    {
+        flock($f, LOCK_EX);
+        $courseIDs = json_decode(fread($f, filesize($path)));
+        if (!in_array($course->courseID, $courseIDs))
+            $courseIDs[] = $course->courseID;
+
+        fwrite($f, json_encode($courseIDs));
+        fclose($f);
+
+        // adds course file to courses/<courseID>/<courseID>.json
+        updateCourse($course);
+    }
+    else
+        throw new Exception('Could not open '.$path.' for writing');
+}
+
 // Returns all program course IDs and department names
 // as array of objects [ { "short": "se", "long": "Software Engineering" }, ... ]
 function getPrograms()
@@ -154,13 +192,13 @@ function getPrograms()
     return json_decode($json);
 }
 
-function getProgramLongNameForID($deptID)
+function getProgramLongNameForID($progID)
 {
     $programs = getPrograms();
 
     foreach ($programs as $prog)
     {
-        if ($prog->short == $deptID)
+        if ($prog->short == $progID)
             return $prog->long;
     }
 

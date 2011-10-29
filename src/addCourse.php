@@ -1,45 +1,26 @@
 <?php
-if(isset($_REQUEST['code'])) {
-$courseId = $_REQUEST['code'];
-$courseId = str_replace(' ','',$courseId);
-$courseId = strtolower($courseId);
+require('./include.php');
+
+if(isset($_REQUEST['dept'])) {
+$dept = $_REQUEST['dept'];
+$dept = strtolower($dept);
+$courseNum = $_REQUEST['courseNum'];
+$courseID = $dept.$courseNum;
 $courseName = $_REQUEST['courseName'];
 $courseDesc = $_REQUEST['courseDesc'];
-//echo $courseId;
-
-$data = "{\"deptID\":\"\",\"courseNum\":\"\",\"courseID\":\"$courseId\",\"courseName\":\"$courseName\",\"description\":\"$courseDesc\"}";
-
-$myFile = $courseId.".json";
-if(!file_exists("data/courses/$courseId"))mkdir("data/courses/".$courseId);
-if(!file_exists("data/courses/$courseId/".$myFile)){
-	$fh = fopen("data/courses/$courseId/".$myFile, 'w');
-	$stringData = $data;
-	fwrite($fh, $stringData);
-	fclose($fh);
-}
 $program = $_REQUEST['program'];
 
+// convert department ID from catalog ID to this system's ID
+$dept = strtolower(str_replace(' ', '', $dept));
 
-$myFile = "data/program/".$program.".json";
-$fh = fopen($myFile, 'r');
-$theData = fread($fh, filesize($myFile));
-$json = json_decode($theData);
+$courseObj = getEmptyCourse();
+$courseObj->courseName = $courseName;
+$courseObj->description = $courseDesc;
+$courseObj->courseNum = $courseNum;
+$courseObj->courseID = $courseID;
+$courseObj->deptID = $dept;
 
-$add = true;
-foreach($json as $x){
-	if($x == $courseId){
-		$add = false;	
-	}
-}
-if($add){
-	$json[] = $courseId;
-}
-fclose($fh);
-$fh = fopen($myFile, 'w');
-fwrite($fh, json_encode($json));
-fclose($fh);
-
-
+addCourse($courseObj, $program);
 }
 
 
@@ -67,7 +48,8 @@ else if (window.ActiveXObject)   // IE: XMLHttpRequest is not native?
 
 function getXML(source)
 {
-   var code = document.getElementById("code").value;
+   var code = document.getElementById("dept").value + ' ' +
+              document.getElementById("courseNum").value;
    if (ReqObject)
    {
       ReqObject.overrideMimeType("text/xml");
@@ -105,7 +87,6 @@ function parse(xml)
    //place.innerHTML = desc;
    document.getElementById("courseName").value = courseName;
    document.getElementById("courseDesc").value = courseDesc;
-   document.getElementById("courseId").value = courseDesc;
 
 }
 
@@ -125,14 +106,20 @@ This is a strange block!!!
 
 <body>
 
-<form name="myform" id="myform" action="hack.php" method="GET">
-Course code [all in uppercase (COM S 309, CPR E 310, S E 319)]: <input id="code" name="code" type="text"/>
-<input type="button" value="retrieve" onClick="getXML('test.php');"/><br>
-<input type="text" id="courseName" name="courseName" /><br>
-<input type="text" id="courseDesc" name="courseDesc" /><br>
-<input type="text" id="program" name="program"/>
+<form name="myform" id="myform" action="addCourse.php" method="GET">
+Course dept (COM S, CPR E, S E): <input id="dept" name="dept" type="text"/><br />
+Course num (309, 418): <input id="courseNum" name="courseNum" type="text"/><br />
+<input type="button" value="Retrieve course data" onClick="getXML('readCatalog.php');"/><br /><br />
+Course name: <input type="text" id="courseName" name="courseName" /><br />
+Course description: <input type="text" id="courseDesc" name="courseDesc" /><br />
+Program ID: <select id="program" name="program">
+    <option value="se">Software Engineering</option>
+    <option value="ee">Electrical Engineering</option>
+    <option value="cpre">Computer Engineering</option>
+    <option value="coms">Computer Science</option>
+</select>
 
-<input type="submit">
+<input type="submit" value="Add course"/>
 </form>
 
 
