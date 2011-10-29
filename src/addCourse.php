@@ -2,32 +2,25 @@
 require('./include.php');
 
 if(isset($_REQUEST['dept'])) {
-$dept = $_REQUEST['dept'];
-$dept = strtolower($dept);
-$courseNum = $_REQUEST['courseNum'];
-$courseID = $dept.$courseNum;
-$courseName = $_REQUEST['courseName'];
-$courseDesc = $_REQUEST['courseDesc'];
-$program = $_REQUEST['program'];
+    $dept = $_REQUEST['dept'];
+    $dept = strtolower($dept);
+    $courseNum = $_REQUEST['courseNum'];
+    $courseName = $_REQUEST['courseName'];
+    $courseDesc = $_REQUEST['courseDesc'];
+    $program = $_REQUEST['program'];
 
-// convert department ID from catalog ID to this system's ID
-$dept = strtolower(str_replace(' ', '', $dept));
+    // convert department ID from catalog ID to this system's ID
+    $dept = strtolower(str_replace(' ', '', $dept));
+    $courseID = $dept.$courseNum;
 
-$courseObj = getEmptyCourse();
-$courseObj->courseName = $courseName;
-$courseObj->description = $courseDesc;
-$courseObj->courseNum = $courseNum;
-$courseObj->courseID = $courseID;
-$courseObj->deptID = $dept;
-
-addCourse($courseObj, $program);
+    $courseObj = getEmptyCourse();
+    $courseObj->courseName = $courseName;
+    $courseObj->description = $courseDesc;
+    $courseObj->courseNum = $courseNum;
+    $courseObj->courseID = $courseID;
+    $courseObj->deptID = $dept;
 }
-
-
-
 ?>
-
-
 <html>
 <head>
 <script>
@@ -105,6 +98,22 @@ This is a strange block!!!
 -->
 
 <body>
+<?php
+if(isset($_REQUEST['dept'])) {
+    switch (addCourse($courseObj, $program))
+    {
+        case 0:
+            echo "Success!\n";
+            break;
+        case 1:
+            echo "Course already in program index\n";
+            break;
+        case 2:
+            echo "Course file already exists, but is not in program index\n";
+            break;
+    }
+}
+?>
 
 <form name="myform" id="myform" action="addCourse.php" method="GET">
 Course dept (COM S, CPR E, S E): <input id="dept" name="dept" type="text"/><br />

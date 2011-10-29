@@ -121,20 +121,21 @@ function getEmptyCourse()
 
     $emptyCoursePath = $ROOT.'utils/empty.json';
     $f = fopen($emptyCoursePath, 'r');
-    $json = fread($f, filesize($emptyCoursePath));
+    $json = json_decode(fread($f, filesize($emptyCoursePath)));
     fclose($f);
 
-    return $json;
+    return new Course($json);
 }
 
 // Updates the course with the given courseID using the given JSON
-function updateCourse($course)
+// if newCourse is true, will create a new course file. Otherwise, will fail if the file doesn't already exist
+function updateCourse($course, $newCourse)
 {
     global $COURSE;
 
     $courseID = $course->courseID;
     $path = filePathForCourseID($courseID);
-    if (!file_exists($path))
+    if (!file_exists($path) && !$newCourse)
         throw new Exception('path: '.$path.' does not exist!');
 
     $f = fopen($path, 'w');
@@ -156,22 +157,38 @@ function addCourse($course, $progID)
     if (!file_exists($path))
         throw new Exception($path.' does not exist!');
 
-    $f = fopen($path, 'w');
+    $f = fopen($path, 'r+');
     if ($f)
     {
         flock($f, LOCK_EX);
         $courseIDs = json_decode(fread($f, filesize($path)));
-        if (!in_array($course->courseID, $courseIDs))
-            $courseIDs[] = $course->courseID;
+        if (!is_null($courseIDs))
+        {
+            if (!in_array($course->courseID, $courseIDs))
+                $courseIDs[] = $course->courseID;
+            else
+                return 1;
 
-        fwrite($f, json_encode($courseIDs));
-        fclose($f);
+            fseek($f, 0);
+            ftruncate($f, 0);
+            fwrite($f, json_encode($courseIDs));
+            fclose($f);
 
-        // adds course file to courses/<courseID>/<courseID>.json
-        updateCourse($course);
+            // creates folder courses/<courseID>
+            $courseFilePath = filePathForCourseID($course->courseID);
+            $courseFolder = dirname($courseFilePath);
+            if (file_exists($courseFolder))
+                return 2;
+            mkdir($courseFolder);
+
+            // adds course file to courses/<courseID>/<courseID>.json
+            updateCourse($course, true);
+        }
     }
     else
         throw new Exception('Could not open '.$path.' for writing');
+
+    return 0;
 }
 
 // Returns all program course IDs and department names
