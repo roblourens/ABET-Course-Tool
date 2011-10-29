@@ -2,5 +2,17 @@
     {
         "short": "se",
         "long": "Software Engineering"
+    },
+    {
+        "short": "cpre",
+        "long": "Computer Engineering"
+    },
+    {
+        "short": "ee",
+        "long": "Electrical Engineering"
+    },
+    {
+        "short": "coms",
+        "long": "Computer Science"
     }
 ]
