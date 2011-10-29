@@ -191,7 +191,7 @@ var courseID = '<?php echo $course->courseID; ?>';
         <td width="33%"><div id="file_upload_box_assignment_<?php echo $i ?>"><?php
         // Assignment block
         if ($assignment->assignmentFileName != "")
-            echo "<a href = '../data/course/".$course->courseID."/".$assignment->assignmentFileName."'>View File</a>";
+            echo "<a href = '../data/courses/".$course->courseID."/".$assignment->assignmentFileName."'>View File</a>";
         else
             echo "Upload Assignment:<br />
 <input id='fileToUpload_assignment_".$i."' type='file' name='fileToUpload_assignment_".$i."' class='input'>"; ?>
@@ -202,7 +202,7 @@ var courseID = '<?php echo $course->courseID; ?>';
         <td width="33%"><div id="<?php echo "file_upload_box_A_".$i?>"><?php
         // Sample A block
         if ($assignment->sampleFileNames[0] != "")
-            echo "<a href = '../data/course/".$course->courseID."/".$assignment->sampleFileNames[0]."'>View File</a>";
+            echo "<a href = '../data/courses/".$course->courseID."/".$assignment->sampleFileNames[0]."'>View File</a>";
         else
             echo "Upload sample solution worth of an &quot;A&quot;:
 <input id='fileToUpload_A_".$i."' type='file' name='fileToUpload_A_".$i."' class='input'>"; ?>
@@ -210,7 +210,7 @@ var courseID = '<?php echo $course->courseID; ?>';
         <td width="33%"><div id="<?php echo "file_upload_box_B_".$i?>"><?php
         // Sample B block
         if ($assignment->sampleFileNames[1] != "")
-            echo "<a href = '../data/course/".$course->courseID."/".$assignment->sampleFileNames[1]."'>View File</a>";
+            echo "<a href = '../data/courses/".$course->courseID."/".$assignment->sampleFileNames[1]."'>View File</a>";
         else
             echo "Upload sample solution worth of an &quot;B&quot;:<br />
 <input id='fileToUpload_B_".$i."' type='file' name='fileToUpload_B_".$i."' class='input'>"; ?>
@@ -218,7 +218,7 @@ var courseID = '<?php echo $course->courseID; ?>';
         <td width="33%"><div id="<?php echo "file_upload_box_C_".$i?>"><?php
         // Sample C block
         if ($assignment->sampleFileNames[2] != "")
-            echo "<a href = '../data/course/".$course->courseID."/".$assignment->sampleFileNames[2]."'>View File</a>";
+            echo "<a href = '../data/courses/".$course->courseID."/".$assignment->sampleFileNames[2]."'>View File</a>";
         else
             echo "Upload sample solution worth of an &quot;C&quot;:<br />
 <input id='fileToUpload_C_".$i."' type='file' name='fileToUpload_C_".$i."' class='input'>"; ?>
