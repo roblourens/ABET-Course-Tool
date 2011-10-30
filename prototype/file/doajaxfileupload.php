@@ -1,3 +1,4 @@
+<?php error_reporting(0);?>
 <?php 
     require_once("../../src/include.php");
 	$error = "";
