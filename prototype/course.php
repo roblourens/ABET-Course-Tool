@@ -57,7 +57,7 @@ var courseID = '<?php echo $course->courseID; ?>';
     <td colspan="13"><input type="button" name="button_save" id="displayText" onClick="javascript:toggle();" value="Show More Info" /></td>
   </tr>
   </table>
-  <div id="toggleText">
+  <div id="toggleText" >
   <hr />
   <table width="100%" border="0">
   <tr>
@@ -96,14 +96,16 @@ var courseID = '<?php echo $course->courseID; ?>';
 			      title="Knowledge of contemporary issues.">J</th>
                           <th id="k" align="center"
 			      title="Ability to use the techniques, skills and modern engineering tools necessary for engineering practice.">K</th>
+                           <th id="delete" align="center"
+			      title="Ability to use the techniques, skills and modern engineering tools necessary for engineering practice.">Mark For Deletion</th>
                  
       </tr>
      
       <?php $i=0;
       foreach ($course->assignments as $assignmentKey=>$assignment):?>
-      <tr <?php if($i % 2 == 1)echo "bgcolor=\"#b6b7bc\"" ?>>
-        <td><?php echo $i+1; ?></td>
-        <td>
+      <tr id="assignment_row_tr_<?php  echo $i?>" <?php if($i % 2 == 1)echo "bgcolor=\"#b6b7bc\"" ?>>
+        <td id="assignment_row_tr_<?php echo $i?>"><?php echo $i+1; ?></td>
+        <td id="assignment_row_tr_<?php echo $i?>">
         <select id = "type_<?php echo $i; ?>" name="type_<?php echo $i; ?>">
           <?php $assignmentType = $assignment->type; ?>
           <option <?php if($assignmentType == 0) echo "selected"; ?> value="0">Select Value</option>
@@ -114,7 +116,7 @@ var courseID = '<?php echo $course->courseID; ?>';
           <option <?php if($assignmentType == "midterm") echo "selected"; ?> value="midterm">Midterm</option>
           <option <?php if($assignmentType == "final") echo "selected"; ?> value="final">Final</option>
         </select></td>
-        <td><select name="number_<?php echo $i; ?>" id="select">
+        <td id="assignment_row_tr_<?php $i?>"><select name="number_<?php echo $i; ?>" id="select">
           <?php $number = $assignment->number; ?>
           <option <?php if($number == 0) echo "selected"; ?> value="0">Select Number</option>
           <option <?php if($number == 1) echo "selected"; ?> value="1">1</option>
@@ -128,17 +130,18 @@ var courseID = '<?php echo $course->courseID; ?>';
           <option <?php if($number == 9) echo "selected"; ?> value="9">9</option>
           <option <?php if($number == 10) echo "selected"; ?> value="10">10</option>
         </select></td>
-        <td><input type="checkbox" <?php if(in_array('A', $assignment->learningOutcomes)) echo "checked"?> name="checkboxA_<?php echo $i; ?>" /></td>
-        <td><input type="checkbox" <?php if(in_array('B', $assignment->learningOutcomes)) echo "checked"?> name="checkboxB_<?php echo $i; ?>" /></td>
-        <td><input type="checkbox" <?php if(in_array('C', $assignment->learningOutcomes)) echo "checked"?> name="checkboxC_<?php echo $i; ?>" /></td>
-        <td><input type="checkbox" <?php if(in_array('D', $assignment->learningOutcomes)) echo "checked"?> name="checkboxD_<?php echo $i; ?>" /></td>
-        <td><input type="checkbox" <?php if(in_array('E', $assignment->learningOutcomes)) echo "checked"?> name="checkboxE_<?php echo $i; ?>" /></td>
-        <td><input type="checkbox" <?php if(in_array('F', $assignment->learningOutcomes)) echo "checked"?> name="checkboxF_<?php echo $i; ?>" /></td>
-        <td><input type="checkbox" <?php if(in_array('G', $assignment->learningOutcomes)) echo "checked"?> name="checkboxG_<?php echo $i; ?>" /></td>
-        <td><input type="checkbox" <?php if(in_array('H', $assignment->learningOutcomes)) echo "checked"?> name="checkboxH_<?php echo $i; ?>" /></td>
-        <td><input type="checkbox" <?php if(in_array('I', $assignment->learningOutcomes)) echo "checked"?> name="checkboxI_<?php echo $i; ?>" /></td>
-        <td><input type="checkbox" <?php if(in_array('J', $assignment->learningOutcomes)) echo "checked"?> name="checkboxJ_<?php echo $i; ?>" /></td>
-        <td><input type="checkbox" <?php if(in_array('K', $assignment->learningOutcomes)) echo "checked"?> name="checkboxK_<?php echo $i; ?>" /></td>
+        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('A', $assignment->learningOutcomes)) echo "checked"?> name="checkboxA_<?php echo $i; ?>" /></td>
+        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('B', $assignment->learningOutcomes)) echo "checked"?> name="checkboxB_<?php echo $i; ?>" /></td>
+        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('C', $assignment->learningOutcomes)) echo "checked"?> name="checkboxC_<?php echo $i; ?>" /></td>
+        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('D', $assignment->learningOutcomes)) echo "checked"?> name="checkboxD_<?php echo $i; ?>" /></td>
+        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('E', $assignment->learningOutcomes)) echo "checked"?> name="checkboxE_<?php echo $i; ?>" /></td>
+        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('F', $assignment->learningOutcomes)) echo "checked"?> name="checkboxF_<?php echo $i; ?>" /></td>
+        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('G', $assignment->learningOutcomes)) echo "checked"?> name="checkboxG_<?php echo $i; ?>" /></td>
+        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('H', $assignment->learningOutcomes)) echo "checked"?> name="checkboxH_<?php echo $i; ?>" /></td>
+        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('I', $assignment->learningOutcomes)) echo "checked"?> name="checkboxI_<?php echo $i; ?>" /></td>
+        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('J', $assignment->learningOutcomes)) echo "checked"?> name="checkboxJ_<?php echo $i; ?>" /></td>
+        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('K', $assignment->learningOutcomes)) echo "checked"?> name="checkboxK_<?php echo $i; ?>" /></td>
+        <td bgcolor="#FFCCCC" align="center"><input type="checkbox" id = "checkbox_delete_<?php echo $i; ?>"  onclick="markAssignmentForDeletion('<?php echo $i?>')" name="checkbox_delete_<?php echo $i; ?>" /></td>
               </tr>
       <?php $i++; endforeach; ?>
       </table>

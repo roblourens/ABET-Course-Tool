@@ -367,3 +367,12 @@ $(function() {
         return false;
     });
 });
+
+
+
+function markAssignmentForDeletion(row){
+	if(document.getElementById("assignment_row_tr_"+row).bgColor != "#FFCCCC")
+	document.getElementById("assignment_row_tr_"+row).bgColor = "#FFCCCC";
+	else 
+	document.getElementById("assignment_row_tr_"+row).bgColor = "";
+}
