@@ -1,5 +1,3 @@
-
-
 function toggle() {
 	var ele = document.getElementById("toggleText");
 	var text = document.getElementById("displayText");
@@ -49,9 +47,9 @@ function add_assignment_row()
     // rows are 0-indexed
     num--;
 return ""+	
-" <tr "+str+">"+
-"        <td>"+(num+1)+"</td>"+
-"        <td><select name='type_"+num+"'>"+
+" <tr "+str+" id='assignment_row_tr_'"+num+"'"+">"+
+"        <td id='assignment_row_tr_'"+num+">"+(num+1)+"</td>"+
+"        <td id='assignment_row_tr_'"+num+"><select name='type_"+num+"'>"+
 "          <option value='0' selected='selected'>Select Value</option>"+
 "          <option value='homework'>Homework</option>"+
 "          <option value='test'>Test</option>"+
@@ -73,17 +71,18 @@ return ""+
 "          <option value='9'>9</option>"+
 "          <option value='10'>10</option>"+
 "          </select></td>"+
-"        <td><input type='checkbox' name='checkboxA_"+num+"'/></td>"+
-"        <td><input type='checkbox' name='checkboxB_"+num+"'/></td>"+
-"        <td><input type='checkbox' name='checkboxC_"+num+"'/></td>"+
-"        <td><input type='checkbox' name='checkboxD_"+num+"'/></td>"+
-"        <td><input type='checkbox' name='checkboxE_"+num+"'/></td>"+
-"        <td><input type='checkbox' name='checkboxF_"+num+"'/></td>"+
-"        <td><input type='checkbox' name='checkboxG_"+num+"'/></td>"+
-"        <td><input type='checkbox' name='checkboxH_"+num+"'/></td>"+
-"        <td><input type='checkbox' name='checkboxI_"+num+"'/></td>"+
-"        <td><input type='checkbox' name='checkboxJ_"+num+"'/></td>"+
-"        <td><input type='checkbox' name='checkboxK_"+num+"'/></td>"+
+"        <td id='assignment_row_tr_'"+num+"'><input type='checkbox' name='checkboxA_"+num+"'/></td>"+
+"        <td id='assignment_row_tr_'"+num+"'><input type='checkbox' name='checkboxB_"+num+"'/></td>"+
+"        <td id='assignment_row_tr_'"+num+"'><input type='checkbox' name='checkboxC_"+num+"'/></td>"+
+"        <td id='assignment_row_tr_'"+num+"'><input type='checkbox' name='checkboxD_"+num+"'/></td>"+
+"        <td id='assignment_row_tr_'"+num+"'><input type='checkbox' name='checkboxE_"+num+"'/></td>"+
+"        <td id='assignment_row_tr_'"+num+"'><input type='checkbox' name='checkboxF_"+num+"'/></td>"+
+"        <td id='assignment_row_tr_'"+num+"'><input type='checkbox' name='checkboxG_"+num+"'/></td>"+
+"        <td id='assignment_row_tr_'"+num+"'><input type='checkbox' name='checkboxH_"+num+"'/></td>"+
+"        <td id='assignment_row_tr_'"+num+"'><input type='checkbox' name='checkboxI_"+num+"'/></td>"+
+"        <td id='assignment_row_tr_'"+num+"'><input type='checkbox' name='checkboxJ_"+num+"'/></td>"+
+"        <td id='assignment_row_tr_'"+num+"'><input type='checkbox' name='checkboxK_"+num+"'/></td>"+
+"        <td bgcolor='#FFCCCC' align='center'><input type='checkbox' id = 'checkbox_delete_"+num+" onclick='markAssignmentForDeletion('"+num+"')' name='checkbox_delete_"+num+"' /></td>"+
 "      </tr>";
 }
 

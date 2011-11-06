@@ -14,8 +14,8 @@ $programs = getPrograms();
 <?php
 foreach ($programs as $prog)
 {
-    $progCourses = getCourseIDsForProgramID($prog->short);
-    echo "<h3 class='dept_name'>".$prog->long."</h3>";
+    $progCourses = getCourseIDsForProgramID($prog['short']);
+    echo "<h3 class='dept_name'>".$prog['long']."</h3>";
 
     foreach ($progCourses as $courseID)
     {

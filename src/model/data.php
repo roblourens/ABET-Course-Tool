@@ -111,20 +111,8 @@ function getCourseForID($courseID)
     $json = fread($f, filesize($path));
     fclose($f);
 
-    $result = json_decode($json);
+    $result = json_decode($json, true);
     return new Course($result, $courseID);
-}
-
-function getEmptyCourse()
-{
-    global $ROOT;
-
-    $emptyCoursePath = $ROOT.'utils/empty.json';
-    $f = fopen($emptyCoursePath, 'r');
-    $json = json_decode(fread($f, filesize($emptyCoursePath)));
-    fclose($f);
-
-    return new Course($json);
 }
 
 // Updates the course with the given courseID using the given JSON
@@ -142,7 +130,7 @@ function updateCourse($course, $newCourse)
     if ($f)
     {
         flock($f, LOCK_EX);
-        fwrite($f, $course->toJSON());
+        fwrite($f, json_encode($course));
         fclose($f);
     }
     else
@@ -161,7 +149,7 @@ function addCourse($course, $progID)
     if ($f)
     {
         flock($f, LOCK_EX);
-        $courseIDs = json_decode(fread($f, filesize($path)));
+        $courseIDs = json_decode(fread($f, filesize($path)), true);
         if (!is_null($courseIDs))
         {
             if (!in_array($course->courseID, $courseIDs))
@@ -192,7 +180,7 @@ function addCourse($course, $progID)
 }
 
 // Returns all program course IDs and department names
-// as array of objects [ { "short": "se", "long": "Software Engineering" }, ... ]
+// as array of assoc arrays [ { "short": "se", "long": "Software Engineering" }, ... ]
 function getPrograms()
 {
     global $MASTER_FILE;
@@ -206,7 +194,7 @@ function getPrograms()
     $json = fread($f, filesize($MASTER_FILE));
     fclose($f);
 
-    return json_decode($json);
+    return json_decode($json, true);
 }
 
 function getProgramLongNameForID($progID)
@@ -215,8 +203,8 @@ function getProgramLongNameForID($progID)
 
     foreach ($programs as $prog)
     {
-        if ($prog->short == $progID)
-            return $prog->long;
+        if ($prog['short'] == $progID)
+            return $prog['long'];
     }
 
     return "";

@@ -2,41 +2,38 @@
 
 class Course
 {
-    private $storage;
+    public $deptID = "";
 
-    public function Course($_courseObj, $_courseID)
+    public $courseNum = "";
+
+    public $courseID = "";
+
+    public $courseName = "";
+
+    public $description = "";
+
+    public $courseLearningOutcomes = array();
+
+    public $syllabus = "";
+
+    public $assignments = array();
+
+
+    public function Course($_courseArray=null)
     {
-        //global $ROOT;
-        //$schemaPath = $ROOT.'utils/courseSchema.json';
+        if ($_courseArray!=null)
+        {
+            $this->deptID = $_courseArray['deptID'];
+            $this->courseNum = $_courseArray['courseNum'];
+            $this->courseID = $_courseArray['courseID'];
+            $this->courseName = $_courseArray['courseName'];
+            $this->description = $_courseArray['description'];
+            $this->courseLearningOutcomes = $_courseArray['courseLearningOutcomes'];
+            $this->syllabus = $_courseArray['syllabus'];
 
-        //$schemaF = fopen($schemaPath, 'r');
-        //$schema = json_decode(fread($schemaF, filesize($schemaPath)));
-        //$result = JsonSchema::validate( $_courseObj, $schema);
-
-        //if (!$result->valid) {
-            //echo "Errors while validating ".$_courseID.": \n";
-            //print_r($result->errors);
-        //}
-        $this->storage = $_courseObj;
-
-        // unpack assignments into array
-        $this->storage->assignments = get_object_vars($_courseObj->assignments);
-    }
-
-    public function __get($name)
-    {
-        return $this->storage->$name;
-    }
-
-    public function __set($name, $value)
-    {
-        $this->storage->$name = $value;
-    }
-
-    // Returns the JSON representation of this course
-    public function toJSON()
-    {
-        return json_encode($this->storage);
+            foreach ($_courseArray['assignments'] as $key=>$assignmentArray)
+                $this->assignments[$key] = new Assignment($assignmentArray);
+        }
     }
 }
 
