@@ -348,9 +348,11 @@ $.fn.serializeObject = function()
 };
 
 $(function() {
-    $('form').submit(function() {
+    $('#save_course_form').submit(function() {
         // Save course data (creates course on server if successful)
-		saveData(JSON.stringify($('form').serializeObject()));
+        var obj = $('#save_course_form').serializeObject();
+        obj.course_learning_outcomes = obj.course_learning_outcomes.split('\r\n');
+		saveData(JSON.stringify(obj));
 
         // upload all files
         for (var i=0; i<get_num_rows(); i++)

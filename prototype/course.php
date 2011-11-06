@@ -18,7 +18,7 @@ var courseID = '<?php echo $course->courseID; ?>';
             
 
 
-<form>
+<form id="save_course_form">
 
 
 <table width="100%" border="0">
