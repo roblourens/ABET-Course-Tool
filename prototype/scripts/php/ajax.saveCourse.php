@@ -26,7 +26,7 @@ for($i = 0; $i < $data['assignment_row_count']; $i++)
     $assignments[$assignmentKey] = $assignment;
 
     $assignment->learningOutcomes = array();
-    foreach (array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K') as $letter)
+    foreach (learningOutcomesLetters() as $letter)
     {
         $checkboxLetterId = 'checkbox'.$letter.'_'.$i;
         if (array_key_exists($checkboxLetterId, $data) && $data[$checkboxLetterId] == 'on')
