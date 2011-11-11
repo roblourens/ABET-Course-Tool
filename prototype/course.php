@@ -26,15 +26,11 @@ var courseID = '<?php echo $course->courseID; ?>';
     <td colspan="13"><input type="submit" name="button_save" id="button_save" value="Save Course Info" /></td>
   </tr>
   <tr>
-    <td width="317">Course Department:</td>
-    <td width="487" colspan="10"><?php echo getProgramLongNameForID($course->deptID); ?></td>
+    <td width="317">Course:</td>
+    <td width="487" colspan="10"><?php echo getProgramLongNameForID($course->deptID); ?>&nbsp;<?php echo $course->courseNum; ?>
+      <input name="course_number" type="hidden" value="<?php echo $course->courseNum; ?>"/></td>
   </tr>
   <input name="course_id" type="hidden" value="<?php echo $course->courseID; ?>" />
-  <tr>
-    <td>Course Number:</td>
-    <td colspan="10"><?php echo $course->courseNum; ?><input name="course_number" type="hidden" value="<?php echo $course->courseNum; ?>"/></td>
-    </tr>
-  <tr>
     <td>Course Description:</td>
     <td colspan="10"><textarea name="course_description" cols="45" rows="5"><?php echo $course->description; ?></textarea></td>
   </tr>
