@@ -31,24 +31,24 @@
 <?php
 require('../src/include.php');
 
-if(isset($_REQUEST['dept'])) {
-    $dept = $_REQUEST['dept'];
-    $dept = strtolower($dept);
+if(isset($_REQUEST['designator'])) {
+    $designator = $_REQUEST['designator'];
+    $designator = strtolower($designator);
     $courseNum = $_REQUEST['courseNum'];
     $courseName = $_REQUEST['courseName'];
     $courseDesc = $_REQUEST['courseDesc'];
     $program = $_REQUEST['program'];
 
     // convert department ID from catalog ID to this system's ID
-    $dept = strtolower(str_replace(' ', '', $dept));
-    $courseID = $dept.$courseNum;
+    $designator = strtolower(str_replace(' ', '', $designator));
+    $courseID = $designator.$courseNum;
 
     $courseObj = getEmptyCourse();
     $courseObj->courseName = $courseName;
     $courseObj->description = $courseDesc;
     $courseObj->courseNum = $courseNum;
     $courseObj->courseID = $courseID;
-    $courseObj->deptID = $dept;
+    $courseObj->designatorID = $designator;
 }
 ?>
 <html>
@@ -71,7 +71,7 @@ else if (window.ActiveXObject)   // IE: XMLHttpRequest is not native?
 
 function getXML(source)
 {
-   var code = document.getElementById("dept").value + ' ' +
+   var code = document.getElementById("designator").value + ' ' +
               document.getElementById("courseNum").value;
    if (ReqObject)
    {
@@ -129,7 +129,7 @@ This is a strange block!!!
 
 <body>
 <?php
-if(isset($_REQUEST['dept'])) {
+if(isset($_REQUEST['designator'])) {
     switch (addCourse($courseObj, $program))
     {
         case 0:

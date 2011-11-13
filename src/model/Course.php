@@ -2,10 +2,11 @@
 
 class Course
 {
-    public $deptID = "";
+    public $designatorID = "";
 
     public $courseNum = "";
 
+    // just designatorID+courseNum
     public $courseID = "";
 
     public $courseName = "";
@@ -23,7 +24,7 @@ class Course
     {
         if ($_courseArray!=null)
         {
-            $this->deptID = $_courseArray['deptID'];
+            $this->designatorID = $_courseArray['designatorID'];
             $this->courseNum = $_courseArray['courseNum'];
             $this->courseID = $_courseArray['courseID'];
             $this->courseName = $_courseArray['courseName'];

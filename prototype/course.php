@@ -27,7 +27,7 @@ var courseID = '<?php echo $course->courseID; ?>';
   </tr>
   <tr>
     <td width="317">Course Department:</td>
-    <td width="487" colspan="10"><?php echo getProgramLongNameForID($course->deptID); ?></td>
+    <td width="487" colspan="10"><?php echo getDesignatorDisplayString($course->designatorID); ?></td>
   </tr>
   <input name="course_id" type="hidden" value="<?php echo $course->courseID; ?>" />
   <tr>

@@ -169,8 +169,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         echo "<strong>Found ".count($matches)." courses matching exactly these ABET learning outcomes.</strong>";
         foreach ($matches as $course)
         {
-            $deptName = getProgramLongNameForID($course->deptID);
-            echo "<div class='course_name'><a href='course.php?course=$course->courseID'>".$deptName." ".$course->courseNum."</a></div>";
+            $designatorName = getProgramLongNameForID($course->designatorID);
+            echo "<div class='course_name'><a href='course.php?course=$course->courseID'>".$designatorName." ".$course->courseNum."</a></div>";
         }
     }
 ?>

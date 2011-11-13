@@ -5,6 +5,7 @@ $DATA_ROOT = $ROOT.'data/';
 $MASTER_ROOT = $DATA_ROOT.'master/';
 $MASTER_FILE = $MASTER_ROOT.'index.json';
 $USERS_FILE = $MASTER_ROOT.'users.json';
+$DESIGNATORS_FILE = $MASTER_ROOT.'designators.json';
 $PROGRAM = $DATA_ROOT.'program/';
 $COURSE = $DATA_ROOT.'courses/';
 
@@ -179,6 +180,37 @@ function addCourse($course, $progID)
     return 0;
 }
 
+/*function removeCourseIDFromPID($courseID, $progID)
+{
+    global $PROGRAM;
+    $path = $PROGRAM.$progID.'.json';
+
+    if (!file_exists($path))
+        throw new Exception($path.' does not exist!');
+
+    $f = fopen($path, 'r+');
+    if ($f)
+    {
+        flock($f, LOCK_EX);
+        $courseIDs = json_decode(fread($f, filesize($path)), true);
+        if (!is_null($courseIDs))
+        {
+            if (!in_array($course->courseID, $courseIDs))
+                return 1; // but would probably ignore? or log warning?
+            else
+                // remove $courseID
+
+            fseek($f, 0);
+            ftruncate($f, 0);
+            fwrite($f, json_encode($courseIDs));
+            fclose($f);
+        }
+    }
+    // else
+        // error? other places as well? TODO
+}
+*/
+
 // Returns all program course IDs and department names
 // as array of assoc arrays [ { "short": "se", "long": "Software Engineering" }, ... ]
 function getPrograms()
@@ -227,6 +259,27 @@ function getCourseIDsForProgramID($progID)
     $courseIDs = json_decode($json);
     sort($courseIDs);
     return $courseIDs;
+}
+
+// returns the entry in designators.json, or returns $designator if it is
+// not in designators.json
+function getDesignatorDisplayString($designator)
+{
+    global $DESIGNATORS_FILE;
+    
+    if (!file_exists($DESIGNATORS_FILE))
+        throw new Exception('Designators file doesn\'t exist at '.$DESIGNATORS_FILE.'!');
+        
+    $f = fopen($DESIGNATORS_FILE, 'r');
+    flock($f, LOCK_SH);
+    $json = fread($f, filesize($DESIGNATORS_FILE));
+    fclose($f);
+
+    $designatorList = json_decode($json, true);
+    if (!in_array($designator, array_keys($designatorList)))
+        return $designator;
+
+    return $designatorList[$designator];
 }
 
 // Takes array of learning outcome IDs (like ['a', 'c', 'g']), returns matching Courses

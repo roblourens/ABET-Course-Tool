@@ -15,13 +15,13 @@ $programs = getPrograms();
 foreach ($programs as $prog)
 {
     $progCourses = getCourseIDsForProgramID($prog['short']);
-    echo "<h3 class='dept_name'>".$prog['long']."</h3>";
+    echo "<h3 class='prog_name'>".$prog['long']."</h3>";
 
     foreach ($progCourses as $courseID)
     {
         $course = getCourseForID($courseID);
-        $deptName = getProgramLongNameForID($course->deptID);
-        echo "<div class='course_name'><a href='course.php?course=$courseID'>".$deptName." ".$course->courseNum."</a></div>";
+        $desig = getDesignatorDisplayString($course->designatorID);
+        echo "<div class='course_name'><a href='course.php?course=$courseID'>".$desig." ".$course->courseNum."</a></div>";
     }
 
     echo "<br />";
