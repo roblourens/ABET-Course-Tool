@@ -1,7 +1,7 @@
 <?php require_once("include/header.php");?>
 <?php error_reporting(0); ?>
 <?php require_once("../src/include.php"); ?>
-<?php $color = "#666666"; ?>
+<?php $color = "#BBBBBB"; ?>
 <table width="100%" border="1">
   <tr>
     <th scope="col">Student Outcomes</th>
