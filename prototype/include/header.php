@@ -24,8 +24,8 @@
   <tr>
     <td width="25%" align="center"><a href="viewAllCourses.php">View All Courses</a></td>
     <td width="25%" align="center"><a href="search.php">Search By Learning Outcome</a></td>
-    <td width="25%" align="center"><a href="">View All Learning Outcomes</a></td>
-    <td width="25%" align="center"><a href="test-1.html">Add a course</a></td>
+    <td width="25%" align="center"><a href="table.php">View All Learning Outcomes</a></td>
+    <td width="25%" align="center"><a href="test-1.php">Add a course</a></td>
   </tr>
 </table>
 <?php error_reporting(0);?>
