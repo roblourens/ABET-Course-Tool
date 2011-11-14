@@ -7,7 +7,7 @@ $searched = false;
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     foreach (learningOutcomesLetters() as $letter)
-        if ($_POST['checkbox'.$letter]=='on')
+        if (array_key_exists('checkbox'.$letter, $_POST) && $_POST['checkbox'.$letter]=='on')
             $searchOutcomes[] = $letter;
 
     $searched = true;
@@ -169,7 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         echo "<strong>Found ".count($matches)." courses matching exactly these ABET learning outcomes.</strong>";
         foreach ($matches as $course)
         {
-            $designatorName = getProgramLongNameForID($course->designatorID);
+            $designatorName = getDesignatorDisplayString($course->designatorID);
             echo "<div class='course_name'><a href='course.php?course=$course->courseID'>".$designatorName." ".$course->courseNum."</a></div>";
         }
     }

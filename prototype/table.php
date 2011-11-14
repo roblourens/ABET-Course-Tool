@@ -17,28 +17,25 @@
     <th scope="col">J</th>
     <th scope="col">K</th>
   </tr>
-<?php if ($handle = opendir('../data/courses/')): ?>
-   <?php while (false !== ($file = readdir($handle))): ?>
-        <?php if(!is_dir($file)): ?>
-        <?php $course = getCourseForID($file); ?>
-        <?php $arr = $course->courseLearningOutcomes; ?>
+<?php foreach (getPrograms() as $prog): ?>
+   <?php foreach (getCourseIDsForProgramID($prog['short']) as $courseID): ?>
+        <?php $course = getCourseForID($courseID); ?>
+        <?php $arr = $course->allOutcomes(); ?>
   			<tr>
-    			<th scope="row" width = "15%"><?php echo strtoupper($course->deptID)." ".$course->courseNum; ?></th>
-    			<td <?php if(in_array("a", $arr)) echo "bgcolor = '$color'"; ?>></td>
-                <td <?php if(in_array("b", $arr)) echo "bgcolor = '$color'"; ?>></td>
-                <td <?php if(in_array("c", $arr)) echo "bgcolor = '$color'"; ?>></td>
-                <td <?php if(in_array("d", $arr)) echo "bgcolor = '$color'"; ?>></td>
-                <td <?php if(in_array("e", $arr)) echo "bgcolor = '$color'"; ?>></td>
-                <td <?php if(in_array("f", $arr)) echo "bgcolor = '$color'"; ?>></td>
-                <td <?php if(in_array("g", $arr)) echo "bgcolor = '$color'"; ?>></td>
-                <td <?php if(in_array("h", $arr)) echo "bgcolor = '$color'"; ?>></td>
-                <td <?php if(in_array("i", $arr)) echo "bgcolor = '$color'"; ?>></td>
-                <td <?php if(in_array("j", $arr)) echo "bgcolor = '$color'"; ?>></td>
-                <td <?php if(in_array("k", $arr)) echo "bgcolor = '$color'"; ?>></td>
+    			<th scope="row" width = "15%"><?php echo strtoupper($course->designatorID)." ".$course->courseNum; ?></th>
+    			<td <?php if(in_array("A", $arr)) echo "bgcolor = '$color'"; ?>></td>
+                <td <?php if(in_array("B", $arr)) echo "bgcolor = '$color'"; ?>></td>
+                <td <?php if(in_array("C", $arr)) echo "bgcolor = '$color'"; ?>></td>
+                <td <?php if(in_array("D", $arr)) echo "bgcolor = '$color'"; ?>></td>
+                <td <?php if(in_array("E", $arr)) echo "bgcolor = '$color'"; ?>></td>
+                <td <?php if(in_array("F", $arr)) echo "bgcolor = '$color'"; ?>></td>
+                <td <?php if(in_array("G", $arr)) echo "bgcolor = '$color'"; ?>></td>
+                <td <?php if(in_array("H", $arr)) echo "bgcolor = '$color'"; ?>></td>
+                <td <?php if(in_array("I", $arr)) echo "bgcolor = '$color'"; ?>></td>
+                <td <?php if(in_array("J", $arr)) echo "bgcolor = '$color'"; ?>></td>
+                <td <?php if(in_array("K", $arr)) echo "bgcolor = '$color'"; ?>></td>
   			</tr>
-  		<?php endif; ?>
-    <?php endwhile; ?>
-<?php closedir($handle); ?>
-<?php endif ?>
+    <?php endforeach; ?>
+<?php endforeach; ?>
 </table>
 <?php require_once("include/footer.php"); ?>

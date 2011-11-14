@@ -36,6 +36,31 @@ class Course
                 $this->assignments[$key] = new Assignment($assignmentArray);
         }
     }
+
+    // Returns true if each outcome is an outcomes for at least one assignment
+    public function matchesOutcomes($searchOutcomes)
+    {
+        $courseOutcomes = $this->allOutcomes();
+        foreach ($searchOutcomes as $outcome)
+            if (!in_array($outcome, $courseOutcomes))
+                return false;
+
+        return true;
+    }
+
+    public function allOutcomes()
+    {
+        $outcomes = array();
+        foreach($this->assignments as $assignment)
+        {
+            foreach($assignment->learningOutcomes as $outcome)
+                if (!in_array($outcome, $outcomes))
+                    $outcomes[] = $outcome;
+        }
+
+        sort($outcomes);
+        return $outcomes;
+    }
 }
 
 ?>

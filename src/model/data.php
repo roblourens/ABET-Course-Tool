@@ -292,30 +292,11 @@ function getCoursesForOutcomes($outcomes)
         foreach (getCourseIDsForProgramID($programID) as $courseID)
         {
             $course = getCourseForID($courseID);
-            if (courseMatchesOutcomes($course, $outcomes))
+            if ($course->matchesOutcomes($outcomes))
                 $matches[] = $course;
         }
     }
     return $matches;
-}
-
-// Returns true if each outcome is an outcomes for at least one assignment
-function courseMatchesOutcomes($course, $outcomes)
-{
-    foreach ($outcomes as $outcome)
-    {
-        $match = false;
-        foreach ($course->assignments as $assignment)
-            if (in_array($outcome, $assignment->learningOutcomes))
-            {
-                $match = true;
-                break;
-            }
-
-        if (!$match) return false;
-    }
-
-    return true;
 }
 
 function filePathForCourseID($courseID)
