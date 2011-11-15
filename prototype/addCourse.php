@@ -1,33 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-    <title>ABET</title>
-    <link href="../prototype/css/abet.css" rel="stylesheet" type="text/css" />
-	<script type="application/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-	<script type="application/javascript" src="../prototype/scripts/js/abet.js"></script>
-    <script type="application/javascript" src="../prototype/scripts/js/ajaxfileupload.js"></script>
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-</head>
-<body>
-    <div class="page">
-        <div class="header">
-            <div class="title">
-                <h1>
-                    ABET Software Application
-                </h1>
-            </div>
-            <div class="loginDisplay">
-                [ <a href="" id="HeadLoginView_HeadLoginStatus">Log In</a> ]
-            </div>
-        </div>
-<table width="100%" border="0" bgcolor="#CCCCCC">
-  <tr>
-    <td width="33%" align="center"><a href="../prototype/viewAllCourses.php">View All Courses</a></td>
-    <td width="33%" align="center"><a href="../prototype/search.php">Search By Learning Outcome</a></td>
-    <td width="33%" align="center"><a href="">View All Learning Outcomes</a></td>
-  </tr>
-</table>
-<?php error_reporting(0);?>
+<?php require_once("include/header.php");?>
 <?php
 require('../src/include.php');
 
@@ -43,7 +14,7 @@ if(isset($_REQUEST['designator'])) {
     $designator = strtolower(str_replace(' ', '', $designator));
     $courseID = $designator.$courseNum;
 
-    $courseObj = getEmptyCourse();
+    $courseObj = new Course();
     $courseObj->courseName = $courseName;
     $courseObj->description = $courseDesc;
     $courseObj->courseNum = $courseNum;
@@ -71,8 +42,10 @@ else if (window.ActiveXObject)   // IE: XMLHttpRequest is not native?
 
 function getXML(source)
 {
-   var code = document.getElementById("designator").value + ' ' +
-              document.getElementById("courseNum").value;
+   var code = document.getElementById("deptcourse").value;
+   /(.*)[ ]([0-9]{3})*/.test(code);
+   document.getElementById("designator").value = RegExp.$1;
+   document.getElementById("courseNum").value = RegExp.$2;
    if (ReqObject)
    {
       ReqObject.overrideMimeType("text/xml");
@@ -144,3 +117,29 @@ if(isset($_REQUEST['designator'])) {
     }
 }
 ?>
+
+<form>
+Course (As it appears in ISU Catalog): 
+<input type="text" id="deptcourse" name="deptcourse">
+<input type="button" value="Retrieve course data from ISU Catalog" onClick="getXML('readCatalog.php');"/><br /><br/>
+</form>
+<!-- just have two separate forms -->
+<br/><br/>
+<form name="myform" id="myform" action="addCourse.php" method="get">
+Course: <input type="text" id="designator" name="designator" size="3" readonly/>  <input type="text" id="courseNum" name="courseNum" size="4" readonly/><br/>
+Course name: <input type="text" id="courseName" name="courseName" size="35" readonly/><br/>
+Course description: <textarea id="courseDesc" name="courseDesc" cols="80", rows="10" readonly></textarea><br/>
+
+Program ID: <select id="program" name="program">
+    <option value="se">Software Engineering</option>
+    <option value="ee">Electrical Engineering</option>
+    <option value="cpre">Computer Engineering</option>
+    <option value="coms">Computer Science</option>
+</select>
+
+<input type="submit" value="Add Course to Program"/>
+</form>
+
+
+</body>
+</html>

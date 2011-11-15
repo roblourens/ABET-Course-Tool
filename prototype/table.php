@@ -5,24 +5,25 @@
 <table width="100%" border="1">
   <tr>
     <th scope="col">Student Outcomes</th>
-    <th scope="col">A</th>
-    <th scope="col">B</th>
-    <th scope="col">C</th>
-    <th scope="col">D</th>
-    <th scope="col">E</th>
-    <th scope="col">F</th>
-    <th scope="col">G</th>
-    <th scope="col">H</th>
-    <th scope="col">I</th>
-    <th scope="col">J</th>
-    <th scope="col">K</th>
+    <th id="a" align="center" title="Ability to apply knowledge of mathematics, science, engineering.">A</th>
+      <th align="center" title="An ability to design and conduct experiments, as well as to analyze and interpret data.">B</th>
+      <th align="center" title="Ability to design a system, component or process to meet desired needs within realistic constraints.">C</th>
+      <th align="center" title="Ability to function on multidisciplinary teams.">D</th>
+      <th align="center" title="Ability to identify, formulate and solve engineering problems.">E</th>
+      <th align="center" title="Understanding of professional and ethical responsibility.">F</th>
+      <th align="center" title="Ability to communicate effectively.">G</th>
+      <th align="center" title="The broad education necessary to understand the impact of engineering solutions in a global, economic, environmental and societal context.">H</th>
+      <th align="center" title="Recognition of the need for and an ability to engage in lifelong learning.">I</th>
+      <th align="center" title="Knowledge of contemporary issues.">J</th>
+      <th align="center" title="Ability to use the techniques, skills and modern engineering tools necessary for engineering practice.">K</th>
+
   </tr>
 <?php foreach (getPrograms() as $prog): ?>
    <?php foreach (getCourseIDsForProgramID($prog['short']) as $courseID): ?>
         <?php $course = getCourseForID($courseID); ?>
         <?php $arr = $course->allOutcomes(); ?>
   			<tr>
-    			<th scope="row" width = "15%"><?php echo strtoupper($course->designatorID)." ".$course->courseNum; ?></th>
+    			<th scope="row" width = "15%"><a href='<?php echo "course.php?course=".$course->courseID;?>'><?php echo strtoupper($course->designatorID)." ".$course->courseNum; ?></a></th>
     			<td <?php if(in_array("A", $arr)) echo "bgcolor = '$color'"; ?>></td>
                 <td <?php if(in_array("B", $arr)) echo "bgcolor = '$color'"; ?>></td>
                 <td <?php if(in_array("C", $arr)) echo "bgcolor = '$color'"; ?>></td>
