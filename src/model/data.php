@@ -117,15 +117,28 @@ function getCourseForID($courseID)
 }
 
 // Updates the course with the given courseID using the given JSON
-// if newCourse is true, will create a new course file. Otherwise, will fail if the file doesn't already exist
-function updateCourse($course, $newCourse)
+// if makeNewCourse is true, will create a new course file. Otherwise, will fail if the file doesn't already exist
+function updateCourse($course, $makeNewCourse=false)
+{
+    $courseToWrite = getCourseForID($course->courseID);
+    if ($makeNewCourse && is_null($courseToWrite))
+        $courseToWrite = $course;
+    else
+        $courseToWrite->update($course);
+
+    writeCourse($courseToWrite);
+}
+
+// writes the course object to disk without asking any questions
+function writeCourse($course)
 {
     global $COURSE;
 
     $courseID = $course->courseID;
     $path = filePathForCourseID($courseID);
-    if (!file_exists($path) && !$newCourse)
-        throw new Exception('path: '.$path.' does not exist!');
+    $courseDirectory = dirname($path);
+    if (!file_exists($courseDirectory))
+        mkdir($courseDirectory);
 
     $f = fopen($path, 'w');
     if ($f)
@@ -138,6 +151,7 @@ function updateCourse($course, $newCourse)
         throw new Exception('Could not open '.$path." for writing");
 }
 
+// $course is a Course object
 function addCourse($course, $progID)
 {
     global $PROGRAM;
@@ -164,11 +178,13 @@ function addCourse($course, $progID)
             fclose($f);
 
             // creates folder courses/<courseID>
-            $courseFilePath = filePathForCourseID($course->courseID);
-            $courseFolder = dirname($courseFilePath);
-            if (file_exists($courseFolder))
+            $existingCourse = getCourseForID($course->courseID);
+            if (!is_null($existingCourse))
+            {
+                $existingCourse->reqForProgram[$progID] = $course->reqForProgram[$progID];
+                updateCourse($existingCourse);
                 return 2;
-            mkdir($courseFolder);
+            }
 
             // adds course file to courses/<courseID>/<courseID>.json
             updateCourse($course, true);

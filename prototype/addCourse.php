@@ -9,6 +9,7 @@ if(isset($_REQUEST['designator'])) {
     $courseName = $_REQUEST['courseName'];
     $courseDesc = $_REQUEST['courseDesc'];
     $program = $_REQUEST['program'];
+    $reqType = $_REQUEST['reqType'];
 
     // convert department ID from catalog ID to this system's ID
     $designator = strtolower(str_replace(' ', '', $designator));
@@ -20,6 +21,7 @@ if(isset($_REQUEST['designator'])) {
     $courseObj->courseNum = $courseNum;
     $courseObj->courseID = $courseID;
     $courseObj->designatorID = $designator;
+    $courseObj->reqForProgram[$program] = $reqType;
 }
 ?>
 <html>
@@ -136,7 +138,11 @@ Program ID: <select id="program" name="program">
     <option value="cpre">Computer Engineering</option>
     <option value="coms">Computer Science</option>
 </select>
-
+<br />
+<input type="radio" value="E" name="reqType">Elective</input>
+<br />
+<input type="radio" value="R" name="reqType">Required</input>
+<br />
 <input type="submit" value="Add Course to Program"/>
 </form>
 
