@@ -5,9 +5,16 @@ $json = str_replace('\\', '', $_POST['json']);
 $data = json_decode($json, true);
 
 $course = getCourseForID($data['course_id']);
+$course->instructors = $data['course_instructor'];    // Course instructor information
 $course->description = $data['course_description'];
 $course->courseLearningOutcomes = array_filter($data['course_learning_outcomes'], "isNonEmptyString");
 $course->syllabus = $data['syllabus_and_grading'];
+
+// modification date updates if any
+$course->descMod = $data['descMod'];    
+$course->assignMod = $data['assignMod'];
+$course->outcomesMod = $data['outcomesMod'];
+ 
 $assignments = array();
 
 for($i = 0; $i < $data['assignment_row_count']; $i++) 

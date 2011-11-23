@@ -196,7 +196,7 @@ function addCourse($course, $progID)
     return 0;
 }
 
-/*function removeCourseIDFromPID($courseID, $progID)
+function removeCourseIDFromPID($courseID, $progID)
 {
     global $PROGRAM;
     $path = $PROGRAM.$progID.'.json';
@@ -214,7 +214,10 @@ function addCourse($course, $progID)
             if (!in_array($course->courseID, $courseIDs))
                 return 1; // but would probably ignore? or log warning?
             else
-                // remove $courseID
+            {
+                unset($courseIDs[array_search($course->courseID, $courseIDs)]);
+                $courseIDs = array_values($courseIDs);
+            }
 
             fseek($f, 0);
             ftruncate($f, 0);
@@ -225,7 +228,6 @@ function addCourse($course, $progID)
     // else
         // error? other places as well? TODO
 }
-*/
 
 // Returns all program course IDs and department names
 // as array of assoc arrays [ { "short": "se", "long": "Software Engineering" }, ... ]
@@ -298,7 +300,25 @@ function getDesignatorDisplayString($designator)
     return $designatorList[$designator];
 }
 
-// Takes array of learning outcome IDs (like ['a', 'c', 'g']), returns matching Courses
+// Takes array of learning outcome IDs (like ['a', 'c', 'g']), 
+// and the program (ee, cpre, se); and returns matching Courses
+function getCoursesForOutcomesInProg($outcomes, $programID)
+{
+    $matches = array();
+    $courseArray = array();
+    $courseArray = getCourseIdsForProgramID($programID);
+    if (!empty($courseArray)) 
+    {
+    foreach ($courseArray as $courseID)
+    {
+            $course = getCourseForID($courseID);
+            if ($course->matchesOutcomes($outcomes))
+                $matches[] = $course;
+    }
+    }
+    return $matches;
+}
+
 function getCoursesForOutcomes($outcomes)
 {
     $matches = array();

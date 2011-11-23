@@ -6,6 +6,26 @@
             "required": true, 
             "type": "string"
         }, 
+        "instructor": {
+            "additionalProperties": false, 
+            "required": true, 
+            "type": "string"  
+        },
+        "descMod": {
+            "additionalProperties": false, 
+            "required": true, 
+            "type": "string"  
+        },
+        "assignMod": {
+            "additionalProperties": false, 
+            "required": true, 
+            "type": "string"  
+        },
+        "outcomesMod": {
+            "additionalProperties": false, 
+            "required": true, 
+            "type": "string"  
+        },
         "description": {
             "additionalProperties": false, 
             "required": true, 

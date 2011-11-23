@@ -1,7 +1,25 @@
 <?php require_once("include/header.php");?>
 <?php error_reporting(0); ?>
 <?php require_once("../src/include.php"); ?>
+<?php
+$inputprog = $_GET['inputprog'];
+?>
 <?php $color = "#BBBBBB"; ?>
+
+
+<form name="tableform" action="table.php" method="get">
+<h3>    
+View the mapping of ABET Student outcomes to the courses in                 
+                <select name="inputprog" onchange="javascript:document.tableform.submit()">
+                    <option value="">Select a program</option>
+                    <option value="cpre">Computer Engineering</option>
+                    <option value="ee">Electrical Engineering</option>
+                    <option value="se">Software Engineering</option>
+                </select>
+                program
+</h3>
+</form>
+<p/>
 <table width="100%" border="1">
   <tr>
     <th scope="col">Student Outcomes</th>
@@ -19,6 +37,7 @@
 
   </tr>
 <?php foreach (getPrograms() as $prog): ?>
+  <?php if ($prog['short'] == $inputprog): ?>
    <?php foreach (getCourseIDsForProgramID($prog['short']) as $courseID): ?>
         <?php $course = getCourseForID($courseID); ?>
         <?php $arr = $course->allOutcomes(); ?>
@@ -37,6 +56,7 @@
                 <td <?php if(in_array("K", $arr)) echo "bgcolor = '$color'"; ?>></td>
   			</tr>
     <?php endforeach; ?>
+  <?php endif; ?>
 <?php endforeach; ?>
 </table>
 <?php require_once("include/footer.php"); ?>

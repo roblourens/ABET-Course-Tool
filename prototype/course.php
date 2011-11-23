@@ -1,4 +1,14 @@
 <?php require_once("include/header.php");?>
+<!----------------------------------------------------------->
+<!-- Including required scripts and styles for the tabbing -->
+
+<script type="text/javascript" src="tabber.js"></script>
+<link rel="stylesheet" href="tab.css" TYPE="text/css" MEDIA="screen">
+<!----------------------------------------------------------->
+
+
+
+
 <h1>
 <?php
 require_once("../src/include.php");
@@ -10,56 +20,101 @@ $course = getCourseForID($_GET['course']);
 var courseID = '<?php echo $course->courseID; ?>';
 </script>
 
-        <div class="main">
-            <h2>
-                Course Information
-            </h2>
-            <hr />
+<div class="main">
             
 
+<h3>Course Information</h3>
+<hr/>
+
+<!-- Src: http://www.barelyfitz.com/projects/tabber/ -->            
+<div class="tabber">
+
+<!------------------------------------------------------------------->
+<!-- First Segment -->
+<!------------------------------------------------------------------->
+<div class="tabbertab" title="General Course Information">
 
 <form id="save_course_form">
-
-
 <table width="100%" border="0">
+
   <tr>
-    <td colspan="13"><input type="submit" name="button_save" id="button_save" value="Save Course Info" /></td>
-  </tr>
-  <tr>
-    <td width="317">Course:</td>
+    <td width="317">Course</td>
     <td width="487" colspan="10"><?php echo getDesignatorDisplayString($course->designatorID); ?>&nbsp;<?php echo $course->courseNum; ?>
-      <input name="course_number" type="hidden" value="<?php echo $course->courseNum; ?>"/></td>
+    <?php echo $course->courseName; ?> 
+      <input name="course_number" type="hidden" value="<?php echo $course->courseNum; ?>"/></td> 
   </tr>
+
+  <tr>
+    <td>Instructor/Course Coordinator</td>
+    <td colspan="10"><textarea name="course_instructor" cols="80" rows="1"><?php echo $course->instructors; ?></textarea></td>
+  </tr>
+
+  <tr>
   <input name="course_id" type="hidden" value="<?php echo $course->courseID; ?>" />
-    <td>Course Description:</td>
-    <td colspan="10"><textarea name="course_description" cols="45" rows="5"><?php echo $course->description; ?></textarea></td>
+    <td>Course Description</td>
+    <td colspan="10"><textarea name="course_description" cols="80" rows="5"><?php echo $course->description; ?></textarea></td>
   </tr>
+
   <tr>
-    <td>Syllabus &amp; Grading Guidelines:</td>
-    <td colspan="10"><textarea name="syllabus_and_grading" cols="45" rows="5"><?php echo $course->syllabus; ?></textarea></td>
+    <td>Specific Course Information [<label title="Example"><font color="red">Example?</font></label>] 
+       <ul>
+         <li>Text Book, title, author and year</li>
+         <li>Brief list of topics to be covered</li> 
+       </ul>
+    </td>
+    <td colspan="10"><textarea name="syllabus_and_grading" cols="80" rows="5"><?php echo $course->syllabus; ?></textarea></td>
   </tr>
+
   <tr>
-    <td>Course Learning Outcomes</td>
-    <td colspan="10"><textarea name="course_learning_outcomes" cols="45" rows="5"><?php 
-    $lo = "";
-    foreach ($course->courseLearningOutcomes as $learningOutcome)
-        $lo.=$learningOutcome."\n";
-    echo $lo; ?></textarea></td>
+    <td>Specific Goals for the course [<label title="Example"><font color="red">Example?</font></label>] 
+       <ul>
+          <li>Specific outcomes of instruction<br/> 
+              (Each outcome separated by ";")
+          </li>
+       </ul>
+    </td>
+    <td colspan="10"><textarea name="course_learning_outcomes" cols="80" rows="5">
+      <?php 
+         $lo = "";
+         foreach ($course->courseLearningOutcomes as $learningOutcome)
+         $lo.=$learningOutcome."\n";
+         echo $lo; ?></textarea>
+    </td>
   </tr>
+
+  <tr>
+    <td>Date of Modification [MM/DD/YY]</td>
+    <td colspan="10"><input type="text" name="descMod" cols="8" rows="1" value="<?php echo $course->descMod; ?>"/></td>
+  </tr>
+
   <tr>
     <td colspan="13"><input type="submit" name="button_save" id="button_save" value="Save Course Info" /></td>
   </tr>
-   <tr>
-    <td colspan="13"><input type="button" name="button_save" id="displayText" onClick="javascript:toggle();" value="Show More Info" /></td>
-  </tr>
-  </table>
-  <div id="toggleText" >
-  <hr />
-  <table width="100%" border="0">
+
+<!-- No need in tabbed view
   <tr>
-    <td colspan="13"><h2>Assignments That Follow ABET:</h2></td>
+    <td colspan="13">
+     <input type="button" name="button_save" id="displayText" onClick="javascript:toggle();" value="Show More Info" />
+    </td>
   </tr>
- <tr height="10px"></tr>
+-->
+  </table>
+
+</div> <!-- end of div class tabbertab for first segment-->
+
+
+<!------------------------------------------------------------------->
+<!-- Second Segment -->
+<!------------------------------------------------------------------->
+<div class="tabbertab" title="ABET Student Outcomes">
+
+  <table width="100%" border="0">
+
+  <tr>
+    <td colspan="13"><h2>ABET Student Outcomes</h2></td>
+  </tr>
+  <tr height="10px"></tr>
+
   <tr>
     <td colspan="13">
     
@@ -67,8 +122,8 @@ var courseID = '<?php echo $course->courseID; ?>';
     
     <table id="assignmentsTable" border="0">
       <tr width="100%">
-        <th width="53">Index</th>
-        <th width="54">Assignment Type</th>
+        <th width="*">Index</th>
+        <th width="*">Assignment Type</th>
         <th>Assignment#</th>
 		<th id="a" align="center"  
 			      title="Ability to apply knowledge of mathematics, science, engineering.">A</th>
@@ -100,7 +155,10 @@ var courseID = '<?php echo $course->courseID; ?>';
       <?php $i=0;
       foreach ($course->assignments as $assignmentKey=>$assignment):?>
       <tr id="assignment_row_tr_<?php  echo $i?>" <?php if($i % 2 == 1)echo "bgcolor=\"#b6b7bc\"" ?>>
-        <td id="assignment_row_tr_<?php echo $i?>"><?php echo $i+1; ?></td>
+
+        <td id="assignment_row_tr_<?php echo $i?>"><?php echo $i+1; ?>
+        </td>
+
         <td id="assignment_row_tr_<?php echo $i?>">
         <select id = "type_<?php echo $i; ?>" name="type_<?php echo $i; ?>">
           <?php $assignmentType = $assignment->type; ?>
@@ -111,8 +169,11 @@ var courseID = '<?php echo $course->courseID; ?>';
           <option <?php if($assignmentType == "quiz") echo "selected"; ?> value="quiz">Quiz</option>
           <option <?php if($assignmentType == "midterm") echo "selected"; ?> value="midterm">Midterm</option>
           <option <?php if($assignmentType == "final") echo "selected"; ?> value="final">Final</option>
-        </select></td>
-        <td id="assignment_row_tr_<?php $i?>"><select name="number_<?php echo $i; ?>" id="select">
+        </select>
+        </td>
+
+        <td id="assignment_row_tr_<?php $i?>">
+        <select name="number_<?php echo $i; ?>" id="select">
           <?php $number = $assignment->number; ?>
           <option <?php if($number == 0) echo "selected"; ?> value="0">Select Number</option>
           <option <?php if($number == 1) echo "selected"; ?> value="1">1</option>
@@ -125,38 +186,82 @@ var courseID = '<?php echo $course->courseID; ?>';
           <option <?php if($number == 8) echo "selected"; ?> value="8">8</option>
           <option <?php if($number == 9) echo "selected"; ?> value="9">9</option>
           <option <?php if($number == 10) echo "selected"; ?> value="10">10</option>
-        </select></td>
-        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('A', $assignment->learningOutcomes)) echo "checked"?> name="checkboxA_<?php echo $i; ?>" /></td>
-        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('B', $assignment->learningOutcomes)) echo "checked"?> name="checkboxB_<?php echo $i; ?>" /></td>
-        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('C', $assignment->learningOutcomes)) echo "checked"?> name="checkboxC_<?php echo $i; ?>" /></td>
-        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('D', $assignment->learningOutcomes)) echo "checked"?> name="checkboxD_<?php echo $i; ?>" /></td>
-        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('E', $assignment->learningOutcomes)) echo "checked"?> name="checkboxE_<?php echo $i; ?>" /></td>
-        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('F', $assignment->learningOutcomes)) echo "checked"?> name="checkboxF_<?php echo $i; ?>" /></td>
-        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('G', $assignment->learningOutcomes)) echo "checked"?> name="checkboxG_<?php echo $i; ?>" /></td>
-        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('H', $assignment->learningOutcomes)) echo "checked"?> name="checkboxH_<?php echo $i; ?>" /></td>
-        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('I', $assignment->learningOutcomes)) echo "checked"?> name="checkboxI_<?php echo $i; ?>" /></td>
-        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('J', $assignment->learningOutcomes)) echo "checked"?> name="checkboxJ_<?php echo $i; ?>" /></td>
-        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('K', $assignment->learningOutcomes)) echo "checked"?> name="checkboxK_<?php echo $i; ?>" /></td>
-        <td bgcolor="#FFCCCC" align="center"><input type="checkbox" id = "checkbox_delete_<?php echo $i; ?>"  onclick="markAssignmentForDeletion('<?php echo $i?>')" name="checkbox_delete_<?php echo $i; ?>" /></td>
-              </tr>
-      <?php $i++; endforeach; ?>
-      </table>
-    <input type="button" name="add_another_assignment" id="add_another_assignment" value="Add Another Assignment" onclick="add_new_row('#assignmentsTable', add_assignment_row());" />
+        </select>
+        </td>
+
+        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('A', $assignment->learningOutcomes)) echo "checked"?> name="checkboxA_<?php echo $i; ?>" />
+        </td>
+
+        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('B', $assignment->learningOutcomes)) echo "checked"?> name="checkboxB_<?php echo $i; ?>" />
+        </td>
+
+        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('C', $assignment->learningOutcomes)) echo "checked"?> name="checkboxC_<?php echo $i; ?>" />
+        </td>
+
+        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('D', $assignment->learningOutcomes)) echo "checked"?> name="checkboxD_<?php echo $i; ?>" />
+        </td>
+
+        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('E', $assignment->learningOutcomes)) echo "checked"?> name="checkboxE_<?php echo $i; ?>" />
+        </td>
+
+        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('F', $assignment->learningOutcomes)) echo "checked"?> name="checkboxF_<?php echo $i; ?>" />
+        </td>
+
+        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('G', $assignment->learningOutcomes)) echo "checked"?> name="checkboxG_<?php echo $i; ?>" />
+        </td>
+
+        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('H', $assignment->learningOutcomes)) echo "checked"?> name="checkboxH_<?php echo $i; ?>" />
+        </td>
+
+        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('I', $assignment->learningOutcomes)) echo "checked"?> name="checkboxI_<?php echo $i; ?>" />
+        </td>
+
+        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('J', $assignment->learningOutcomes)) echo "checked"?> name="checkboxJ_<?php echo $i; ?>" />
+        </td>
+
+        <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('K', $assignment->learningOutcomes)) echo "checked"?> name="checkboxK_<?php echo $i; ?>" />
+        </td>
+
+        <td bgcolor="#FFCCCC" align="center"><input type="checkbox" id = "checkbox_delete_<?php echo $i; ?>"  onclick="markAssignmentForDeletion('<?php echo $i?>')" name="checkbox_delete_<?php echo $i; ?>" />
+        </td>
+     </tr>
+     <?php $i++; endforeach; ?>
+    </table>
+
+    <input type="button" name="add_another_assignment" id="add_another_assignment" value="Add a New Assignment" onclick="add_new_row('#assignmentsTable', add_assignment_row());" />
     </td>
     </tr>
-    <br /></td>
+    <br />
+  </td>
   </tr>
+
   <tr>
-    <td colspan="13"></form>
-<hr />
+    <td>Date of Modification [MM/DD/YY]: <input type="text" name="outcomesMod" cols="8" rows="1" value="<?php echo $course->outcomesMod; ?>"/></td>
+  </tr>
+
+
+</table>
+<input type="submit" name="button_save" id="button_save" value="Save Course Info" />
+<!--</form>-->
+
+</div> <!-- end of div class tabbertab for second segment -->
+
+
+<!-- Third Segment -->
+<div class="tabbertab" title="Sample Student Assignments">
+
   <table width="100%" border="0">
   <tr>
     <td colspan="13"><h2>Sample Assignments:</h2></td>
     <input type="hidden" id="sample_assignment_row_count" name="sample_assignment_row_count" value="<?php echo count($course->assignments); ?>"/>
   </tr>
+
   <tr height="10px"></tr>
+
   <tr>
-    <td colspan="13"><table width="100%" border="1" id="sampleAssignments">
+    <td colspan="13">
+
+    <table width="100%" border="1" id="sampleAssignments">
       
       
       <?php $i=0;
@@ -173,6 +278,7 @@ var courseID = '<?php echo $course->courseID; ?>';
             <option <?php if($assignment->type == "midterm") echo "selected"; ?> value="midterm">Midterm</option>
             <option <?php if($assignment->type == "final") echo "selected"; ?> value="final">Final</option>
           </select></td>
+
         <td width="33%">Assignment Number:<br />
           <select name="sample_number_<?php echo $i; ?>" id="sample_number_<?php echo $i; ?>">
             <option <?php if($assignment->number == 0) echo "selected"; ?> value="0">Select Number</option>
@@ -187,6 +293,7 @@ var courseID = '<?php echo $course->courseID; ?>';
             <option <?php if($assignment->number == 9) echo "selected"; ?> value="9">9</option>
             <option <?php if($assignment->number == 10) echo "selected"; ?> value="10">10</option>
           </select></td>
+
         <td width="33%"><div id="file_upload_box_assignment_<?php echo $i ?>"><?php
         // Assignment block
         if ($assignment->assignmentFileName != "")
@@ -196,45 +303,79 @@ var courseID = '<?php echo $course->courseID; ?>';
 <input id='fileToUpload_assignment_".$i."' type='file' name='fileToUpload_assignment_".$i."' class='input'>"; ?>
         </div>
         </td>
+
       </tr >
+
       <tr <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
-        <td width="33%"><div id="<?php echo "file_upload_box_A_".$i?>"><?php
-        // Sample A block
-        if ($assignment->sampleFileNames[0] != "")
-            echo "<a href = '../data/courses/".$course->courseID."/".$assignment->sampleFileNames[0]."'>View File</a>";
-        else
-            echo "Upload sample solution worth of an &quot;A&quot;:
-<input id='fileToUpload_A_".$i."' type='file' name='fileToUpload_A_".$i."' class='input'>"; ?>
+        <td width="33%">
+                  <div id="<?php echo "file_upload_box_A_".$i?>">
+                           <?php
+                             // Sample A block
+                                if ($assignment->sampleFileNames[0] != "")
+                                   echo "<a href = '../data/courses/".$course->courseID."/".$assignment->sampleFileNames[0]."'>View File</a>";
+                                else
+                                   echo "Upload sample solution worth of an &quot;A&quot;:
+                                <input id='fileToUpload_A_".$i."' type='file' name='fileToUpload_A_".$i."' class='input'>"; ?>
+                  </div>
         </td>
-        <td width="33%"><div id="<?php echo "file_upload_box_B_".$i?>"><?php
-        // Sample B block
-        if ($assignment->sampleFileNames[1] != "")
-            echo "<a href = '../data/courses/".$course->courseID."/".$assignment->sampleFileNames[1]."'>View File</a>";
-        else
-            echo "Upload sample solution worth of an &quot;B&quot;:<br />
-<input id='fileToUpload_B_".$i."' type='file' name='fileToUpload_B_".$i."' class='input'>"; ?>
+
+        <td width="33%">
+                <div id="<?php echo "file_upload_box_B_".$i?>">
+                         <?php
+                          // Sample B block
+                             if ($assignment->sampleFileNames[1] != "")
+                               echo "<a href = '../data/courses/".$course->courseID."/".$assignment->sampleFileNames[1]."'>View File</a>";
+                             else
+                               echo "Upload sample solution worth of an &quot;B&quot;:<br />
+                             <input id='fileToUpload_B_".$i."' type='file' name='fileToUpload_B_".$i."' class='input'>"; ?>
+                </div>
         </td>
-        <td width="33%"><div id="<?php echo "file_upload_box_C_".$i?>"><?php
-        // Sample C block
-        if ($assignment->sampleFileNames[2] != "")
-            echo "<a href = '../data/courses/".$course->courseID."/".$assignment->sampleFileNames[2]."'>View File</a>";
-        else
-            echo "Upload sample solution worth of an &quot;C&quot;:<br />
-<input id='fileToUpload_C_".$i."' type='file' name='fileToUpload_C_".$i."' class='input'>"; ?>
-		</td>
+
+        <td width="33%">
+               <div id="<?php echo "file_upload_box_C_".$i?>">
+                        <?php
+                         // Sample C block
+                             if ($assignment->sampleFileNames[2] != "")
+                                 echo "<a href = '../data/courses/".$course->courseID."/".$assignment->sampleFileNames[2]."'>View File</a>";
+                             else
+                                 echo "Upload sample solution worth of an &quot;C&quot;:<br />
+                            <input id='fileToUpload_C_".$i."' type='file' name='fileToUpload_C_".$i."' class='input'>"; ?>
+               </div>
+        </td>
+
       </tr>
+
       <?php $i++; endforeach; ?>
-    </table></td>
+
+    </table>
+  </td>
   </tr>
   
   <tr>
-    <td colspan="13"><input type="button" name="add_another_sample" id="add_another_sample" value="Add Another Sample" onClick="add_new_row('#sampleAssignments', genNewSampleRow('<?php echo $course->courseID; ?>'))" /></td>
+    <td colspan="13"><input type="button" name="add_another_sample" id="add_another_sample" value="Add a New Sample" onClick="add_new_row('#sampleAssignments', genNewSampleRow('<?php echo $course->courseID; ?>'))" />
+    </td>
   </tr>
+
+    <tr>
+    <td>Date of Modification [MM/DD/YY]: <input type="text" name="assignMod" cols="8" rows="1" value="<?php echo $course->assignMod; ?>"/></td>
+  </tr>
+
+
+
+  <tr>
+    <td><input type="submit" name="button_save" id="button_save" value="Save Course Info" />
+    </td>
+  </tr>
+
   </table>
-<hr />
-<input type="submit" name="button_save" id="button_save" value="Save Course Info" />
 
 
-</div>
 </form>
+
+</div> <!-- end of div class tabbertab for third sedment -->
+
+
 <?php require_once("include/footer.php"); ?>
+</div> <!-- end of div class tabber -->
+
+</div> <!-- end of class main -->

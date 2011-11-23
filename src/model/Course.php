@@ -21,6 +21,10 @@ class Course
 
     // { "progID": "E", "progID2": "R" }
     public $reqForProgram = array();
+    // modification dates
+    public $descMod = "";       // modification of description
+    public $outcomesMod = "";   // modification of student outcomes to course mapping
+    public $assignMod = "";     // sample assignments modification   
 
     // includes instructors and course coordinators
     // will probably be a comma-separated list but we can let the user deal with that
@@ -42,7 +46,7 @@ class Course
             if (isset($_courseArray['reqForProgram']))
                 $this->statusesForProgram = $_courseArray['reqForProgram'];
             if (isset($_courseArray['instructors']))
-                $this->instructors['instructors'];
+                $this->instructors = $_courseArray['instructors'];
 
             foreach ($_courseArray['assignments'] as $key=>$assignmentArray)
                 $this->assignments[$key] = new Assignment($assignmentArray);
