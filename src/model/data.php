@@ -211,11 +211,13 @@ function removeCourseIDFromPID($courseID, $progID)
         $courseIDs = json_decode(fread($f, filesize($path)), true);
         if (!is_null($courseIDs))
         {
-            if (!in_array($course->courseID, $courseIDs))
+            // the course is not in that program
+            if (!in_array($courseID, $courseIDs))
                 return 1; // but would probably ignore? or log warning?
             else
             {
-                unset($courseIDs[array_search($course->courseID, $courseIDs)]);
+                // this is how you delete from an array in PHP. yeah...
+                unset($courseIDs[array_search($courseID, $courseIDs)]);
                 $courseIDs = array_values($courseIDs);
             }
 
@@ -225,8 +227,6 @@ function removeCourseIDFromPID($courseID, $progID)
             fclose($f);
         }
     }
-    // else
-        // error? other places as well? TODO
 }
 
 // Returns all program course IDs and department names
