@@ -16,15 +16,15 @@ foreach ($programs as $prog)
 {
     $progCourses = getCourseIDsForProgramID($prog['short']);
     echo "<h3 class='prog_name'>".$prog['long']."</h3>";
-
+	echo "<table>";
     foreach ($progCourses as $courseID)
     {
         $course = getCourseForID($courseID);
         $desig = getDesignatorDisplayString($course->designatorID);
-        echo "<div class='course_name'><a href='course.php?course=$courseID'>".$desig." ".$course->courseNum."</a></div>";
+        echo "<div class='course_name'><tr><td><a href='course.php?course=$courseID'>".$desig." ".$course->courseNum."</a></td><td width='10px'></td><td><button>Delete</button><td><tr></div>";
     }
 
-    echo "<br />";
+    echo "</table>";
 }
 ?>
 </div>

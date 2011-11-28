@@ -314,7 +314,7 @@ function saveData(data)
 	// Create a function that will receive data sent from the server
 	ajaxRequest.onreadystatechange = function(){
 		if(ajaxRequest.readyState == 4){
-			alert(ajaxRequest.responseText);
+			//alert(ajaxRequest.responseText);
 		}
 	}
 	var json = data;
@@ -324,7 +324,8 @@ function saveData(data)
 	var parameters="json="+json;
 	ajaxRequest.open("POST", "scripts/php/ajax.saveCourse.php", true)
 	ajaxRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-	ajaxRequest.send(parameters)
+	ajaxRequest.send(parameters);
+	
 }
 
 
@@ -350,6 +351,7 @@ $(function() {
     $('#save_course_form').submit(function() {
         // Save course data (creates course on server if successful)
         var obj = $('#save_course_form').serializeObject();
+		fade();
         obj.course_learning_outcomes = obj.course_learning_outcomes.split('\r\n');
 		saveData(JSON.stringify(obj));
 
@@ -363,6 +365,7 @@ $(function() {
             ajaxFileUpload(courseID, assignment_type, assignment_number, 'A', i);
             ajaxFileUpload(courseID, assignment_type, assignment_number, 'B', i);
             ajaxFileUpload(courseID, assignment_type, assignment_number, 'C', i);
+			
         }
 
         return false;

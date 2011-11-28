@@ -77,6 +77,24 @@ h5, h6
 
 /* this rule styles <h1> and <h2> tags that are the 
 first child of the left and right table columns */
+A:link {text-decoration: none; color: #c36536;}
+A:visited {text-decoration: none ; color: #c36536; }
+A:active {text-decoration: none ;color: #0f738a;}
+A:hover {text-decoration: none; color: #0f738a;}
+#notice_bar
+{
+    height: 30px;
+    padding-top: 10px;
+    background-color: #CCFFCC;
+    color: #999999;
+}
+#flash_bar
+{
+   height: 30px;
+   margin-bottom:10px;
+   font-weight: bold;
+}
+
 .rightColumn > h1, .rightColumn > h2, .leftColumn > h1, .leftColumn > h2
 {
     margin-top: 0px;
@@ -99,7 +117,7 @@ first child of the left and right table columns */
     position: relative;
     margin: 0px;
     padding: 0px;
-    background: #4b6c9e;
+    background: #0f738a;
     width: 100%;
 }
 

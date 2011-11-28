@@ -8,13 +8,12 @@
     <script type="application/javascript" src="scripts/js/ajaxfileupload.js"></script>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 </head>
-<body>
+<body onload="hideInfoBar();">
     <div class="page">
         <div class="header">
             <div class="title">
-                <h1>
-                    ABET Software Application
-                </h1>
+         
+            <img src="images/banner.jpg" border="0px" width="960px"/>
             </div>
             <div class="loginDisplay">
                 [ <a href="" id="HeadLoginView_HeadLoginStatus">Log In</a> ]
@@ -28,4 +27,24 @@
     <td width="25%" align="center"><a href="addCourse.php">Add a course</a></td>
   </tr>
 </table>
+<div id="flash_bar">
+<div id="notice_bar" align="center">
+        Updated Information Was Saved Successfully
+</div>
+</div>
 <?php error_reporting(0);?>
+    <script>
+	function fade(){
+        //$(document).ready(function() {
+			
+			$("#notice_bar").fadeIn(500);
+            $("#notice_bar").fadeOut(7000);
+			
+           // event.preventDefault();
+        //});
+	}
+	function hideInfoBar()
+	{
+		$("#notice_bar").fadeOut(0);	
+	}
+    </script>
