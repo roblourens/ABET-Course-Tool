@@ -23,7 +23,7 @@ var courseID = '<?php echo $course->courseID; ?>';
 <div class="main">
             
 
-<h3>Course Information</h3>
+<h3>Course Information &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="printcourse.php?course=<?php echo $_GET['course']; ?>">Print</a></h3>
 <hr/>
 
 <!-- Src: http://www.barelyfitz.com/projects/tabber/ -->            
