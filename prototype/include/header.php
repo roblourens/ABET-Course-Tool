@@ -32,7 +32,10 @@
         Updated Information Was Saved Successfully
 </div>
 </div>
-<?php error_reporting(0);?>
+<?php error_reporting(0);
+date_default_timezone_set('America/Chicago');
+?>
+
     <script>
 	function fade(){
         //$(document).ready(function() {

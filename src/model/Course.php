@@ -19,17 +19,24 @@ class Course
 
     public $assignments = array();
 
+    // includes instructors and course coordinators
+    // will probably be a comma-separated list but we can let the user deal with that
+    public $instructors = "";
+
     // { "progID": "E", "progID2": "R" }
     public $reqForProgram = array();
+
     // modification dates
     public $descMod = "";       // modification of description
     public $outcomesMod = "";   // modification of student outcomes to course mapping
     public $assignMod = "";     // sample assignments modification   
 
-    // includes instructors and course coordinators
-    // will probably be a comma-separated list but we can let the user deal with that
-    public $instructors = "";
+    // groups for checking modifications
+    // only includes the editable ones
+    private $descProperties = array('instructors', 'description', 'syllabus', 'courseLearningOutcomes');
 
+
+    // load from file, or create an empty one
     public function Course($_courseArray=null)
     {
         if ($_courseArray!=null)
@@ -41,6 +48,10 @@ class Course
             $this->description = $_courseArray['description'];
             $this->courseLearningOutcomes = $_courseArray['courseLearningOutcomes'];
             $this->syllabus = $_courseArray['syllabus'];
+
+            $this->descMod = $_courseArray['descMod'];
+            $this->outcomesMod = $_courseArray['outcomesMod'];
+            $this->assignMod= $_courseArray['assignMod'];
 
             // can be removed once all test data files have new fields
             if (isset($_courseArray['reqForProgram']))
@@ -68,19 +79,16 @@ class Course
     // update the variable and the modified time for the appropriate section
     public function update($course)
     {
-        if ($this->description != $course->description)
+        print("Checking\n");
+        foreach ($this->descProperties as $descProperty)
         {
-            $this->description = $course->description;
-        }
-
-        if ($this->courseLearningOutcomes != $course->courseLearningOutcomes)
-        {
-            $this->courseLearningOutcomes = $course->courseLearningOutcomes;
-        }
-
-        if ($this->syllabus != $course->syllabus)
-        {
-            $this->syllabus = $course->syllabus;
+            print("Checking ".$descProperty."\n");
+            if ($this->$descProperty != $course->$descProperty)
+            {
+                print("Found change in ".$descProperty."\n");
+                $this->descMod = time();
+                $this->$descProperty = $course->$descProperty;
+            }
         }
 
         // may be tricky
@@ -94,11 +102,6 @@ class Course
         {
             foreach ($course->reqForProgram as $progID=>$reqType)
                 $this->reqForProgram[$progID] = $reqType;
-        }
-
-        if ($this->instructors != $course->instructors)
-        {
-            $this->instructors = $course->instructors;
         }
     }
 

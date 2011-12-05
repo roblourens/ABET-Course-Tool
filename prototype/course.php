@@ -84,7 +84,7 @@ var courseID = '<?php echo $course->courseID; ?>';
 
   <tr>
     <td>Date of Modification [MM/DD/YY]</td>
-    <td colspan="10"><input type="text" name="descMod" cols="8" rows="1" value="<?php echo $course->descMod; ?>"/></td>
+    <td colspan="10"><input type="text" name="descMod" cols="8" rows="1" value="<?php $date = getdate($course->descMod); echo $date['mon']."/".$date['mday']."/".$date['year'].", ".$date['hours'].':'.$date['minutes']; ?>"/></td>
   </tr>
 
   <tr>
