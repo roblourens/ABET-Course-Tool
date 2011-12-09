@@ -1,5 +1,4 @@
 <?php require_once("include/header.php");?>
-<?php error_reporting(0); ?>
 <?php require_once("../src/include.php"); ?>
 <?php
 $inputprog = $_GET['inputprog'];
