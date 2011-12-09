@@ -177,12 +177,11 @@ function addCourse($course, $progID)
             fwrite($f, json_encode($courseIDs));
             fclose($f);
 
-            // creates folder courses/<courseID>
+            // if the course already exists, just set reqForProgram
             $existingCourse = getCourseForID($course->courseID);
             if (!is_null($existingCourse))
             {
                 $existingCourse->reqForProgram[$progID] = $course->reqForProgram[$progID];
-                updateCourse($existingCourse);
                 return 2;
             }
 
