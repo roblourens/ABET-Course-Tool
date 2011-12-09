@@ -196,6 +196,8 @@ function addCourse($course, $progID)
     return 0;
 }
 
+// Removes the course ID from the program index
+// Then removes the program ID from the course object
 function removeCourseIDFromPID($courseID, $progID)
 {
     global $PROGRAM;
@@ -227,6 +229,10 @@ function removeCourseIDFromPID($courseID, $progID)
             fclose($f);
         }
     }
+
+    $course = getCourseForID($courseID);
+    unset($course->reqForProgram[$progID]);
+    writeCourse($course);
 }
 
 // Returns all program course IDs and department names

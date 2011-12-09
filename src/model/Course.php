@@ -55,7 +55,7 @@ class Course
 
             // can be removed once all test data files have new fields
             if (isset($_courseArray['reqForProgram']))
-                $this->statusesForProgram = $_courseArray['reqForProgram'];
+                $this->reqForProgram = $_courseArray['reqForProgram'];
             if (isset($_courseArray['instructors']))
                 $this->instructors = $_courseArray['instructors'];
 
