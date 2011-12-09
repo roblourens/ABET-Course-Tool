@@ -314,7 +314,7 @@ function saveData(data)
 	// Create a function that will receive data sent from the server
 	ajaxRequest.onreadystatechange = function(){
 		if(ajaxRequest.readyState == 4){
-			//alert(ajaxRequest.responseText);
+			alert(ajaxRequest.responseText);
 		}
 	}
 	var json = data;
@@ -352,7 +352,7 @@ $(function() {
         // Save course data (creates course on server if successful)
         var obj = $('#save_course_form').serializeObject();
 		fade();
-        obj.course_learning_outcomes = obj.course_learning_outcomes.split('\r\n');
+        obj.course_learning_outcomes = obj.course_learning_outcomes.split(/; */);
 		saveData(JSON.stringify(obj));
 
         // upload all files

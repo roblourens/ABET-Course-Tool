@@ -73,11 +73,10 @@ var courseID = '<?php echo $course->courseID; ?>';
           </li>
        </ul>
     </td>
-    <td colspan="10"><textarea name="course_learning_outcomes" cols="80" rows="5">
-      <?php 
+    <td colspan="10"><textarea name="course_learning_outcomes" cols="80" rows="5"><?php 
          $lo = "";
          foreach ($course->courseLearningOutcomes as $learningOutcome)
-         $lo.=$learningOutcome."\n";
+         $lo.=$learningOutcome."; ";
          echo $lo; ?></textarea>
     </td>
   </tr>
