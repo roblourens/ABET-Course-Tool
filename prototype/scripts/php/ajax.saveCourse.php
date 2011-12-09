@@ -42,7 +42,7 @@ for($i = 0; $i < $data['assignment_row_count']; $i++)
 }
 
 $course->assignments = $assignments;
-updateCourse($course, false);
+updateCourse($course);
 
 echo "Saved successfully!";
 

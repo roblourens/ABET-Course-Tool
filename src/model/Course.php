@@ -76,16 +76,18 @@ class Course
     }
 
     // for every mutable variable, check whether it has changed, if so,
-    // update the variable and the modified time for the appropriate section
+    // update the variable and the modified time for the appropriate section.
+    // Returns true if the file changed. false otherwise
     public function update($course)
     {
+        $changed = $course != $this? true : false;
+
         // Check whether any of the descProperties have changed
         foreach ($this->descProperties as $descProperty)
         {
             print("Checking ".$descProperty."\n");
             if ($this->$descProperty != $course->$descProperty)
             {
-                print("Found change in ".$descProperty."\n");
                 $this->descMod = time();
                 $this->$descProperty = $course->$descProperty;
             }
@@ -132,6 +134,8 @@ class Course
             foreach ($course->reqForProgram as $progID=>$reqType)
                 $this->reqForProgram[$progID] = $reqType;
         }
+
+        return $changed;
     }
 
     public function allOutcomes()

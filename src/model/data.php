@@ -123,17 +123,21 @@ function updateCourse($course, $makeNewCourse=false)
     $courseToWrite = getCourseForID($course->courseID);
     if ($makeNewCourse && is_null($courseToWrite))
         $courseToWrite = $course;
-    else
-        $courseToWrite->update($course);
+    // call update on the course, if it did not change, bail so we don't
+    // rewrite and unnecessarily make a version change, e.g.
+    else if (!$courseToWrite->update($course))
+        return;
 
     writeCourse($courseToWrite);
 }
 
 // writes the course object to disk without asking any questions
+// also maintains previous versions
 function writeCourse($course)
 {
     global $COURSE;
 
+    pushBackPreviousVersions($course->courseID);
     $courseID = $course->courseID;
     $path = filePathForCourseID($courseID);
     $courseDirectory = dirname($path);
@@ -149,6 +153,30 @@ function writeCourse($course)
     }
     else
         throw new Exception('Could not open '.$path." for writing");
+}
+
+// saves old json data .1.json through .N.json
+// the current is just .json
+function pushBackPreviousVersions($courseID)
+{
+    $N = 5;
+    $basePath = filePathForCourseID($courseID);
+
+    for ($i=$N; $i>0; $i--)
+    {
+        $versionPath = str_replace('.json', '.'.$i.'.json', $basePath);
+        $newPath = str_replace('.json', '.'.($i+1).'.json', $basePath);
+        if (file_exists($versionPath))
+        {
+            if ($i==$N)
+                unlink($versionPath);
+            else
+                rename($versionPath, $newPath);
+        }
+    }
+
+    $versionPath = str_replace('.json', '.1.json', $basePath);
+    rename($basePath, $versionPath);
 }
 
 // $course is a Course object
