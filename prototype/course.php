@@ -14,6 +14,15 @@
 require_once("../src/include.php");
 if(!isset($_GET['course']))die("ERROR: Course name not given.");
 $course = getCourseForID($_GET['course']);
+
+function formattedDate($time)
+{
+    if ($time == "")
+        return "";
+
+    $date = getdate($time);
+    return $date['mon']."/".$date['mday']."/".$date['year'].", ".$date['hours'].':'.$date['minutes'];   
+}
 ?>
 </h1>
 <script type="text/javascript">
@@ -83,7 +92,7 @@ var courseID = '<?php echo $course->courseID; ?>';
 
   <tr>
     <td>Date of Modification [MM/DD/YY]</td>
-    <td colspan="10"><input type="text" name="descMod" cols="8" rows="1" value="<?php $date = getdate($course->descMod); echo $date['mon']."/".$date['mday']."/".$date['year'].", ".$date['hours'].':'.$date['minutes']; ?>"/></td>
+    <td colspan="10"><input type="text" name="descMod" cols="8" rows="1" value="<?php echo formattedDate($course->descMod); ?>"/></td>
   </tr>
 
   <tr>
@@ -235,7 +244,7 @@ var courseID = '<?php echo $course->courseID; ?>';
   </tr>
 
   <tr>
-    <td>Date of Modification [MM/DD/YY]: <input type="text" name="outcomesMod" cols="8" rows="1" value="<?php echo $course->outcomesMod; ?>"/></td>
+    <td>Date of Modification [MM/DD/YY]: <input type="text" name="outcomesMod" cols="8" rows="1" value="<?php echo formattedDate($course->outcomesMod); ?>"/></td>
   </tr>
 
 
@@ -356,7 +365,7 @@ var courseID = '<?php echo $course->courseID; ?>';
   </tr>
 
     <tr>
-    <td>Date of Modification [MM/DD/YY]: <input type="text" name="assignMod" cols="8" rows="1" value="<?php echo $course->assignMod; ?>"/></td>
+    <td>Date of Modification [MM/DD/YY]: <input type="text" name="assignMod" cols="8" rows="1" value="<?php echo formattedDate($course->assignMod); ?>"/></td>
   </tr>
 
 

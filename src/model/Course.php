@@ -79,7 +79,7 @@ class Course
     // update the variable and the modified time for the appropriate section
     public function update($course)
     {
-        print("Checking\n");
+        // Check whether any of the descProperties have changed
         foreach ($this->descProperties as $descProperty)
         {
             print("Checking ".$descProperty."\n");
@@ -91,9 +91,38 @@ class Course
             }
         }
 
-        // may be tricky
+        // Check whether any assignments have changed
         if ($this->assignments != $course->assignments)
         {
+            // Find the assignment that changed
+            foreach ($this->assignments as $assignKey=>$thisAssignment)
+            {
+                $otherAssignment = $course->assignments[$assignKey];
+                if ($otherAssignment != null)
+                {
+                    // Check which assignments-related mod time to change
+                    if ($thisAssignment->learningOutcomes != $otherAssignment->learningOutcomes)
+                        $this->outcomesMod = time();
+                    if ($thisAssignment->assignmentFileName != $otherAssignment->assignmentFileName ||
+                        $thisAssignment->sampleFileNames != $otherAssignment->sampleFileNames)
+                        $this->assignMod = time();
+                }
+                // The assignment was deleted
+                else
+                {
+                    $this->outcomesMod = time();
+                    $this->assignMod = time();
+                }
+            }
+
+            // Necessary in case an assignment was added (could also do this at the point the assignment
+            // is actually added, but I think it makes more sense to set all the mod times at once)
+            if (count($this->assignments) < count($course->assignments))
+            {
+                $this->outcomesMod = time();
+                $this->assignMod = time();
+            }
+
             $this->assignments = $course->assignments;
         }
 
