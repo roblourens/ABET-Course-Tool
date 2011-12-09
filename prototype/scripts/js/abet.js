@@ -314,7 +314,7 @@ function saveData(data)
 	// Create a function that will receive data sent from the server
 	ajaxRequest.onreadystatechange = function(){
 		if(ajaxRequest.readyState == 4){
-			alert(ajaxRequest.responseText);
+			//alert(ajaxRequest.responseText);
 		}
 	}
 	var json = data;
