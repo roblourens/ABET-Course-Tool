@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
    if ($_POST[inputprog] != "" && !empty($searchOutcomes))   
    {
        $searched = true;
-       $matches = getCoursesForOutcomesInProg($searchOutcomes, $_POST[inputprog]);
+       $matches = getCoursesForOutcomesInProg($searchOutcomes, $_POST[inputprog], $_POST['requiredOnly']=='on');
    }
    else
        $noProgramSelected = true;
@@ -29,7 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     <option value="ee" <?php if ($searched && $_POST[inputprog]=="ee") echo "selected"; ?>>Electrical Engineering</option>
                     <option value="se" <?php if ($searched && $_POST[inputprog]=="se") echo "selected"; ?>>Software Engineering</option>
                 </select>
-                program
+                program. Required only:
+                <input type="checkbox" name="requiredOnly" />
+                
 </h2>
 <hr />
 

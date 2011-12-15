@@ -335,7 +335,7 @@ function getDesignatorDisplayString($designator)
 
 // Takes array of learning outcome IDs (like ['a', 'c', 'g']), 
 // and the program (ee, cpre, se); and returns matching Courses
-function getCoursesForOutcomesInProg($outcomes, $programID)
+function getCoursesForOutcomesInProg($outcomes, $programID, $requiredOnly=false)
 {
     $matches = array();
     $courseArray = array();
@@ -345,8 +345,9 @@ function getCoursesForOutcomesInProg($outcomes, $programID)
     foreach ($courseArray as $courseID)
     {
             $course = getCourseForID($courseID);
-            if ($course->matchesOutcomes($outcomes))
-                $matches[] = $course;
+            if (($requiredOnly && $course->reqForProgram[$programID]=='R') || !$requiredOnly)
+                if ($course->matchesOutcomes($outcomes))
+                    $matches[] = $course;
     }
     }
     return $matches;
