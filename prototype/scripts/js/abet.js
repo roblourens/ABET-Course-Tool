@@ -325,10 +325,41 @@ function saveData(data)
 	ajaxRequest.open("POST", "scripts/php/ajax.saveCourse.php", true)
 	ajaxRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
 	ajaxRequest.send(parameters);
-	
 }
 
+function removeCourseFromPID(courseID, progID)
+{
+    var ajaxRequest;  // The variable that makes Ajax possible!
+	
+	try{
+		// Opera 8.0+, Firefox, Safari
+		ajaxRequest = new XMLHttpRequest();
+	} catch (e){
+		// Internet Explorer Browsers
+		try{
+			ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+		} catch (e) {
+			try{
+				ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+			} catch (e){
+				// Something went wrong
+				return false;
+			}
+		}
+	}
 
+	// Create a function that will receive data sent from the server
+	ajaxRequest.onreadystatechange = function(){
+		if(ajaxRequest.readyState == 4){
+			alert(ajaxRequest.responseText);
+		}
+	}
+
+	var parameters="course="+courseID+"&progID="+progID;
+	ajaxRequest.open("POST", "scripts/php/ajax.removeCourse.php", true)
+	ajaxRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+	ajaxRequest.send(parameters);
+}
 
 $.fn.serializeObject = function()
 {
@@ -373,6 +404,15 @@ $(function() {
 });
 
 
+$(function() {
+    $('.delete_form').submit(function(e) { 
+        var id = e.currentTarget.id;
+        var course = id.split(';')[0];
+        var progID = id.split(';')[1];
+        removeCourseFromPID(course, progID);
+        return false;
+    });
+});
 
 function markAssignmentForDeletion(row){
 	if(document.getElementById("assignment_row_tr_"+row).bgColor != "#FFCCCC")

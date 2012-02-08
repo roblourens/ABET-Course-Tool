@@ -38,7 +38,7 @@ foreach ($programs as $prog)
     {
         $course = getCourseForID($courseID);
         $desig = getDesignatorDisplayString($course->designatorID);
-        echo "<div class='course_name'><tr><td><a href='course.php?course=$courseID'>".$desig." ".$course->courseNum."</a></td><td width='10px'></td><td><button>Delete</button><td><tr></div>";
+        echo "<div class='course_name'><tr><td><a href='course.php?course=$courseID'>".$desig." ".$course->courseNum."</a></td><td width='10px'></td><td><form class='delete_form' id='$courseID;$progID'><button>Delete</button></form><td><tr></div>";
     }
 
     echo "</table>";

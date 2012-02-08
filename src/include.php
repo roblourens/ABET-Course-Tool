@@ -1,5 +1,6 @@
 <?php
 
+date_default_timezone_set("America/Chicago");
 $ROOT = '/Users/rob/Sites/ABET-Course-Tool/';
 require_once($ROOT.'src/model/data.php');
 require_once($ROOT.'src/model/Course.php');
