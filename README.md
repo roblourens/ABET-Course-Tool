@@ -1,14 +1,18 @@
-==Setup==
+Setup
+=====
 The group owner and permissions must be set properly so that Apache can read/write to the data files. On webtest, it should be assigned as:
+
     chown -R :web-apache data
     chmod –R g+w data
 
 Also, on each system, the `$ROOT` must be set in `src/include.php`. This is the absolute path to the root of the system. For example, for user rlourens on webtest:
+
     $ROOT = '/home/ugrad1/rlourens/WWW/'; 
 
 If you are not sure what this path is, execute `pwd` from the root folder (which contains data, src, prototype, etc.)
 
-==Directory structure==
+Directory structure
+===================
     data
         courses
             <courseID>
