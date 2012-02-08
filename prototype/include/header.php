@@ -16,7 +16,7 @@
             <img src="images/banner.jpg" border="0px" width="960px"/>
             </div>
             <div class="loginDisplay">
-                [ <a href="" id="HeadLoginView_HeadLoginStatus">Log In</a> ]
+                &nbsp;
             </div>
         </div>
 <table width="100%" border="0" bgcolor="#CCCCCC">
