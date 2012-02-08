@@ -103,6 +103,7 @@ This is a strange block!!!
 -->
 
 <body>
+<strong>
 <?php
 if(isset($_REQUEST['designator'])) {
     switch (addCourse($courseObj, $program))
@@ -119,6 +120,7 @@ if(isset($_REQUEST['designator'])) {
     }
 }
 ?>
+</strong>
 
 <form>
 Course (As it appears in ISU Catalog): 
