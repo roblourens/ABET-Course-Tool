@@ -1,7 +1,9 @@
 <?php
 require_once('../../../src/include.php');
 if(!isset($_POST['json']))die("ERROR:  No data was sent from the client");
-$json = str_replace('\\', '', $_POST['json']);
+$json = str_replace('\\r\\n', "\n", $_POST['json']);
+$json = str_replace('\\', '', $json);
+$json = str_replace("\n", '\\n', $json);
 $data = json_decode($json, true);
 
 $course = getCourseForID($data['course_id']);
