@@ -1,1 +1,1 @@
-<?php header("Location: main.php"); ?>
+<?php header("Location: viewAllCourses.php"); ?>
