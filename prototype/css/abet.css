@@ -320,3 +320,7 @@ html
 .course_header {
     font-weight: bold;
 }
+
+#sum_table {
+    padding-left: 76px;
+}

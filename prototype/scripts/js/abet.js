@@ -15,7 +15,7 @@ function get_num_rows()
 {
 	var num_of_rows = document.getElementById('assignment_row_count').defaultValue;
 	
-	return  num_of_rows;
+	return num_of_rows;
 }
 
 function increment_assignment_row_count()
@@ -419,4 +419,22 @@ function markAssignmentForDeletion(row){
 	document.getElementById("assignment_row_tr_"+row).bgColor = "#FFCCCC";
 	else 
 	document.getElementById("assignment_row_tr_"+row).bgColor = "";
+}
+
+function syncSummaryRow()
+{
+    var count = get_num_rows();
+
+    var outcomes = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'];
+    for (var i=0; i<count; i++)
+    {
+        for (var o=0; o<outcomes.length; o++)
+        {
+            var sumCheckbox = $('input[name=sum_'+outcomes[o]+']');
+            if ($('input[name=checkbox'+outcomes[o]+'_'+i+']').attr('checked'))
+                sumCheckbox.attr('checked', 'true');
+            else
+                sumCheckbox.removeAttr('checked');
+        }
+    }
 }

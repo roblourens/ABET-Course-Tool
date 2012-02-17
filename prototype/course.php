@@ -22,6 +22,13 @@ function formattedDate($time)
 ?>
 <script type="text/javascript">
 var courseID = '<?php echo $course->courseID; ?>';
+
+$(document).ready(function(e) {
+    syncSummaryRow();
+    $('input[type=checkbox]').click(function() {
+        syncSummaryRow();
+    });
+});
 </script>
 
 <div class="main">
@@ -241,14 +248,61 @@ var courseID = '<?php echo $course->courseID; ?>';
   </td>
   </tr>
 
+<tr>
+<td colspan="13">
+<!-- Summary row -->
+<table id="sum_table" border="0">
+    <tr>
+        <th>&nbsp;</th>
+		<th id="a" align="center"  
+			      title="Ability to apply knowledge of mathematics, science, engineering.">A</th>
+                          <th id="b" align="center"
+			      title="An ability to design and conduct experiments, as well as to analyze and interpret data.">B</th>
+                          <th id="c" align="center"
+			      title = "Ability to design a system, component or process to meet desired needs within realistic constraints.">C</th>
+                          <th id="d" align="center"
+			      title="Ability to function on multidisciplinary teams.">D</th>
+                          <th id="e" align="center"
+			      title="Ability to identify, formulate and solve engineering problems.">E</th>
+                          <th id="f" align="center"
+			      title="Understanding of professional and ethical responsibility.">F</th>
+                          <th id="g" align="center"
+			      title="Ability to communicate effectively.">G</th>
+                          <th id="h" align="center"
+			      title="The broad education necessary to understand the impact of engineering solutions in a global, economic, environmental and societal context.">H</th>
+                          <th id="i" align="center"
+			      title="Recognition of the need for and an ability to engage in lifelong learning.">I</th>
+                          <th id="j" align="center"
+			      title="Knowledge of contemporary issues.">J</th>
+                          <th id="k" align="center"
+			      title="Ability to use the techniques, skills and modern engineering tools necessary for engineering practice.">K</th>
+                           <th id="delete" align="center"
+			      title="Ability to use the techniques, skills and modern engineering tools necessary for engineering practice."></th>
+    </tr>
+    <tr>
+        <td class="bold">Summary of course outcomes</td>
+        <td><input type="checkbox" name="sum_A" disabled="disabled"/></td>
+        <td><input type="checkbox" name="sum_B" disabled="disabled"/></td>
+        <td><input type="checkbox" name="sum_C" disabled="disabled"/></td>
+        <td><input type="checkbox" name="sum_D" disabled="disabled"/></td>
+        <td><input type="checkbox" name="sum_E" disabled="disabled"/></td>
+        <td><input type="checkbox" name="sum_F" disabled="disabled"/></td>
+        <td><input type="checkbox" name="sum_G" disabled="disabled"/></td>
+        <td><input type="checkbox" name="sum_H" disabled="disabled"/></td>
+        <td><input type="checkbox" name="sum_I" disabled="disabled"/></td>
+        <td><input type="checkbox" name="sum_J" disabled="disabled"/></td>
+        <td><input type="checkbox" name="sum_K" disabled="disabled"/></td>
+    </tr>
+</table>
+</td>
+</tr>
   <tr>
     <td>Date of Modification [MM/DD/YY]: <input type="text" name="outcomesMod" cols="8" rows="1" value="<?php echo formattedDate($course->outcomesMod); ?>"/></td>
   </tr>
 
-
 </table>
+
 <input type="submit" name="button_save" id="button_save" value="Save Course Info" />
-<!--</form>-->
 
 </div> <!-- end of div class tabbertab for second segment -->
 
@@ -256,7 +310,7 @@ var courseID = '<?php echo $course->courseID; ?>';
 <!-- Third Segment -->
 <div class="tabbertab" title="Sample Student Assignments">
 
-  <table width="100%" border="0">
+  <table border="0">
   <tr>
     <td colspan="13"><h2>Sample Assignments:</h2></td>
     <input type="hidden" id="sample_assignment_row_count" name="sample_assignment_row_count" value="<?php echo count($course->assignments); ?>"/>
