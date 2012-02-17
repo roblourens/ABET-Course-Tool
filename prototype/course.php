@@ -6,10 +6,6 @@
 <link rel="stylesheet" href="tab.css" TYPE="text/css" MEDIA="screen">
 <!----------------------------------------------------------->
 
-
-
-
-<h1>
 <?php
 require_once("../src/include.php");
 if(!isset($_GET['course']))die("ERROR: Course name not given.");
@@ -24,13 +20,15 @@ function formattedDate($time)
     return $date['mon']."/".$date['mday']."/".$date['year'].", ".$date['hours'].':'.$date['minutes'];   
 }
 ?>
-</h1>
 <script type="text/javascript">
 var courseID = '<?php echo $course->courseID; ?>';
 </script>
 
 <div class="main">
             
+<h1 class="course_header">
+<?php echo getDesignatorDisplayString($course->designatorID)." ".$course->courseNum." - ".$course->courseName; ?>
+</h1>
 
 <h3>Course Information &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="printcourse.php?course=<?php echo $_GET['course']; ?>">Print</a></h3>
 <hr/>
@@ -48,7 +46,7 @@ var courseID = '<?php echo $course->courseID; ?>';
 
   <tr>
     <td width="317">Course</td>
-    <td width="487" colspan="10"><?php echo getDesignatorDisplayString($course->designatorID); ?>&nbsp;<?php echo $course->courseNum; ?>
+    <td width="487" colspan="10"><?php echo getDesignatorDisplayString($course->designatorID); ?>&nbsp;<?php echo $course->courseNum." - "; ?>
     <?php echo $course->courseName; ?> 
       <input name="course_number" type="hidden" value="<?php echo $course->courseNum; ?>"/></td> 
   </tr>
