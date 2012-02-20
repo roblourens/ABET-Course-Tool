@@ -122,7 +122,12 @@ function updateCourse($course, $makeNewCourse=false)
 {
     $courseToWrite = getCourseForID($course->courseID);
     if ($makeNewCourse && is_null($courseToWrite))
+    {
+        $course->descMod = time();
+        $course->outcomesMod = time();
+        $course->assignMod = time();
         $courseToWrite = $course;
+    }
     // call update on the course, if it did not change, bail so we don't
     // rewrite and unnecessarily make a version change, e.g.
     else if (!$courseToWrite->update($course))
