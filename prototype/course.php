@@ -25,8 +25,13 @@ var courseID = '<?php echo $course->courseID; ?>';
 
 $(document).ready(function(e) {
     syncSummaryRow();
+
     $('input[type=checkbox]').click(function() {
         syncSummaryRow();
+    });
+
+    $('#button_preview').click(function() {
+        window.open('prettyView.php?course='+courseID, '_blank');
     });
 });
 </script>
@@ -37,7 +42,7 @@ $(document).ready(function(e) {
 <?php echo getDesignatorDisplayString($course->designatorID)." ".$course->courseNum." - ".$course->courseName; ?>
 </h1>
 
-<h3>Course Information &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="printcourse.php?course=<?php echo $_GET['course']; ?>">Print</a></h3>
+<h3>Course Information &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="prettyView.php?course=<?php echo $_GET['course']; ?>&print">Print</a></h3>
 <hr/>
 
 <!-- Src: http://www.barelyfitz.com/projects/tabber/ -->            
@@ -101,7 +106,10 @@ $(document).ready(function(e) {
   </tr>
 
   <tr>
-    <td colspan="13"><input type="submit" name="button_save" id="button_save" value="Save Course Info" /></td>
+    <td colspan="13">
+        <input type="submit" name="button_save" id="button_save" value="Save Course Info" />
+        <input type="submit" name="button_preview" id="button_preview" value="Preview" />
+    </td>
   </tr>
 
 <!-- No need in tabbed view
@@ -303,6 +311,7 @@ $(document).ready(function(e) {
 </table>
 
 <input type="submit" name="button_save" id="button_save" value="Save Course Info" />
+<input type="submit" name="button_preview" id="button_preview" value="Preview" />
 
 </div> <!-- end of div class tabbertab for second segment -->
 
@@ -424,6 +433,7 @@ $(document).ready(function(e) {
 
   <tr>
     <td><input type="submit" name="button_save" id="button_save" value="Save Course Info" />
+        <input type="submit" name="button_preview" id="button_preview" value="Preview" />
     </td>
   </tr>
 

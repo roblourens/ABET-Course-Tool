@@ -75,6 +75,11 @@ class Course
         return true;
     }
 
+    public function matchesOutcome($searchOutcome)
+    {
+        return in_array($searchOutcome, $this->allOutcomes());
+    }
+
     // for every mutable variable, check whether it has changed, if so,
     // update the variable and the modified time for the appropriate section.
     // Returns true if the file changed. false otherwise
