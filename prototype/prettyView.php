@@ -1,4 +1,4 @@
-<body onload="document.title = '<?php echo $_GET['course']?>'; <?php if (isset($_GET['print'])) echo 'window.print();'; ?>">
+<body onload="document.title = '<?php echo $_GET['course']?>'; <?php if (!isset($_GET['print'])) echo 'alert(\'Please check the number of pages printing\');'; echo 'window.print();'; ?>">
 
 <font style="font-family:Arial, Helvetica, sans-serif">
 <?php 
