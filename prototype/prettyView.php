@@ -90,7 +90,7 @@ p.page { page-break-after: always; }
   <tr align="left" valign="top">
     <th>
     	Date of Modification [MM/DD/YY]
-    </tg>
+    </th>
     <td>
 		<?php 
             // Just use the most recent mod time
