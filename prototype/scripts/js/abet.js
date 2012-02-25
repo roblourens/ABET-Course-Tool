@@ -314,7 +314,7 @@ function saveData(data)
 	// Create a function that will receive data sent from the server
 	ajaxRequest.onreadystatechange = function(){
 		if(ajaxRequest.readyState == 4){
-			//alert(ajaxRequest.responseText);
+			alert(ajaxRequest.responseText);
 		}
 	}
 	var json = data;
@@ -426,15 +426,41 @@ function syncSummaryRow()
     var count = get_num_rows();
 
     var outcomes = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'];
+    var foundOutcomes = [];
     for (var i=0; i<count; i++)
     {
         for (var o=0; o<outcomes.length; o++)
         {
             var sumCheckbox = $('input[name=sum_'+outcomes[o]+']');
-            if ($('input[name=checkbox'+outcomes[o]+'_'+i+']').attr('checked'))
-                sumCheckbox.attr('checked', 'true');
-            else
-                sumCheckbox.removeAttr('checked');
+            if ($('input[name=checkbox'+outcomes[o]+'_'+i+']').is(':checked'))
+                foundOutcomes.push(outcomes[o]);
         }
     }
+
+    // check course row
+    for (var o=0; o<outcomes.length; o++)
+    {
+        var sumCheckbox = $('input[name=sum_'+outcomes[o]+']');
+        if ($('input[name=course_'+outcomes[o]+']').is(':checked'))
+            foundOutcomes.push(outcomes[o]);
+    }
+
+    // now set the ones that were found, and unset the others
+    for (var o=0; o<outcomes.length; o++)
+    {
+        var sumCheckbox = $('input[name=sum_'+outcomes[o]+']');
+        if (foundOutcomes.indexOf(outcomes[o]) > -1)
+            sumCheckbox.attr('checked', 'true');
+        else
+            sumCheckbox.removeAttr('checked');
+    }
+}
+
+function setCourseOutcome(outcome, checked)
+{
+    var checkbox = $('input[name=course_'+outcome+']');
+    if (checked)
+        checkbox.attr('checked', 'true');
+    else
+        checkbox.removeAttr('checked');
 }

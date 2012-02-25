@@ -26,7 +26,13 @@ var courseID = '<?php echo $course->courseID; ?>';
 $(document).ready(function(e) {
     syncSummaryRow();
 
-    $('input[type=checkbox]').click(function() {
+    $('input[type=checkbox][class=sum]').click(function(e) {
+        // give it A, B... from sum_A, sum_B...
+        setCourseOutcome(e.currentTarget.name.split('_')[1], e.currentTarget.checked);
+        syncSummaryRow();
+    });
+
+    $('input[type=checkbox][class!=sum]').click(function() {
         syncSummaryRow();
     });
 
@@ -297,19 +303,32 @@ $(document).ready(function(e) {
                            <th id="delete" align="center"
 			      title="Ability to use the techniques, skills and modern engineering tools necessary for engineering practice."></th>
     </tr>
+    <tr id="courseOutcomeRow">
+        <td><input type="checkbox" name="course_A" <?php if (in_array('A', $course->courseABETOutcomes)) echo 'checked'; ?> /></td>
+        <td><input type="checkbox" name="course_B" <?php if (in_array('B', $course->courseABETOutcomes)) echo 'checked' ?>/></td>
+        <td><input type="checkbox" name="course_C" <?php if (in_array('C', $course->courseABETOutcomes)) echo 'checked' ?>/></td>
+        <td><input type="checkbox" name="course_D" <?php if (in_array('D', $course->courseABETOutcomes)) echo 'checked' ?>/></td>
+        <td><input type="checkbox" name="course_E" <?php if (in_array('E', $course->courseABETOutcomes)) echo 'checked' ?>/></td>
+        <td><input type="checkbox" name="course_F" <?php if (in_array('F', $course->courseABETOutcomes)) echo 'checked' ?>/></td>
+        <td><input type="checkbox" name="course_G" <?php if (in_array('G', $course->courseABETOutcomes)) echo 'checked' ?>/></td>
+        <td><input type="checkbox" name="course_H" <?php if (in_array('H', $course->courseABETOutcomes)) echo 'checked' ?>/></td>
+        <td><input type="checkbox" name="course_I" <?php if (in_array('I', $course->courseABETOutcomes)) echo 'checked' ?>/></td>
+        <td><input type="checkbox" name="course_J" <?php if (in_array('J', $course->courseABETOutcomes)) echo 'checked' ?>/></td>
+        <td><input type="checkbox" name="course_K" <?php if (in_array('K', $course->courseABETOutcomes)) echo 'checked' ?>/></td>
+    </tr>
     <tr>
         <td class="bold">Summary of course outcomes</td>
-        <td><input type="checkbox" name="sum_A" disabled="disabled"/></td>
-        <td><input type="checkbox" name="sum_B" disabled="disabled"/></td>
-        <td><input type="checkbox" name="sum_C" disabled="disabled"/></td>
-        <td><input type="checkbox" name="sum_D" disabled="disabled"/></td>
-        <td><input type="checkbox" name="sum_E" disabled="disabled"/></td>
-        <td><input type="checkbox" name="sum_F" disabled="disabled"/></td>
-        <td><input type="checkbox" name="sum_G" disabled="disabled"/></td>
-        <td><input type="checkbox" name="sum_H" disabled="disabled"/></td>
-        <td><input type="checkbox" name="sum_I" disabled="disabled"/></td>
-        <td><input type="checkbox" name="sum_J" disabled="disabled"/></td>
-        <td><input type="checkbox" name="sum_K" disabled="disabled"/></td>
+        <td><input class="sum" type="checkbox" name="sum_A" /></td>
+        <td><input class="sum" type="checkbox" name="sum_B" /></td>
+        <td><input class="sum" type="checkbox" name="sum_C" /></td>
+        <td><input class="sum" type="checkbox" name="sum_D" /></td>
+        <td><input class="sum" type="checkbox" name="sum_E" /></td>
+        <td><input class="sum" type="checkbox" name="sum_F" /></td>
+        <td><input class="sum" type="checkbox" name="sum_G" /></td>
+        <td><input class="sum" type="checkbox" name="sum_H" /></td>
+        <td><input class="sum" type="checkbox" name="sum_I" /></td>
+        <td><input class="sum" type="checkbox" name="sum_J" /></td>
+        <td><input class="sum" type="checkbox" name="sum_K" /></td>
     </tr>
 </table>
 </td>

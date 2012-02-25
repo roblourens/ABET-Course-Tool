@@ -15,6 +15,7 @@ class Course
 
     public $description = "";
 
+    // (specific goals to be covered)
     public $courseLearningOutcomes = array();
 
     public $textbook = "";
@@ -22,6 +23,9 @@ class Course
     public $topics = "";
 
     public $assignments = array();
+
+    // ABET outcomes not linked to an assignment
+    public $courseABETOutcomes = array();
 
     // includes instructors and course coordinators
     // will probably be a comma-separated list but we can let the user deal with that
@@ -67,6 +71,8 @@ class Course
 
             foreach ($_courseArray['assignments'] as $key=>$assignmentArray)
                 $this->assignments[$key] = new Assignment($assignmentArray);
+
+            $this->courseABETOutcomes = $_courseArray['courseABETOutcomes'];
         }
     }
 
@@ -138,6 +144,16 @@ class Course
 
             $this->assignments = $course->assignments;
         }
+
+        // check whether courseABETOutcomes changed
+        if ($this->courseABETOutcomes != $course->courseABETOutcomes)
+        {
+            $this->courseABETOutcomes = $course->courseABETOutcomes;
+            $this->outcomesMod = time();
+            echo "yes";
+        }
+        else
+            echo "no";
 
         // don't replace, merge
         if ($this->reqForProgram != $course->reqForProgram)

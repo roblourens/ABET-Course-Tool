@@ -44,6 +44,13 @@ for($i = 0; $i < $data['assignment_row_count']; $i++)
     }
 }
 
+foreach (learningOutcomesLetters() as $letter)
+{
+    $checkboxLetterId = 'course_'.$letter;
+    if (array_key_exists($checkboxLetterId, $data) && $data[$checkboxLetterId] == 'on')
+        $course->courseABETOutcomes[] = $letter;
+}
+
 $course->assignments = $assignments;
 updateCourse($course);
 

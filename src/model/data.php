@@ -128,6 +128,7 @@ function updateCourse($course, $makeNewCourse=false)
         $course->assignMod = time();
         $courseToWrite = $course;
     }
+
     // call update on the course, if it did not change, bail so we don't
     // rewrite and unnecessarily make a version change, e.g.
     else if (!$courseToWrite->update($course))

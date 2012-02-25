@@ -324,3 +324,7 @@ html
 #sum_table {
     padding-left: 76px;
 }
+
+#courseOutcomeRow {
+    display: none;
+}
