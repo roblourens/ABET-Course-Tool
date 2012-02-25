@@ -69,19 +69,29 @@ $(document).ready(function(e) {
   </tr>
 
   <tr>
+    <td>Credits and Contact Hours</td>
+    <td colspan="10"><textarea name="credit_contact" cols="80" rows="1"><?php echo $course->creditsContact; ?></textarea></td>
+  </tr>
+
+  <tr>
   <input name="course_id" type="hidden" value="<?php echo $course->courseID; ?>" />
     <td>Course Description</td>
     <td colspan="10"><textarea name="course_description" cols="80" rows="5"><?php echo $course->description; ?></textarea></td>
   </tr>
 
   <tr>
-    <td>Specific Course Information [<label title="Example"><font color="red">Example?</font></label>] 
+    <td>Textbook Information [<label title="Example"><font color="red">Example?</font></label>] 
        <ul>
          <li>Text Book, title, author and year</li>
-         <li>Brief list of topics to be covered</li> 
        </ul>
     </td>
-    <td colspan="10"><textarea name="syllabus_and_grading" cols="80" rows="5"><?php echo $course->syllabus; ?></textarea></td>
+    <td colspan="10"><textarea name="textbook" cols="80" rows="5"><?php echo $course->textbook; ?></textarea></td>
+  </tr>
+
+  <tr>
+    <td>Brief list of topics to be covered [<label title="Example"><font color="red">Example?</font></label>] 
+    </td>
+    <td colspan="10"><textarea name="topics" cols="80" rows="5"><?php echo $course->topics; ?></textarea></td>
   </tr>
 
   <tr>

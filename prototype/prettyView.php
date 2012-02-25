@@ -1,38 +1,19 @@
-<body onload="document.title = '<?php echo $_GET['course']?>'; <?php if (!isset($_GET['print'])) echo 'alert(\'Please check the number of pages printing\');'; echo 'window.print();'; ?>">
-
-<font style="font-family:Arial, Helvetica, sans-serif">
-<?php 
-function pdfView()
-{
-
-$filename ="http://view.samurajdata.se/ps.php?url=http://sciencespot.net/Media/gen_spbobgenetics.pdf";
-?>
+<html>
+<body onload="document.title = '<?php echo $_GET['course']?>'; <?php 
+    // noprint for debugging
+    if (!isset($_GET['noprint']))
+    {
+        if (!isset($_GET['print'])) echo 'alert(\'Please check the number of pages printing\');';
+        echo 'window.print();'; 
+    }
+?>">
 <style type="text/css">
-#outerdiv
+body
 {
-width:600px;
-height:820px;
-overflow:hidden;
-position:relative;
-border:groove;
-border-width:thick;
-}
-
-#inneriframe
-{
-position:absolute;
-top:-40px;
-left:-160px;
-width:1280px;
-height:1200px;
+    font-family:"Times New Roman";
+    font-size:"12pt";
 }
 </style>
-<div id='outerdiv'>
-<iframe src="<?php echo $filename;?>" id='inneriframe' scrolling=no></iframe>
-</div>
-<?php	
-}
-?>
 <?php
 require_once("../src/include.php");
 if(!isset($_GET['course']))die("ERROR: Course name not given.");
@@ -42,15 +23,9 @@ $course = getCourseForID($_GET['course']);
 <h1>
 <?php echo getDesignatorDisplayString($course->designatorID); ?>&nbsp;<?php echo $course->courseNum; ?>&nbsp;<?php echo $course->courseName; ?>
 
-<style>
-p.page { page-break-after: always; }
-</style>
-
-
 </h1></center>
 <h3>Course Information</h3>
 <hr/>
-
 
 <table>
   <tr align="left" valign="top">
@@ -69,10 +44,18 @@ p.page { page-break-after: always; }
   </tr>
   <tr align="left" valign="top">
     <th>
-    	Specific Course Information
+    	Textbook Information
     </th>
     <td>
-		<?php echo $course->syllabus; ?>
+		<?php echo $course->textbook; ?>
+    </td>
+  </tr>
+  <tr align="left" valign="top">
+    <th>
+    	List of topics to be covered
+    </th>
+    <td>
+		<?php echo $course->topics; ?>
     </td>
   </tr>
   <tr align="left" valign="top">
@@ -218,31 +201,4 @@ p.page { page-break-after: always; }
   </td>
 </tr>
 </table>
-<h3>Sample Assignments</h3>
-<hr />
-<table>
-  
-  <tr align="left" valign="top">
-    <td>
-
-    <table width="100%" border="1" id="sampleAssignments">
-      
-      
-      <?php $i=0;
-      foreach ($course->assignments as $assignmentKey=>$assignment): ?>
-      <p class="page"></p>
-      <b>Assignment Type:</b><br />
-          <?php echo $assignment->type ?>
-		<br />
-       <b>Assignment Number:</b><br />
-          <?php echo $assignment->number; ?>
-       <br />
-       <b>First Page of Assignemnt:</b><br/>
-       <?php pdfView(); ?>
-       
-      <?php $i++; endforeach; ?>
-  </table>
-  </td>
-  </tr>
-  </table>
-  
+</html>

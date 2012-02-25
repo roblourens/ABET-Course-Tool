@@ -11,11 +11,15 @@ class Course
 
     public $courseName = "";
 
+    public $creditsContact = "";
+
     public $description = "";
 
     public $courseLearningOutcomes = array();
 
-    public $syllabus = "";
+    public $textbook = "";
+
+    public $topics = "";
 
     public $assignments = array();
 
@@ -23,7 +27,7 @@ class Course
     // will probably be a comma-separated list but we can let the user deal with that
     public $instructors = "";
 
-    // { "progID": "E", "progID2": "R" }
+    // { "progID1": "E", "progID2": "R" }
     public $reqForProgram = array();
 
     // modification dates
@@ -33,7 +37,7 @@ class Course
 
     // groups for checking modifications
     // only includes the editable ones
-    private $descProperties = array('instructors', 'description', 'syllabus', 'courseLearningOutcomes');
+    private $descProperties = array('instructors', 'creditsContact', 'description', 'textbook', 'topics', 'courseLearningOutcomes');
 
 
     // load from file, or create an empty one
@@ -47,7 +51,9 @@ class Course
             $this->courseName = $_courseArray['courseName'];
             $this->description = $_courseArray['description'];
             $this->courseLearningOutcomes = $_courseArray['courseLearningOutcomes'];
-            $this->syllabus = $_courseArray['syllabus'];
+            $this->textbook = $_courseArray['textbook'];
+            $this->topics = $_courseArray['topics'];
+            $this->creditsContact = $_courseArray['creditsContact'];
 
             $this->descMod = $_courseArray['descMod'];
             $this->outcomesMod = $_courseArray['outcomesMod'];

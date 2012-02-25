@@ -7,6 +7,7 @@ if(isset($_REQUEST['designator'])) {
     $designator = strtolower($designator);
     $courseNum = $_REQUEST['courseNum'];
     $courseName = $_REQUEST['courseName'];
+    $creditsContact = $_REQUEST['creditsContact'];
     $courseDesc = $_REQUEST['courseDesc'];
     $program = $_REQUEST['program'];
     $reqType = $_REQUEST['reqType'];
@@ -17,6 +18,7 @@ if(isset($_REQUEST['designator'])) {
 
     $courseObj = new Course();
     $courseObj->courseName = $courseName;
+    $courseObj->creditsContact = $creditsContact;
     $courseObj->description = $courseDesc;
     $courseObj->courseNum = $courseNum;
     $courseObj->courseID = $courseID;
@@ -57,6 +59,9 @@ function getXML(source)
       {
           if ( (ReqObject.readyState == 4) && (ReqObject.status == 200) )
           {
+              if (ReqObject.responseXML==null)
+                  alert("responseXML is null");
+              console.log(ReqObject.responseXML);
               parse(ReqObject.responseXML);
           }
       }
@@ -66,10 +71,10 @@ function getXML(source)
 
 function parse(xml)
 {
-   var place = document.getElementById("myarea");
    var course = xml.getElementsByTagName("course")[0];
    var name = course.attributes.getNamedItem("code").nodeValue;
    var desc = course.firstChild.nextSibling.nodeValue;
+   alert(desc);
 
    // course name
    /\<strong\>.*?\.[ ]*(.*)\<\/strong\>/.test(desc);
@@ -80,12 +85,14 @@ function parse(xml)
    var courseDesc = RegExp.$1;
    courseDesc = courseDesc.replace(/\<\/em\>\<br \/\>/, ". "); 
 
-   //alert("courseName: " + courseName + "\n" + "courseDesc: " + courseDesc);
+   // credits
+   /(\(\d-\d\).*)/.test(desc);
+   var creditsContact = RegExp.$1;
 
-   //place.innerHTML = desc;
+   //alert("courseName: " + courseName + "\n" + "courseDesc: " + courseDesc);
    document.getElementById("courseName").value = courseName;
    document.getElementById("courseDesc").value = courseDesc;
-
+   document.getElementById("creditsContact").value = creditsContact;
 }
 
 
@@ -132,6 +139,7 @@ Course (As it appears in ISU Catalog):
 <form name="myform" id="myform" action="addCourse.php" method="get">
 Course: <input type="text" id="designator" name="designator" size="3" readonly/>  <input type="text" id="courseNum" name="courseNum" size="4" readonly/><br/>
 Course name: <input type="text" id="courseName" name="courseName" size="35" readonly/><br/>
+Credits and contact hours: <input type="text" id="creditsContact" name="creditsContact" size="20" readonly /><br/>
 Course description: <textarea id="courseDesc" name="courseDesc" cols="80", rows="10" readonly></textarea><br/>
 
 Program ID: <select id="program" name="program">

@@ -10,7 +10,8 @@ $course = getCourseForID($data['course_id']);
 $course->instructors = $data['course_instructor'];    // Course instructor information
 $course->description = $data['course_description'];
 $course->courseLearningOutcomes = array_filter($data['course_learning_outcomes'], "isNonEmptyString");
-$course->syllabus = $data['syllabus_and_grading'];
+$course->textbook = $data['textbook'];
+$course->topics = $data['topics'];
 
 // modification date updates if any
 $course->descMod = $data['descMod'];    

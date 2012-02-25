@@ -167,6 +167,10 @@ function pushBackPreviousVersions($courseID)
     $N = 5;
     $basePath = filePathForCourseID($courseID);
 
+    // will not exist yet if it's being written for the first time (initially added)
+    if (!file_exists($basePath))
+        return;
+
     for ($i=$N; $i>0; $i--)
     {
         $versionPath = str_replace('.json', '.'.$i.'.json', $basePath);
