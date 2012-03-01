@@ -8,8 +8,19 @@
 
 <?php
 require_once("../src/include.php");
-if(!isset($_GET['course']))die("ERROR: Course name not given.");
-$course = getCourseForID($_GET['course']);
+if (!isset($_GET['course']))die("ERROR: Course name not given.");
+$courseID = $_GET['course'];
+$course = getCourseForID($courseID);
+
+// 0 = authorized
+// 1 = wrong pw
+// 2 = no pw given
+if (!isset($_POST['pw']))
+    $authorized = 2;
+else if (!validPwForCourse($courseID, $_POST['pw']))
+    $authorized = 1;
+else
+    $authorized = 0;
 
 function formattedDate($time)
 {
@@ -22,6 +33,7 @@ function formattedDate($time)
 ?>
 <script type="text/javascript">
 var courseID = '<?php echo $course->courseID; ?>';
+var authorized = <?php echo $authorized; ?>;
 
 $(document).ready(function(e) {
     syncSummaryRow();
@@ -39,6 +51,16 @@ $(document).ready(function(e) {
     $('#button_preview').click(function() {
         window.open('prettyView.php?course='+courseID, '_blank');
     });
+
+    // disable all text fields/buttons if not logged in
+    // this is not secure, just to prevent accidents/nosy faculty :)
+    if (authorized != 0)
+    {
+        $('textarea').attr('disabled', 'true');
+        $('.save_button').attr('disabled', 'true');
+        $('input[id!=unlock_input]').attr('disabled', 'true');
+        $('select').attr('disabled', 'true');
+    }
 });
 </script>
 
@@ -48,7 +70,20 @@ $(document).ready(function(e) {
 <?php echo getDesignatorDisplayString($course->designatorID)." ".$course->courseNum." - ".$course->courseName; ?>
 </h1>
 
-<h3>Course Information &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="prettyView.php?course=<?php echo $_GET['course']; ?>&print">Print</a></h3>
+<h3>Course Information &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="prettyView.php?course=<?php echo $_GET['course']; ?>&print">Print</a>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 
+<?php
+if ($authorized == 0)
+    echo "Unlocked";
+else
+{
+    echo "Locked</h3><form id='unlockform' action='course.php?course=$courseID' method='post'>Password: <input id='unlock_input' name='pw' type='password'></input><button type='submit'>Submit</button>";
+
+    if ($authorized == 1)
+        echo "<span id='login_error'>Incorrect password, try again</span>";
+
+    echo "</form>";
+}
+?>
 <hr/>
 
 <!-- Src: http://www.barelyfitz.com/projects/tabber/ -->            
@@ -118,13 +153,13 @@ $(document).ready(function(e) {
 
   <tr>
     <td>Date of Modification [MM/DD/YY]</td>
-    <td colspan="10"><input type="text" name="descMod" cols="8" rows="1" value="<?php echo formattedDate($course->descMod); ?>"/></td>
+    <td colspan="10"><input disabled="true" type="text" name="descMod" cols="8" rows="1" value="<?php echo formattedDate($course->descMod); ?>"/></td>
   </tr>
 
   <tr>
     <td colspan="13">
-        <input type="submit" name="button_save" id="button_save" value="Save Course Info" />
-        <input type="submit" name="button_preview" id="button_preview" value="Preview" />
+        <input class="save_button" type="submit" name="button_save" id="button_save" value="Save Course Info" />
+        <input class="save_button" type="submit" name="button_preview" id="button_preview" value="Preview" />
     </td>
   </tr>
 
@@ -334,13 +369,13 @@ $(document).ready(function(e) {
 </td>
 </tr>
   <tr>
-    <td>Date of Modification [MM/DD/YY]: <input type="text" name="outcomesMod" cols="8" rows="1" value="<?php echo formattedDate($course->outcomesMod); ?>"/></td>
+    <td>Date of Modification [MM/DD/YY]: <input disabled="true" type="text" name="outcomesMod" cols="8" rows="1" value="<?php echo formattedDate($course->outcomesMod); ?>"/></td>
   </tr>
 
 </table>
 
-<input type="submit" name="button_save" id="button_save" value="Save Course Info" />
-<input type="submit" name="button_preview" id="button_preview" value="Preview" />
+<input class="save_button" type="submit" name="button_save" id="button_save" value="Save Course Info" />
+<input class="save_button" type="submit" name="button_preview" id="button_preview" value="Preview" />
 
 </div> <!-- end of div class tabbertab for second segment -->
 
@@ -455,14 +490,14 @@ $(document).ready(function(e) {
   </tr>
 
     <tr>
-    <td>Date of Modification [MM/DD/YY]: <input type="text" name="assignMod" cols="8" rows="1" value="<?php echo formattedDate($course->assignMod); ?>"/></td>
+    <td>Date of Modification [MM/DD/YY]: <input disabled="true" type="text" name="assignMod" cols="8" rows="1" value="<?php echo formattedDate($course->assignMod); ?>"/></td>
   </tr>
 
 
 
   <tr>
-    <td><input type="submit" name="button_save" id="button_save" value="Save Course Info" />
-        <input type="submit" name="button_preview" id="button_preview" value="Preview" />
+    <td><input class="save_button" type="submit" name="button_save" id="button_save" value="Save Course Info" />
+        <input class="save_button" type="submit" name="button_preview" id="button_preview" value="Preview" />
     </td>
   </tr>
 

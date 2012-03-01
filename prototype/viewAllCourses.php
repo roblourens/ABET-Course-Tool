@@ -2,8 +2,17 @@
 require_once("include/header.php"); 
 require_once('../src/include.php');
 
-$programs = getPrograms();
+// 0 = authorized
+// 1 = wrong pw
+// 2 = no pw given
+if (!isset($_POST['pw']))
+    $authorized = 2;
+else if (!validPwForCourse($courseID, $_POST['pw']))
+    $authorized = 1;
+else
+    $authorized = 0;
 
+$programs = getPrograms();
 
 function compareCourses($c1, $c2, $progID)
 {
@@ -23,6 +32,30 @@ function compareCourses($c1, $c2, $progID)
     <h2>
     View All Courses
     </h2>
+    <h3>
+<?php
+if ($authorized == 0)
+    echo "Unlocked</h3>";
+else
+{
+    echo "Locked</h3><form id='unlockform' method='post'>Password: <input id='unlock_input' name='pw' type='password'></input><button id='unlock_button' type='submit'>Submit</button>";
+
+    if ($authorized == 1)
+        echo "<span id='login_error'>Incorrect password, try again</span>";
+
+    echo "</form>";
+}
+?>
+
+<script type='text/javascript'>
+$(document).ready(function(e) {
+    $authorized = <?php echo $authorized; ?>;
+
+    if (authorized != 0)
+        $('button[id!=unlock_button]').hide();
+});
+</script>
+
 <hr />
 
 <?php

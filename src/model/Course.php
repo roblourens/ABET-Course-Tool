@@ -150,10 +150,7 @@ class Course
         {
             $this->courseABETOutcomes = $course->courseABETOutcomes;
             $this->outcomesMod = time();
-            echo "yes";
         }
-        else
-            echo "no";
 
         // don't replace, merge
         if ($this->reqForProgram != $course->reqForProgram)

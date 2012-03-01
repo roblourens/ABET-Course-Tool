@@ -6,8 +6,40 @@ $MASTER_ROOT = $DATA_ROOT.'master/';
 $MASTER_FILE = $MASTER_ROOT.'index.json';
 $USERS_FILE = $MASTER_ROOT.'users.json';
 $DESIGNATORS_FILE = $MASTER_ROOT.'designators.json';
+$PASSWORDS_FILE = $MASTER_ROOT.'passwords.json';
 $PROGRAM = $DATA_ROOT.'program/';
 $COURSE = $DATA_ROOT.'courses/';
+
+function validPwForAllCoursesPage($pw)
+{
+    global $PASSWORDS_FILE;
+
+    $f = fopen($PASSWORDS_FILE, 'r');
+    flock($f, LOCK_SH);
+    $json = fread($f, filesize($PASSWORDS_FILE));
+    fclose($f);
+
+    $passwords = json_decode($json, true);
+
+    $masterPw = $passwords['MASTER'];
+    $allCoursesPw = $passwords['allcourses'];
+    return $pw == $masterPw || $pw == $allCoursesPw;
+}
+
+function validPwForCourse($courseID, $pw)
+{
+    global $PASSWORDS_FILE;
+
+    $f = fopen($PASSWORDS_FILE, 'r');
+    flock($f, LOCK_SH);
+    $json = fread($f, filesize($PASSWORDS_FILE));
+    fclose($f);
+
+    $passwords = json_decode($json, true);
+
+    $masterPw = $passwords['MASTER'];
+    return $pw == $passwords[$courseID] || $pw == $masterPw;
+}
 
 // Returns false or the array of courses that the user has permission to modify
 function login($username, $pw)

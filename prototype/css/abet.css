@@ -328,3 +328,12 @@ html
 #courseOutcomeRow {
     display: none;
 }
+
+#unlockform {
+    margin-top: 10px;
+}
+
+#login_error {
+    color: red;
+    margin-left: 5px;
+}
