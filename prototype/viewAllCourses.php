@@ -38,7 +38,7 @@ if ($authorized == 0)
     echo "Unlocked</h3>";
 else
 {
-    echo "Locked</h3><form id='unlockform' method='post'>Password: <input id='unlock_input' name='pw' type='password'></input><button id='unlock_button' type='submit'>Submit</button>";
+    echo "Locked</h3><form id='unlockform' method='post'>Access Code: <input id='unlock_input' name='pw' type='password'></input><button id='unlock_button' type='submit'>Submit</button>";
 
     if ($authorized == 1)
         echo "<span id='login_error'>Incorrect password, try again</span>";
