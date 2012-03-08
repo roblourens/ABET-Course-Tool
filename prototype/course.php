@@ -76,7 +76,7 @@ if ($authorized == 0)
     echo "Unlocked";
 else
 {
-    echo "Locked</h3><form id='unlockform' action='course.php?course=$courseID' method='post'>Password: <input id='unlock_input' name='pw' type='password'></input><button type='submit'>Submit</button>";
+    echo "Locked</h3><form id='unlockform' action='course.php?course=$courseID' method='post'>Access Code: <input id='unlock_input' name='pw' type='password'></input><button type='submit'>Submit</button>";
 
     if ($authorized == 1)
         echo "<span id='login_error'>Incorrect password, try again</span>";
