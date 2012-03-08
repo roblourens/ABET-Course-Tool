@@ -314,7 +314,7 @@ function saveData(data)
 	// Create a function that will receive data sent from the server
 	ajaxRequest.onreadystatechange = function(){
 		if(ajaxRequest.readyState == 4){
-			alert(ajaxRequest.responseText);
+			//alert(ajaxRequest.responseText);
 		}
 	}
 	var json = data;
@@ -382,7 +382,7 @@ $(function() {
     $('#save_course_form').submit(function() {
         // Save course data (creates course on server if successful)
         var obj = $('#save_course_form').serializeObject();
-		fade();
+		showInfoBar('Course Was Saved Successfully');
         obj.course_learning_outcomes = obj.course_learning_outcomes.split(/; */);
 		saveData(JSON.stringify(obj));
 
@@ -407,9 +407,16 @@ $(function() {
 $(function() {
     $('.delete_form').submit(function(e) { 
         var id = e.currentTarget.id;
-        var course = id.split(';')[0];
-        var progID = id.split(';')[1];
-        removeCourseFromPID(course, progID);
+        var course = id.split(',')[0];
+        var progID = id.split(',')[1];
+
+        if(confirm('Are you sure you would like to delete ' + course + ' from ' + progID + '?'))
+        {
+            removeCourseFromPID(course, progID);
+            $('#tr_'+course+'_'+progID).remove();
+        }
+
+
         return false;
     });
 });

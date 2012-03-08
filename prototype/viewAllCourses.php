@@ -7,7 +7,7 @@ require_once('../src/include.php');
 // 2 = no pw given
 if (!isset($_POST['pw']))
     $authorized = 2;
-else if (!validPwForCourse($courseID, $_POST['pw']))
+else if (!validPwForAllCoursesPage($_POST['pw']))
     $authorized = 1;
 else
     $authorized = 0;
@@ -66,12 +66,13 @@ foreach ($programs as $prog)
     $compareCoursesF = create_function('$c1,$c2', "return compareCourses(\$c1, \$c2, '$progID');");
     usort($progCourses, $compareCoursesF);
     echo "<h3 class='prog_name'>".$prog['long']."</h3>";
-	echo "<table>";
+	echo "<table id='table_$progID'>";
     foreach ($progCourses as $courseID)
     {
         $course = getCourseForID($courseID);
         $desig = getDesignatorDisplayString($course->designatorID);
-        echo "<div class='course_name'><tr><td><a href='course.php?course=$courseID'>".$desig." ".$course->courseNum."</a></td><td width='10px'></td><td><form class='delete_form' id='$courseID;$progID'><button>Delete</button></form><td><tr></div>";
+        echo "<tr id='tr_${courseID}_$progID'><td><a href='course.php?course=$courseID'>".$desig." ".$course->courseNum."</a></td>";
+        echo "<td width='10px'></td><td><form class='delete_form' id='$courseID,$progID'><button>Delete</button></form></td></tr>";
     }
 
     echo "</table>";

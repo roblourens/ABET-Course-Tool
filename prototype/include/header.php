@@ -8,7 +8,7 @@
     <script type="application/javascript" src="scripts/js/ajaxfileupload.js"></script>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 </head>
-<body onload="hideInfoBar();">
+<body>
     <div class="page">
         <div class="header">
             <div class="title">
@@ -27,27 +27,26 @@
     <td width="25%" align="center"><a href="addCourse.php">Add a course</a></td>
   </tr>
 </table>
-<div id="flash_bar">
+<div id="notice_bar_wrapper">
 <div id="notice_bar" align="center">
-        Updated Information Was Saved Successfully
 </div>
 </div>
-<?php error_reporting(0);
+
+<?php 
+error_reporting(0);
 date_default_timezone_set('America/Chicago');
 ?>
 
-    <script>
-	function fade(){
-        //$(document).ready(function() {
-			
-			$("#notice_bar").fadeIn(500);
-            $("#notice_bar").fadeOut(7000);
-			
-           // event.preventDefault();
-        //});
-	}
-	function hideInfoBar()
-	{
-		$("#notice_bar").fadeOut(0);	
-	}
-    </script>
+<script>
+function hideInfoBar()
+{
+    $("#notice_bar").hide();	
+}
+
+function showInfoBar(msg)
+{
+    $('#notice_bar').html(msg);
+    $("#notice_bar").fadeIn(500);
+    $("#notice_bar").fadeOut(8000);
+}
+</script>
