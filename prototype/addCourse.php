@@ -103,7 +103,7 @@ function parse(xml)
    var course = xml.getElementsByTagName("course")[0];
    var name = course.attributes.getNamedItem("code").nodeValue;
    var desc = course.firstChild.nextSibling.nodeValue;
-   alert(desc);
+   //alert(desc);
 
    // course name
    /\<strong\>.*?\.[ ]*(.*)\<\/strong\>/.test(desc);
