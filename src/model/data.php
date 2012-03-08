@@ -38,7 +38,10 @@ function validPwForCourse($courseID, $pw)
     $passwords = json_decode($json, true);
 
     $masterPw = $passwords['MASTER'];
-    return $pw == $passwords[$courseID] || $pw == $masterPw;
+    if (isset($passwords[$courseID]))
+        return $pw == $passwords[$courseID] || $pw == $masterPw;
+    else
+        return $pw == $courseID || $pw == $masterPw;
 }
 
 // Returns false or the array of courses that the user has permission to modify

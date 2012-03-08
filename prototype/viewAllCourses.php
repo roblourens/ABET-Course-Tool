@@ -49,7 +49,7 @@ else
 
 <script type='text/javascript'>
 $(document).ready(function(e) {
-    $authorized = <?php echo $authorized; ?>;
+    authorized = <?php echo $authorized; ?>;
 
     if (authorized != 0)
         $('button[id!=unlock_button]').hide();
