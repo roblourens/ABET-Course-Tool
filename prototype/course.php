@@ -37,14 +37,11 @@ var authorized = <?php echo $authorized; ?>;
 
 $(document).ready(function(e) {
     syncSummaryRow();
+    assignCheckboxFuncs();
 
     $('input[type=checkbox][class=sum]').click(function(e) {
         // give it A, B... from sum_A, sum_B...
         setCourseOutcome(e.currentTarget.name.split('_')[1], e.currentTarget.checked);
-        syncSummaryRow();
-    });
-
-    $('input[type=checkbox][class!=sum]').click(function() {
         syncSummaryRow();
     });
 
@@ -62,6 +59,19 @@ $(document).ready(function(e) {
         $('select').attr('disabled', 'true');
     }
 });
+
+function addAssignmentRow()
+{
+    add_new_row('#assignmentsTable', add_assignment_row()); 
+    assignCheckboxFuncs();   
+}
+
+// called every time a row is added so it can set the callbacks on the new checkboxes
+function assignCheckboxFuncs() {
+    $('input[type=checkbox][class!=sum]').click(function() {
+        syncSummaryRow();
+    });
+}
 </script>
 
 <div class="main">
@@ -300,7 +310,7 @@ else
      <?php $i++; endforeach; ?>
     </table>
 
-    <input type="button" name="add_another_assignment" id="add_another_assignment" value="Add a New Assignment" onclick="add_new_row('#assignmentsTable', add_assignment_row());" />
+    <input type="button" name="add_another_assignment" id="add_another_assignment" value="Add a New Assignment" onclick="addAssignmentRow();" />
     </td>
     </tr>
     <br />
