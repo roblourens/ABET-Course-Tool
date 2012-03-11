@@ -27,8 +27,8 @@ function formattedDate($time)
     if ($time == "")
         return "";
 
-    $date = getdate($time);
-    return $date['mon']."/".$date['mday']."/".$date['year'].", ".$date['hours'].':'.$date['minutes'];   
+    $date = date("m/d/y, G:i", $time);
+    return $date;
 }
 ?>
 <script type="text/javascript">
@@ -83,7 +83,7 @@ function assignCheckboxFuncs() {
 <h3>Course Information &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="prettyView.php?course=<?php echo $_GET['course']; ?>&print">Print</a>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 
 <?php
 if ($authorized == 0)
-    echo "Unlocked";
+    echo "Unlocked</h3>";
 else
 {
     echo "Locked</h3><form id='unlockform' action='course.php?course=$courseID' method='post'>Access Code: <input id='unlock_input' name='pw' type='password'></input><button type='submit'>Submit</button>";
@@ -96,6 +96,7 @@ else
 ?>
 <hr/>
 
+<form id="save_course_form">
 <!-- Src: http://www.barelyfitz.com/projects/tabber/ -->            
 <div class="tabber">
 
@@ -104,7 +105,6 @@ else
 <!------------------------------------------------------------------->
 <div class="tabbertab" title="General Course Information">
 
-<form id="save_course_form">
 <table width="100%" border="0">
 
   <tr>
@@ -236,7 +236,7 @@ else
      
       <?php $i=0;
       foreach ($course->assignments as $assignmentKey=>$assignment):?>
-      <tr id="assignment_row_tr_<?php  echo $i?>" <?php if($i % 2 == 1)echo "bgcolor=\"#b6b7bc\"" ?>>
+      <tr id="assignment_row_tr_<?php echo $i?>" <?php if($i % 2 == 1)echo "bgcolor=\"#b6b7bc\"" ?>>
 
         <td id="assignment_row_tr_<?php echo $i?>"><?php echo $i+1; ?>
         </td>
@@ -255,7 +255,7 @@ else
         </td>
 
         <td id="assignment_row_tr_<?php $i?>">
-        <select name="number_<?php echo $i; ?>" id="select">
+        <select name="number_<?php echo $i; ?>" >
           <?php $number = $assignment->number; ?>
           <option <?php if($number == 0) echo "selected"; ?> value="0">Select Number</option>
           <option <?php if($number == 1) echo "selected"; ?> value="1">1</option>
