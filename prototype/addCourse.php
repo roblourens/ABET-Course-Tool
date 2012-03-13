@@ -112,6 +112,11 @@ function parse(xml)
    // course description
    var ret = /\<em\>([\s\S]*)\<\/p\>/.test(desc);
    var courseDesc = RegExp.$1;
+   if (courseDesc == courseName)
+   {
+       ret = /\<br \/\>([\s\S]*)\<\/p\>/.test(desc);
+       courseDesc = RegExp.$1;
+   }
    courseDesc = courseDesc.replace(/\<\/em\>\<br \/\>/, ". "); 
 
    // credits
