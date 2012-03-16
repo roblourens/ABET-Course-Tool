@@ -254,7 +254,7 @@ function genNewSampleRow(course)
 		  
 "		        <td width=\"33%\"><div id=file_upload_box_assignment_"+num+">Upload Assignment:</div><br />"+
 
-"           <input id='fileToUpload_assignment"+num+"' type='file' name='fileToUpload_assignment' class='input'>"+
+"           <input id='fileToUpload_assignment_"+num+"' type='file' name='fileToUpload_assignment_"+num+"' class='input'>"+
 "        </div>"+
 "        </td>"+
 "      </tr >"+
