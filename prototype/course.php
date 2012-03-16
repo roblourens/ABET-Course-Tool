@@ -396,7 +396,7 @@ else
   <table border="0">
   <tr>
     <td colspan="13"><h2>Sample Assignments:</h2></td>
-    <input type="hidden" id="sample_assignment_row_count" name="sample_assignment_row_count" value="<?php echo count($course->assignments); ?>"/>
+    <input type="hidden" id="sample_assignment_row_count" name="sample_assignment_row_count" value="<?php echo count($course->sampleAssignments); ?>"/>
   </tr>
 
   <tr height="10px"></tr>
@@ -408,7 +408,7 @@ else
       
       
       <?php $i=0;
-      foreach ($course->assignments as $assignmentKey=>$assignment): ?>
+      foreach ($course->sampleAssignments as $assignmentKey=>$assignment): ?>
       <tr <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
 
         <td width="33%" height="103">Assignment Type:<br />

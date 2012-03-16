@@ -22,7 +22,11 @@ class Course
 
     public $topics = "";
 
+    // for outcomes only
     public $assignments = array();
+
+    // for uploaded samples
+    public $sampleAssignments = array();
 
     // ABET outcomes not linked to an assignment
     public $courseABETOutcomes = array();
@@ -72,6 +76,9 @@ class Course
             foreach ($_courseArray['assignments'] as $key=>$assignmentArray)
                 $this->assignments[$key] = new Assignment($assignmentArray);
 
+            foreach($_courseArray['sampleAssignments'] as $key=>$assignmentArray)
+                $this->sampleAssignments[$key] = new SampleAssignment($assignmentArray);
+
             $this->courseABETOutcomes = $_courseArray['courseABETOutcomes'];
         }
     }
@@ -113,36 +120,14 @@ class Course
         // Check whether any assignments have changed
         if ($this->assignments != $course->assignments)
         {
-            // Find the assignment that changed
-            foreach ($this->assignments as $assignKey=>$thisAssignment)
-            {
-                $otherAssignment = $course->assignments[$assignKey];
-                if ($otherAssignment != null)
-                {
-                    // Check which assignments-related mod time to change
-                    if ($thisAssignment->learningOutcomes != $otherAssignment->learningOutcomes)
-                        $this->outcomesMod = time();
-                    if ($thisAssignment->assignmentFileName != $otherAssignment->assignmentFileName ||
-                        $thisAssignment->sampleFileNames != $otherAssignment->sampleFileNames)
-                        $this->assignMod = time();
-                }
-                // The assignment was deleted
-                else
-                {
-                    $this->outcomesMod = time();
-                    $this->assignMod = time();
-                }
-            }
-
-            // Necessary in case an assignment was added (could also do this at the point the assignment
-            // is actually added, but I think it makes more sense to set all the mod times at once)
-            if (count($this->assignments) < count($course->assignments))
-            {
-                $this->outcomesMod = time();
-                $this->assignMod = time();
-            }
-
             $this->assignments = $course->assignments;
+            $this->outcomesMod = time();
+        }
+
+        if ($this->sampleAssignments != $course->sampleAssignments)
+        {
+            $this->sampleAssignments = $course->sampleAssignments;
+            $this->assignMod = time();
         }
 
         // check whether courseABETOutcomes changed
@@ -153,6 +138,7 @@ class Course
         }
 
         // don't replace, merge
+        // this assumes that courses are only being added, not removed from programs
         if ($this->reqForProgram != $course->reqForProgram)
         {
             foreach ($course->reqForProgram as $progID=>$reqType)

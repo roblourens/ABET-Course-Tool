@@ -47,12 +47,12 @@
         move_uploaded_file($_FILES[$fileElementName]['tmp_name'], $filePath);
 
         $course = getCourseForID($_GET['course']);
-        $assignments = $course->assignments;
+        $assignments = $course->sampleAssignments;
         $assignmentKey = $_GET['assignment_type'].$_GET['assignment_number'];
         $assignment = $assignments[$assignmentKey];
         if ($assignment == null)
         {
-            $assignment = new Assignment();
+            $assignment = new SampleAssignment();
             $assignment->type = $_GET['assignment_type'];
             $assignment->number = $_GET['assignment_number'];
         }
@@ -67,7 +67,7 @@
             $assignment->sampleFileNames[2] = $fileName;
 
         $assignments[$assignmentKey] = $assignment;
-        $course->assignments = $assignments;
+        $course->sampleAssignments = $assignments;
 
         updateCourse($course);
 
