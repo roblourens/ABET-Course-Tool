@@ -1,0 +1,29 @@
+{
+    "designatorID":       "se",
+    "courseNum":    "329",
+    "courseID":     "se329",
+    "courseName":   "Software Architecture",
+    "description":  "A totally sweet class.",
+    "courseLearningOutcomes":   [
+                                    "Learn a lot",
+                                    "Learn some more"
+                                ],
+    "syllabus": "Meets way too often",
+    "assignments":    [
+                        {
+                            "name": "hw1",
+                            "type": "homework",
+                            "number": "3",
+                            "exampleNames": {
+                                            "a": "file",
+                                            "b": "",
+                                            "c": ""
+                            },
+                            "learningOutcomes": [
+                                            "a",
+                                            "b",
+                                            "j"
+                                        ]
+                        }
+                    ]
+}
