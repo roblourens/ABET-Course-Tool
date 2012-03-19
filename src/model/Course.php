@@ -67,7 +67,7 @@ class Course
             $this->outcomesMod = $_courseArray['outcomesMod'];
             $this->assignMod= $_courseArray['assignMod'];
 
-            // can be removed once all test data files have new fields
+            // isset checks can be removed once all test data files have new fields
             if (isset($_courseArray['reqForProgram']))
                 $this->reqForProgram = $_courseArray['reqForProgram'];
             if (isset($_courseArray['instructors']))

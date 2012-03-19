@@ -13,13 +13,9 @@ $course->courseLearningOutcomes = array_filter($data['course_learning_outcomes']
 $course->textbook = $data['textbook'];
 $course->topics = $data['topics'];
 
-// modification date updates if any
-$course->descMod = $data['descMod'];    
-$course->assignMod = $data['assignMod'];
-$course->outcomesMod = $data['outcomesMod'];
- 
 $assignments = array();
 
+// save assignment info (tab 2)
 for($i = 0; $i < $data['assignment_row_count']; $i++) 
 {
     $deleteKeyId = 'checkbox_delete_'.$i;
@@ -33,7 +29,6 @@ for($i = 0; $i < $data['assignment_row_count']; $i++)
     $assignment = new Assignment();
     $assignment->type = $type;
     $assignment->number = $number;
-    $assignments[$assignmentKey] = $assignment;
 
     $assignment->learningOutcomes = array();
     foreach (learningOutcomesLetters() as $letter)
@@ -42,6 +37,36 @@ for($i = 0; $i < $data['assignment_row_count']; $i++)
         if (array_key_exists($checkboxLetterId, $data) && $data[$checkboxLetterId] == 'on')
             $assignment->learningOutcomes[] = $letter;
     }
+
+    $assignments[$assignmentKey] = $assignment;
+}
+
+$samples = array();
+
+// save sample info (tab 3)
+for ($i =0; $i < $data['sample_assignment_row_count']; $i++)
+{
+    $type = $data['sample_type_'.$i];
+    $number = $data['sample_number_'.$i];
+    $assignmentKey = $type.$number;
+
+    $sample = new SampleAssignment();
+    $sample->type = $type;
+    $sample->number = $number;
+
+    if (isset($data['fileToUpload_assignment_'.$i]))
+        $sample->assignmentFileName = $data['fileToUpload_assignment_'.$i];
+
+    if (isset($data['fileToUpload_A_'.$i]))
+        $sample->sampleFileNames[0] = $data['fileToUpload_A_'.$i];
+
+    if (isset($data['fileToUpload_B_'.$i]))
+        $sample->sampleFileNames[1] = $data['fileToUpload_B_'.$i];
+
+    if (isset($data['fileToUpload_C_'.$i]))
+        $sample->sampleFileNames[2] = $data['fileToUpload_C_'.$i];
+
+    $samples[$assignmentKey] = $sample;
 }
 
 foreach (learningOutcomesLetters() as $letter)
@@ -52,6 +77,7 @@ foreach (learningOutcomesLetters() as $letter)
 }
 
 $course->assignments = $assignments;
+$course->sampleAssignments = $samples;
 updateCourse($course);
 
 echo "Saved successfully!";

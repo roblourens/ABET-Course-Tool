@@ -29,7 +29,7 @@ class SampleAssignment
 
     public $sampleFileNames = array("", "", "");
 
-    public function Assignment($_assignArray=null)
+    public function SampleAssignment($_assignArray=null)
     {
         if ($_assignArray != null)
         {

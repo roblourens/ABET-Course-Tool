@@ -202,10 +202,10 @@ jQuery.extend({
 
 	function ajaxFileUpload(course, assignment_type, assignment_number, file_type, number)
 	{
-        // if this id doesn't exist, the file is already uploaded (weak)
+        // if the input element is type hidden, don't upload
         // if the value is empty, no file is to be uploaded
         var elementId = 'fileToUpload_'+file_type+'_'+number;
-        if ($('#'+elementId).length == 0 || $('#'+elementId).attr('value')=="")
+        if ($('#'+elementId).length == 0 || $('#'+elementId).attr('value')=="" || $('#'+elementId).attr('type') == 'hidden')
             return;
         
 		$("#loading")

@@ -440,10 +440,19 @@ else
         <td width="33%"><div id="file_upload_box_assignment_<?php echo $i ?>"><?php
         // Assignment block
         if ($assignment->assignmentFileName != "")
-            echo "<a href = '../data/courses/".$course->courseID."/".$assignment->assignmentFileName."'>View File</a>";
+        {
+            $href = "../data/courses/".$course->courseID."/".$assignment->assignmentFileName;
+            echo "<a href = '$href'>View File</a>";
+            $inputType = "hidden";
+        }
         else
-            echo "Upload Assignment:<br />
-<input id='fileToUpload_assignment_".$i."' type='file' name='fileToUpload_assignment_".$i."' class='input'>"; ?>
+        {
+            echo "Upload Assignment:<br />";
+            $inputType = "file";
+            $href = '';
+        }
+        echo "<input id='fileToUpload_assignment_".$i."' type='$inputType' name='fileToUpload_assignment_".$i."' class='input' value='$href'>"; ?>
+
         </div>
         </td>
 
@@ -455,10 +464,18 @@ else
                            <?php
                              // Sample A block
                                 if ($assignment->sampleFileNames[0] != "")
-                                   echo "<a href = '../data/courses/".$course->courseID."/".$assignment->sampleFileNames[0]."'>View File</a>";
+                                {
+                                   $href = "../data/courses/".$course->courseID."/".$assignment->sampleFileNames[0];
+                                   echo "<a href = '$href'>View File</a>";
+                                   $inputType = "hidden";
+                                }
                                 else
-                                   echo "Upload sample solution worth of an &quot;A&quot;:
-                                <input id='fileToUpload_A_".$i."' type='file' name='fileToUpload_A_".$i."' class='input'>"; ?>
+                                {
+                                   $href = '';
+                                   echo "Upload sample solution worth of an &quot;A&quot;:";
+                                   $inputType = "file";
+                                }
+                                echo "<input id='fileToUpload_A_".$i."' type='$inputType' name='fileToUpload_A_".$i."' class='input' value='$href'>"; ?>
                   </div>
         </td>
 
@@ -467,10 +484,18 @@ else
                          <?php
                           // Sample B block
                              if ($assignment->sampleFileNames[1] != "")
-                               echo "<a href = '../data/courses/".$course->courseID."/".$assignment->sampleFileNames[1]."'>View File</a>";
+                             {
+                               $href = "../data/courses/".$course->courseID."/".$assignment->sampleFileNames[1];
+                               echo "<a href = '$href'>View File</a>";
+                               $inputType = "hidden";
+                             }
                              else
-                               echo "Upload sample solution worth of an &quot;B&quot;:<br />
-                             <input id='fileToUpload_B_".$i."' type='file' name='fileToUpload_B_".$i."' class='input'>"; ?>
+                             {
+                                 $href = '';
+                                 echo "Upload sample solution worth of an &quot;B&quot;:<br />";
+                                 $inputType = "file";
+                             }
+                             echo "<input id='fileToUpload_B_".$i."' type='$inputType' name='fileToUpload_B_".$i."' class='input' value='$href'>"; ?>
                 </div>
         </td>
 
@@ -479,10 +504,18 @@ else
                         <?php
                          // Sample C block
                              if ($assignment->sampleFileNames[2] != "")
-                                 echo "<a href = '../data/courses/".$course->courseID."/".$assignment->sampleFileNames[2]."'>View File</a>";
+                             {
+                                 $href = "../data/courses/".$course->courseID."/".$assignment->sampleFileNames[2];
+                                 echo "<a href = '$href'>View File</a>";
+                                 $inputType = "hidden";
+                             }
                              else
-                                 echo "Upload sample solution worth of an &quot;C&quot;:<br />
-                            <input id='fileToUpload_C_".$i."' type='file' name='fileToUpload_C_".$i."' class='input'>"; ?>
+                             {
+                                 $href = '';
+                                 echo "Upload sample solution worth of an &quot;C&quot;:<br />";
+                                 $inputType = "file";
+                             }
+                            echo "<input id='fileToUpload_C_".$i."' type='$inputType' name='fileToUpload_C_".$i."' class='input' value='$href'>"; ?>
                </div>
         </td>
 

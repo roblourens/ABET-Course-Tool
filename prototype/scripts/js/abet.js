@@ -261,15 +261,15 @@ function genNewSampleRow(course)
 "      <tr>"+
 "        <td width='33%'><div id='file_upload_box_A_"+num+"'>"+
          "Upload sample solution worth of an &quot;A&quot;:"+
-"           <input id='fileToUpload_A"+num+"' type='file' name='fileToUpload_A"+num+"' class='input'>"+
+"           <input id='fileToUpload_A_"+num+"' type='file' name='fileToUpload_A_"+num+"' class='input'>"+
 "        </td>"+
 "        <td width='33%'><div id='file_upload_box_B_"+num+"'>"+
          "Upload sample solution worth of an &quot;B&quot;:<br />"+
-"           <input id='fileToUpload_B"+num+"' type='file' name='fileToUpload_B"+num+"' class='input'>"+
+"           <input id='fileToUpload_B_"+num+"' type='file' name='fileToUpload_B_"+num+"' class='input'>"+
 "        </td>"+
 "        <td width='33%'><div id='file_upload_box_C_"+num+"'>"+
          "Upload sample solution worth of an &quot;C&quot;:<br />"+
-"           <input id='fileToUpload_C"+num+"' type='file' name='fileToUpload_C"+num+"' class='input'>"+
+"           <input id='fileToUpload_C_"+num+"' type='file' name='fileToUpload_C_"+num+"' class='input'>"+
 "		</td>"+
 "     </tr>";
 }
