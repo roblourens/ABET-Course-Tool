@@ -18,6 +18,14 @@ function get_num_rows()
 	return num_of_rows;
 }
 
+function get_num_sample_rows()
+{
+    var num_of_rows = document.getElementById('sample_assignment_row_count').defaultValue;
+    
+    return num_of_rows;
+}
+
+
 function increment_assignment_row_count()
 {
 	var num_of_rows = document.getElementById('assignment_row_count').defaultValue;
@@ -327,40 +335,6 @@ function saveData(data)
 	ajaxRequest.send(parameters);
 }
 
-function removeCourseFromPID(courseID, progID)
-{
-    var ajaxRequest;  // The variable that makes Ajax possible!
-	
-	try{
-		// Opera 8.0+, Firefox, Safari
-		ajaxRequest = new XMLHttpRequest();
-	} catch (e){
-		// Internet Explorer Browsers
-		try{
-			ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
-		} catch (e) {
-			try{
-				ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
-			} catch (e){
-				// Something went wrong
-				return false;
-			}
-		}
-	}
-
-	// Create a function that will receive data sent from the server
-	ajaxRequest.onreadystatechange = function(){
-		if(ajaxRequest.readyState == 4){
-			//alert(ajaxRequest.responseText);
-		}
-	}
-
-	var parameters="course="+courseID+"&progID="+progID;
-	ajaxRequest.open("POST", "scripts/php/ajax.removeCourse.php", true)
-	ajaxRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-	ajaxRequest.send(parameters);
-}
-
 $.fn.serializeObject = function()
 {
     var o = {};
@@ -387,7 +361,7 @@ $(function() {
 		saveData(JSON.stringify(obj));
 
         // upload all files
-        for (var i=0; i<get_num_rows(); i++)
+        for (var i=0; i<get_num_sample_rows(); i++)
         {
             var assignment_type = $('#sample_type_'+i).attr('value');
             var assignment_number = $('#sample_number_'+i).attr('value');
@@ -398,24 +372,6 @@ $(function() {
             ajaxFileUpload(courseID, assignment_type, assignment_number, 'C', i);
 			
         }
-
-        return false;
-    });
-});
-
-
-$(function() {
-    $('.delete_form').submit(function(e) { 
-        var id = e.currentTarget.id;
-        var course = id.split(',')[0];
-        var progID = id.split(',')[1];
-
-        if(confirm('Are you sure you would like to delete ' + course + ' from ' + progID + '?'))
-        {
-            removeCourseFromPID(course, progID);
-            $('#tr_'+course+'_'+progID).remove();
-        }
-
 
         return false;
     });
