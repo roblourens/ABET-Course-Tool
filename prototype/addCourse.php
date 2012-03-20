@@ -134,6 +134,21 @@ function parse(xml)
    document.getElementById("creditsContact").value = creditsContact;
 }
 
+$(document).ready(function() {
+    $('#addCourseForm').submit(function() {
+        if ($('input[name=se_reqType][value=noChange]').attr('checked') &&
+            $('input[name=cpre_reqType][value=noChange]').attr('checked') &&
+            $('input[name=ee_reqType][value=noChange]').attr('checked') &&
+            $('input[name=coms_reqType][value=noChange]').attr('checked'))
+        {
+            alert('You should check an option for this course!');
+            return false;
+        }
+
+        return true;
+    });
+});
+
 <?php
 if (isset($_REQUEST['designator'])) {
     echo "$(document).ready(function() {";
@@ -167,7 +182,7 @@ Course (As it appears in ISU Catalog):
 </form>
 <!-- just have two separate forms -->
 <br/><br/>
-<form name="myform" id="myform" action="addCourse.php" method="post">
+<form name="myform" id="addCourseForm" action="addCourse.php" method="post">
 Course: <input type="text" id="designator" name="designator" size="3" readonly/>  <input type="text" id="courseNum" name="courseNum" size="4" readonly/><br/>
 Course name: <input type="text" id="courseName" name="courseName" size="35" readonly/><br/>
 Credits and contact hours: <input type="text" id="creditsContact" name="creditsContact" size="20" readonly /><br/>
