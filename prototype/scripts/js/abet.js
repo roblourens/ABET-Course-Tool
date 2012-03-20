@@ -55,162 +55,65 @@ function add_new_row(table, rowcontent){
     }
 }
 
-function genNewAssignmentRow()
-{
-	var  rowCount = 0;
-	rowCount++;
-	
-	return ""+
-	"<table width='50%' border='1'>"+
-     " <tr>"+
-	 "<td width='53' rowspan='2'>"+rowCount+"</td>"+
-      "  <td width='109' rowspan='2'><select name='assignment_type_"+rowCount+"' id='assignment_type_"+rowCount+"'>"+
-       "   <option value='0' selected='selected'>Select Value</option>"+
-        "  <option value='homework'>Homework</option>"+
-         " <option value='test'>Test</option>"+
-          "<option value='lab'>Lab</option>"+
-          "<option value='quiz'>Quiz</option>"+
-          "<option value='midterm'>Midterm</option>"+
-          "<option value='final'>Final</option>"+
-          "</select></td>"+
-        "<td rowspan='2'><select name='assignment_number_"+rowCount+"' id='assignment_number_"+rowCount+"'>"+
-          "<option value='0'>Select Number</option>"+
-          "<option value='1'>1</option>"+
-          "<option value='2'>2</option>"+
-          "<option value='3'>3</option>"+
-          "<option value='4'>4</option>"+
-          "<option value='5'>5</option>"+
-          "<option value='6'>6</option>"+
-          "<option value='7'>7</option>"+
-          "<option value='8'>8</option>"+
-          "<option value='9'>9</option>"+
-          "<option value='10'>10</option>"+
-          "</select></td>"+
-        "<td colspan='2'>a</td>"+
-        "<td width='27'>b</td>"+
-        "<td width='20'>c</td>"+
-        "<td width='20'>d</td>"+
-        "<td width='20'>e</td>"+
-        "<td width='20'>f</td>"+
-        "<td width='20'>g</td>"+
-        "<td width='20'>h</td>"+
-        "<td width='20'>i</td>"+
-        "<td width='20'>j</td>"+
-        "<td width='21'>k</td>"+
-      "</tr>"+
-      "<tr>"+
-        "<td colspan='2'><input type='checkbox' name='assignment_number_a_"+rowCount+"' id='assignment_number_a_"+rowCount+"' /></td>"+
-        "<td><input type='checkbox' name='assignment_number_b_"+rowCount+"' id='assignment_number_b_"+rowCount+"' /></td>"+
-        "<td><input type='checkbox' name='assignment_number_c_"+rowCount+"' id='assignment_number_c_"+rowCount+"' /></td>"+
-        "<td><input type='checkbox' name='assignment_number_d_"+rowCount+"' id='assignment_number_d_"+rowCount+"' /></td>"+
-        "<td><input type='checkbox' name='assignment_number_e_"+rowCount+"' id='assignment_number_e_"+rowCount+"' /></td>"+
-        "<td><input type='checkbox' name='assignment_number_f_"+rowCount+"' id='assignment_number_f_"+rowCount+"' /></td>"+
-        "<td><input type='checkbox' name='assignment_number_g_"+rowCount+"' id='assignment_number_g_"+rowCount+"' /></td>"+
-        "<td><input type='checkbox' name='assignment_number_h_"+rowCount+"' id='assignment_number_h_"+rowCount+"' /></td>"+
-        "<td><input type='checkbox' name='assignment_number_i_"+rowCount+"' id='assignment_number_i_"+rowCount+"' /></td>"+
-        "<td><input type='checkbox' name='assignment_number_j_"+rowCount+"' id='assignment_number_j_"+rowCount+"' /></td>"+
-		"<td><input type='checkbox' name='assignment_number_k_"+rowCount+"' id='assignment_number_k_"+rowCount+"' /></td>"+
-      "</tr>"+
-    "</table>";
-}
-
 function genNewSampleRow(course)
 {
 	var num = increment_sample_row_count();
     // rows are 0-indexed
     num--;
 	return ""+
-	      "<tr>"+
-
-"<td width='33%' height='103'>Assignment Type:<br />"+
-
- "         <select id = 'sample_type_"+num+"' name='sample_type_"+num+"'>"+
-
-  "          <option selected value='0' selected='selected'>Select Value</option>"+
-
- "           <option  value='homework'>Homework</option>"+
-
-  "          <option  value='test'>Test</option>"+
-
-   "         <option  value='lab'>Lab</option>"+
-
-    "        <option  value='quiz'>Quiz</option>"+
-
-     "       <option  value='midterm'>Midterm</option>"+
-
-"             <option  value='final'>Final</option>"+
-
-  "         </select></td>"+
-
-    "     <td width='33%'>Assignment Number:<br />"+
-
-      "     <select name='sample_number_"+num+"' id='sample_number_"+num+"'>"+
-
-        "     <option selected value='0'>Select Number</option>"+
-
-          "   <option  value='1'>1</option>"+
-
-            " <option  value='2'>2</option>"+
-
-            " <option  value='3'>3</option>"+
-
-        "     <option  value='4'>4</option>"+
-
-          "   <option  value='5'>5</option>"+
-
-         "    <option  value='6'>6</option>"+
-
-           "  <option  value='7'>7</option>"+
-
-         "    <option  value='8'>8</option>"+
-
-           "  <option  value='9'>9</option>"+
-
-        "     <option  value='10'>10</option>"+
-
-        "   </select></td>"+
-		  
-"		        <td width=\"33%\"><div id=file_upload_box_assignment_"+num+">Upload Assignment:</div><br />"+
-
-"           <input id='fileToUpload_assignment_"+num+"' type='file' name='fileToUpload_assignment_"+num+"' class='input'>"+
-"        </div>"+
-"        </td>"+
-"      </tr >"+
-"      <tr>"+
-"        <td width='33%'><div id='file_upload_box_A_"+num+"'>"+
-         "Upload sample solution worth of an &quot;A&quot;:"+
-"           <input id='fileToUpload_A_"+num+"' type='file' name='fileToUpload_A_"+num+"' class='input'>"+
-"        </td>"+
-"        <td width='33%'><div id='file_upload_box_B_"+num+"'>"+
-         "Upload sample solution worth of an &quot;B&quot;:<br />"+
-"           <input id='fileToUpload_B_"+num+"' type='file' name='fileToUpload_B_"+num+"' class='input'>"+
-"        </td>"+
-"        <td width='33%'><div id='file_upload_box_C_"+num+"'>"+
-         "Upload sample solution worth of an &quot;C&quot;:<br />"+
-"           <input id='fileToUpload_C_"+num+"' type='file' name='fileToUpload_C_"+num+"' class='input'>"+
-"		</td>"+
-"     </tr>";
+        "<tr>"+
+            "<td width='33%' height='103'>Assignment Type:<br />"+
+                "<select id = 'sample_type_"+num+"' name='sample_type_"+num+"'>"+
+                "<option selected value='0' selected='selected'>Select Value</option>"+
+                "<option  value='homework'>Homework</option>"+
+                "<option  value='test'>Test</option>"+
+                "<option  value='lab'>Lab</option>"+
+                "<option  value='quiz'>Quiz</option>"+
+                "<option  value='midterm'>Midterm</option>"+
+                "<option  value='final'>Final</option>"+
+                "</select></td>"+
+            "<td width='33%'>Assignment Number:<br />"+
+                "<select name='sample_number_"+num+"' id='sample_number_"+num+"'>"+
+                "<option selected value='0'>Select Number</option>"+
+                "<option  value='1'>1</option>"+
+                "<option  value='2'>2</option>"+
+                "<option  value='3'>3</option>"+
+                "<option  value='4'>4</option>"+
+                "<option  value='5'>5</option>"+
+                "<option  value='6'>6</option>"+
+                "<option  value='7'>7</option>"+
+                "<option  value='8'>8</option>"+
+                "<option  value='9'>9</option>"+
+                "<option  value='10'>10</option>"+
+                "</select></td>"+
+            "<td width='33%'><div id=file_upload_box_assignment_"+num+">Upload Assignment:<br />"+
+                "<input id='fileToUpload_assignment_"+num+"' type='file' name='fileToUpload_assignment_"+num+"' class='input'></input>"+
+                "</div>"+
+            "</td>"+        
+            "<td rowspan=2><button type='button' class='delete_sample_button' id='delete_sample_button_"+num+"'>Delete</button></td>"+
+        "</tr >"+
+        "<tr>"+
+            "<td width='33%'><div id='file_upload_box_A_"+num+"'>"+
+                "Upload sample solution worth of an &quot;A&quot;:"+
+                "<input id='fileToUpload_A_"+num+"' type='file' name='fileToUpload_A_"+num+"' class='input'></input>"+
+                "</div>"+
+            "</td>"+
+            "<td width='33%'><div id='file_upload_box_B_"+num+"'>"+
+                "<br />"+
+                "<input id='fileToUpload_B_"+num+"' type='file' name='fileToUpload_B_"+num+"' class='input'></input>"+
+                "</div>"+
+            "</td>"+
+            "<td width='33%'><div id='file_upload_box_C_"+num+"'>"+
+                "<br />"+
+                "<input id='fileToUpload_C_"+num+"' type='file' name='fileToUpload_C_"+num+"' class='input'></input>"+
+                "</div>"+
+            "</td>"+
+        "</tr>";
 }
-
-function unhide()
-{
-  attr = document.getElementById("hidden").getAttribute("class");
-  if (attr == "hidden")
-  {
-    document.getElementById("hidden").setAttribute("class", "unhidden");
-    document.getElementById("hidingbutton").value = "Hide Information";
-  }
-  else
-  {
-    document.getElementById("hidden").setAttribute("class", "hidden");
-    document.getElementById("hidingbutton").value = "Add Information";
-  }
-}
-
 
 function saveData(data)
 {
-		var ajaxRequest;  // The variable that makes Ajax possible!
+    var ajaxRequest;  // The variable that makes Ajax possible!
 	
 	try{
 		// Opera 8.0+, Firefox, Safari
@@ -276,48 +179,21 @@ $(function() {
             var assignment_type = $('#sample_type_'+i).attr('value');
             var assignment_number = $('#sample_number_'+i).attr('value');
 
-            ajaxFileUpload(courseID, assignment_type, assignment_number, 'assignment', i);
-            ajaxFileUpload(courseID, assignment_type, assignment_number, 'A', i);
-            ajaxFileUpload(courseID, assignment_type, assignment_number, 'B', i);
-            ajaxFileUpload(courseID, assignment_type, assignment_number, 'C', i);
-			
+            // sucks, but fixed for now
+            // upload only if not already uploaded
+            if ($('#fileToUpload_assignment_'+i).attr('type') != "hidden")
+                ajaxFileUpload(courseID, assignment_type, assignment_number, 'assignment', i);
+
+            if ($('#fileToUpload_A_'+i).attr('type') != "hidden")
+                ajaxFileUpload(courseID, assignment_type, assignment_number, 'A', i);
+
+            if ($('#fileToUpload_B_'+i).attr('type') != "hidden")
+                ajaxFileUpload(courseID, assignment_type, assignment_number, 'B', i);
+
+            if ($('#fileToUpload_C_'+i).attr('type') != "hidden")
+                ajaxFileUpload(courseID, assignment_type, assignment_number, 'C', i);
         }
 
         return false;
     });
 });
-
-function syncSummaryRow()
-{
-    var count = get_num_rows();
-
-    var outcomes = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'];
-    var foundOutcomes = [];
-    for (var i=0; i<count; i++)
-    {
-        for (var o=0; o<outcomes.length; o++)
-        {
-            var sumCheckbox = $('input[name=sum_'+outcomes[o]+']');
-            if ($('input[name=checkbox'+outcomes[o]+'_'+i+']').is(':checked'))
-                foundOutcomes.push(outcomes[o]);
-        }
-    }
-
-    // check course row
-    for (var o=0; o<outcomes.length; o++)
-    {
-        var sumCheckbox = $('input[name=sum_'+outcomes[o]+']');
-        if ($('input[name=course_'+outcomes[o]+']').is(':checked'))
-            foundOutcomes.push(outcomes[o]);
-    }
-
-    // now set the ones that were found, and unset the others
-    for (var o=0; o<outcomes.length; o++)
-    {
-        var sumCheckbox = $('input[name=sum_'+outcomes[o]+']');
-        if (foundOutcomes.indexOf(outcomes[o]) > -1)
-            sumCheckbox.attr('checked', 'true');
-        else
-            sumCheckbox.removeAttr('checked');
-    }
-}

@@ -258,13 +258,13 @@ else
         <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('K', $assignment->learningOutcomes)) echo "checked"?> name="checkboxK_<?php echo $i; ?>" />
         </td>
 
-        <td bgcolor="#FFCCCC" align="center"><button class='delete_button' id="checkbox_delete_<?php echo $i; ?>" type="button">Delete</button>
+        <td bgcolor="#FFCCCC" align="center"><button class='delete_button' id="delete_button_<?php echo $i; ?>" type="button">Delete</button>
         </td>
      </tr>
      <?php $i++; endforeach; ?>
     </table>
 
-    <input type="button" name="add_another_assignment" id="add_another_assignment" value="Add a New Assignment" onclick="addAssignmentRow();" />
+    <input type="button" name="add_another_assignment" id="add_another_assignment" value="Add a New Assignment" />
     </td>
     </tr>
     <br />
@@ -347,7 +347,7 @@ else
 <!-- Third Segment -->
 <div class="tabbertab" title="Sample Student Assignments">
 
-  <table border="0">
+  <table border="0" style="width:100%">
   <tr>
     <td colspan="13"><h2>Sample Assignments:</h2></td>
     <input type="hidden" id="sample_assignment_row_count" name="sample_assignment_row_count" value="<?php echo count($course->sampleAssignments); ?>"/>
@@ -363,7 +363,7 @@ else
       
       <?php $i=0;
       foreach ($course->sampleAssignments as $assignmentKey=>$assignment): ?>
-      <tr <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
+      <tr class="sample_row_tr_A" <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
 
         <td width="33%" height="103">Assignment Type:<br />
           <select id = "sample_type_<?php echo $i; ?>" name="sample_type_<?php echo $i; ?>">
@@ -409,10 +409,10 @@ else
 
         </div>
         </td>
-
+        <td rowspan=2><button type="button" class="delete_sample_button" id="delete_sample_button_<?php echo $i; ?>">Delete</button></td>
       </tr >
 
-      <tr <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
+      <tr class="sample_row_tr_B" <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
         <td width="33%">
                   <div id="<?php echo "file_upload_box_A_".$i?>">
                            <?php
@@ -482,7 +482,7 @@ else
   </tr>
   
   <tr>
-    <td colspan="13"><input type="button" name="add_another_sample" id="add_another_sample" value="Add a New Sample" onClick="add_new_row('#sampleAssignments', genNewSampleRow('<?php echo $course->courseID; ?>'))" />
+    <td colspan="13"><input type="button" name="add_another_sample" id="add_another_sample" value="Add a New Sample" />
     </td>
   </tr>
 
