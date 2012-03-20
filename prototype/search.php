@@ -28,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     <option value="cpre" <?php if ($searched && $_POST[inputprog]=="cpre") echo "selected"; ?>>Computer Engineering</option>
                     <option value="ee" <?php if ($searched && $_POST[inputprog]=="ee") echo "selected"; ?>>Electrical Engineering</option>
                     <option value="se" <?php if ($searched && $_POST[inputprog]=="se") echo "selected"; ?>>Software Engineering</option>
+                    <option value="coms" <?php if ($searched && $_POST[inputprog]=="coms") echo "selected"; ?>>Computer Science</option>
                 </select>
                 program. Required only:
                 <input type="checkbox" name="requiredOnly" />

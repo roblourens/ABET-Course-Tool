@@ -14,6 +14,7 @@ View the mapping of ABET Student outcomes to the courses in
                     <option value="cpre">Computer Engineering</option>
                     <option value="ee">Electrical Engineering</option>
                     <option value="se">Software Engineering</option>
+                    <option value="coms">Computer Science</option>
                 </select>
                 program
 </h3>
