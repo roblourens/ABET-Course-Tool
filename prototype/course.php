@@ -358,12 +358,11 @@ else
   <tr>
     <td colspan="13">
 
-    <table width="100%" border="1" id="sampleAssignments">
-      
+    <table width="100%" border="1" id="samplesTable">
       
       <?php $i=0;
       foreach ($course->sampleAssignments as $assignmentKey=>$assignment): ?>
-      <tr class="sample_row_tr_A" <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
+      <tr class="sample_row_tr_<?php echo $i;?>" <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
 
         <td width="33%" height="103">Assignment Type:<br />
           <select id = "sample_type_<?php echo $i; ?>" name="sample_type_<?php echo $i; ?>">
@@ -412,7 +411,7 @@ else
         <td rowspan=2><button type="button" class="delete_sample_button" id="delete_sample_button_<?php echo $i; ?>">Delete</button></td>
       </tr >
 
-      <tr class="sample_row_tr_B" <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
+      <tr class="sample_row_tr_<?php echo $i; ?>" <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
         <td width="33%">
                   <div id="<?php echo "file_upload_box_A_".$i?>">
                            <?php

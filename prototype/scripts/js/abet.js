@@ -11,7 +11,7 @@ function build_assignment_row()
     return ""+	
     " <tr "+str+" id='assignment_row_tr_"+num+"'>"+
     "        <td id='assignment_row_tr_"+num+"'>"+(num+1)+"</td>"+
-    "        <td id='assignment_row_tr_"+num+"'><select name='type_"+num+"'>"+
+    "        <td id='assignment_row_tr_"+num+"'><select id='type_"+num+"' name='type_"+num+"'>"+
     "          <option value='0'>Select Value</option>"+
     "          <option value='homework'>Homework</option>"+
     "          <option value='test'>Test</option>"+
@@ -20,7 +20,7 @@ function build_assignment_row()
     "          <option value='midterm'>Midterm</option>"+
     "          <option value='final'>Final</option>"+
     "          </select></td>"+
-    "        <td><select name='number_"+num+"'>"+
+    "        <td><select id='number_"+num+"' name='number_"+num+"'>"+
     "          <option value='0'>Select Number</option>"+
     "          <option value='1'>1</option>"+
     "          <option value='2'>2</option>"+
@@ -61,7 +61,7 @@ function genNewSampleRow(course)
     // rows are 0-indexed
     num--;
 	return ""+
-        "<tr>"+
+        "<tr class='sample_row_tr_"+num+"'>"+
             "<td width='33%' height='103'>Assignment Type:<br />"+
                 "<select id = 'sample_type_"+num+"' name='sample_type_"+num+"'>"+
                 "<option selected value='0' selected='selected'>Select Value</option>"+
@@ -92,19 +92,19 @@ function genNewSampleRow(course)
             "</td>"+        
             "<td rowspan=2><button type='button' class='delete_sample_button' id='delete_sample_button_"+num+"'>Delete</button></td>"+
         "</tr >"+
-        "<tr>"+
+        "<tr class='sample_row_tr_"+num+"'>"+
             "<td width='33%'><div id='file_upload_box_A_"+num+"'>"+
                 "Upload sample solution worth of an &quot;A&quot;:"+
                 "<input id='fileToUpload_A_"+num+"' type='file' name='fileToUpload_A_"+num+"' class='input'></input>"+
                 "</div>"+
             "</td>"+
             "<td width='33%'><div id='file_upload_box_B_"+num+"'>"+
-                "<br />"+
+                "Upload sample solution worth of an &quot;B&quot;:"+
                 "<input id='fileToUpload_B_"+num+"' type='file' name='fileToUpload_B_"+num+"' class='input'></input>"+
                 "</div>"+
             "</td>"+
             "<td width='33%'><div id='file_upload_box_C_"+num+"'>"+
-                "<br />"+
+                "Upload sample solution worth of an &quot;C&quot;:"+
                 "<input id='fileToUpload_C_"+num+"' type='file' name='fileToUpload_C_"+num+"' class='input'></input>"+
                 "</div>"+
             "</td>"+

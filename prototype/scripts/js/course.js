@@ -2,22 +2,30 @@
 $(document).ready(function() {
     // set new assignment button handler
     $('#add_another_assignment').click(function() {
-        addAssignmentRow();
-        assignAssignmentDeleteButtonHandler();
+        add_new_row('#assignmentsTable', build_assignment_row()); 
     });
 
     // set new sample button handler
     $('#add_another_sample').click(function() {
-        add_new_row('#sampleAssignments', genNewSampleRow(courseID)); 
-        assignSampleDeleteButtonHandler();
+        add_new_row('#samplesTable', genNewSampleRow(courseID)); 
     });
 
+    // Assign the click function via the parent so it works for dynamically
+    // added elements
 
-    // do initial summary row sync, initial checkbox handlers, etc.
+    // assignment delete button handler
+    $('#assignmentsTable').on('click', 'button.delete_button', 
+        assignmentDeleteButtonClicked);
+
+    // sample delete button handler
+    $('#samplesTable').on('click', 'button.delete_sample_button', 
+        sampleDeleteButtonClicked);
+
+    // assignment rows checkboxes (not summary row)
+    $('#assignmentsTable').on('click', 'input[type=checkbox][class!=sum]', syncSummaryRow);
+
+    // do initial summary row sync
     syncSummaryRow();
-    assignCheckboxHandler();
-    assignSampleDeleteButtonHandler();
-    assignAssignmentDeleteButtonHandler();
 
     // assign summary checkbox handlers
     $('input[type=checkbox][class=sum]').click(function(e) {
@@ -44,53 +52,30 @@ $(document).ready(function() {
     }
 });
 
-function addAssignmentRow()
-{
-    add_new_row('#assignmentsTable', build_assignment_row()); 
-    assignCheckboxHandler();   
-    assignAssignmentDeleteButtonHandler();
+function sampleDeleteButtonClicked(e) {
+    var i = e.currentTarget.id.split('delete_sample_button_')[1];
+    var type = $('#sample_type_'+i).val();
+    var num = $('#sample_number_'+i).val();
+
+    if (confirm("Are you sure you want to delete sample " + type + " " + num +
+        " from " + courseID + "?"))
+    {
+        $('.sample_row_tr_'+i).remove();
+    }
 }
 
-// called every time a row is added so it can set the callbacks on the new checkboxes
-function assignCheckboxHandler() {
-    $('input[type=checkbox][class!=sum]').click(function() {
+function assignmentDeleteButtonClicked(e)
+{
+    var i = e.currentTarget.id.split('delete_button_')[1];
+    var type = $('#type_'+i).val();
+    var num = $('#number_'+i).val();
+
+    if (confirm("Are you sure you want to delete " + type + " " + num +
+            " from " + courseID + "?"))
+    {
+        $('#assignment_row_tr_'+i).remove();
         syncSummaryRow();
-    });
-}
-
-// called every time a sample row is added
-function assignSampleDeleteButtonHandler() {
-    // set sample delete button handler for tab 3
-    $('button.delete_sample_button').click(function(e) {
-        var i = e.currentTarget.id.split('delete_sample_button_')[1];
-        var type = $('#sample_type_'+i).val();
-        var num = $('#sample_number_'+i).val();
-
-        if (confirm("Are you sure you want to delete sample " + type + " " + num +
-            " from " + courseID + "?"))
-        {
-            $('.sample_row_tr_A:eq('+i+')').remove();
-            $('.sample_row_tr_B:eq('+i+')').remove();
-        }
-    });   
-}
-
-// called every time an assignment row is added
-function assignAssignmentDeleteButtonHandler()
-{
-    // set delete button click handler for tab 2
-    $('button.delete_button').click(function(e) {
-        var i = e.currentTarget.id.split('delete_button_')[1];
-        var type = $('#type_'+i).val();
-        var num = $('#number_'+i).val();
-
-        if (confirm("Are you sure you want to delete " + type + " " + num +
-            " from " + courseID + "?"))
-        {
-            $('#assignment_row_tr_'+i).remove();
-            syncSummaryRow();
-        }
-    });
+    }
 }
 
 function setCourseOutcome(outcome, checked)
