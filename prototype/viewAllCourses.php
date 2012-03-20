@@ -28,6 +28,11 @@ function compareCourses($c1, $c2, $progID)
 }
 ?>
 
+<script type="text/javascript" src="scripts/js/viewAllCourses.js"></script>
+<script type="text/javascript">
+    var authorized = <?php echo $authorized; ?>;
+</script>
+
 <div class="main">
     <h2>
     View All Courses
@@ -47,15 +52,6 @@ else
 }
 ?>
 
-<script type='text/javascript'>
-$(document).ready(function(e) {
-    authorized = <?php echo $authorized; ?>;
-
-    if (authorized != 0)
-        $('button[id!=unlock_button]').hide();
-});
-</script>
-
 <hr />
 
 <?php
@@ -72,7 +68,7 @@ foreach ($programs as $prog)
         $course = getCourseForID($courseID);
         $desig = getDesignatorDisplayString($course->designatorID);
         echo "<tr id='tr_${courseID}_$progID'><td><a href='course.php?course=$courseID'>".$desig." ".$course->courseNum."</a></td>";
-        echo "<td width='10px'></td><td><form class='delete_form' id='$courseID,$progID'><button>Delete</button></form></td></tr>";
+        echo "<td width='10px'></td><td><button class='delete_button' id='$courseID,$progID'>Delete</button></td></tr>";
     }
 
     echo "</table>";
