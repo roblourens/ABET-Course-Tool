@@ -94,7 +94,7 @@ else
   </tr>
 
   <tr>
-    <td>Textbook Information [<label title="Example"><font color="red">Example?</font></label>] 
+    <td>Textbook Information 
        <ul>
          <li>Text Book, title, author and year</li>
        </ul>
@@ -103,13 +103,13 @@ else
   </tr>
 
   <tr>
-    <td>Brief list of topics to be covered [<label title="Example"><font color="red">Example?</font></label>] 
+    <td>Brief list of topics to be covered 
     </td>
     <td colspan="10"><textarea name="topics" cols="80" rows="5"><?php echo $course->topics; ?></textarea></td>
   </tr>
 
   <tr>
-    <td>Specific Goals for the course [<label title="Example"><font color="red">Example?</font></label>] 
+    <td>Specific Goals for the course 
        <ul>
           <li>Specific outcomes of instruction<br/> 
               (Each outcome separated by ";")
