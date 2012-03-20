@@ -44,7 +44,7 @@ function build_assignment_row()
     "        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxI_"+num+"'/></td>"+
     "        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxJ_"+num+"'/></td>"+
     "        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxK_"+num+"'/></td>"+
-    "        <td bgcolor='#FFCCCC' align='center'><button class='delete_button' id='checkbox_delete_"+num+" type='button'>Delete</button>"+
+    "        <td bgcolor='#FFCCCC' align='center'><button class='delete_button' id='delete_button_"+num+"' type='button'>Delete</button>"+
     "      </tr>";
 }
 
