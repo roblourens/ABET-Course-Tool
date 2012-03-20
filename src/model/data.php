@@ -313,6 +313,19 @@ function removeCourseIDFromPID($courseID, $progID)
     writeCourse($course);
 }
 
+// Removes the assignment with given key from the course with given course ID
+function removeAssignmentKeyFromCourse($assignmentKey, $courseID)
+{
+    $course = getCourseForID($courseID);
+    if ($course)
+    {
+        unset($course->assignments[$assignmentKey]);
+        writeCourse($course);
+    }
+    else
+        throw new Exception('Could not open course with id '.$courseID);
+}
+
 // Returns all program course IDs and department names
 // as array of assoc arrays [ { "short": "se", "long": "Software Engineering" }, ... ]
 function getPrograms()

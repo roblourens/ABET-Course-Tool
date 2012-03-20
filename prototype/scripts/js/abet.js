@@ -377,13 +377,6 @@ $(function() {
     });
 });
 
-function markAssignmentForDeletion(row){
-	if(document.getElementById("assignment_row_tr_"+row).bgColor != "#FFCCCC")
-	document.getElementById("assignment_row_tr_"+row).bgColor = "#FFCCCC";
-	else 
-	document.getElementById("assignment_row_tr_"+row).bgColor = "";
-}
-
 function syncSummaryRow()
 {
     var count = get_num_rows();
@@ -417,13 +410,4 @@ function syncSummaryRow()
         else
             sumCheckbox.removeAttr('checked');
     }
-}
-
-function setCourseOutcome(outcome, checked)
-{
-    var checkbox = $('input[name=course_'+outcome+']');
-    if (checked)
-        checkbox.attr('checked', 'true');
-    else
-        checkbox.removeAttr('checked');
 }

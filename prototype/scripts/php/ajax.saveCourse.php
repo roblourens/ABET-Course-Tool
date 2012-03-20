@@ -18,10 +18,6 @@ $assignments = array();
 // save assignment info (tab 2)
 for($i = 0; $i < $data['assignment_row_count']; $i++) 
 {
-    $deleteKeyId = 'checkbox_delete_'.$i;
-    if (array_key_exists($deleteKeyId, $data) && $data[$deleteKeyId]=='on')
-        continue;
-
 	$type = $data['type_'.$i];
 	$number = $data['number_'.$i];
     $assignmentKey = $type.$number;

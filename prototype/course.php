@@ -34,45 +34,8 @@ function formattedDate($time)
 <script type="text/javascript">
 var courseID = '<?php echo $course->courseID; ?>';
 var authorized = <?php echo $authorized; ?>;
-
-$(document).ready(function(e) {
-    syncSummaryRow();
-    assignCheckboxFuncs();
-
-    $('input[type=checkbox][class=sum]').click(function(e) {
-        // give it A, B... from sum_A, sum_B...
-        setCourseOutcome(e.currentTarget.name.split('_')[1], e.currentTarget.checked);
-        syncSummaryRow();
-    });
-
-    $('#button_preview').click(function() {
-        window.open('prettyView.php?course='+courseID, '_blank');
-    });
-
-    // disable all text fields/buttons if not logged in
-    // this is not secure, just to prevent accidents/nosy faculty :)
-    if (authorized != 0)
-    {
-        $('textarea').attr('disabled', 'true');
-        $('.save_button').attr('disabled', 'true');
-        $('input[id!=unlock_input]').attr('disabled', 'true');
-        $('select').attr('disabled', 'true');
-    }
-});
-
-function addAssignmentRow()
-{
-    add_new_row('#assignmentsTable', add_assignment_row()); 
-    assignCheckboxFuncs();   
-}
-
-// called every time a row is added so it can set the callbacks on the new checkboxes
-function assignCheckboxFuncs() {
-    $('input[type=checkbox][class!=sum]').click(function() {
-        syncSummaryRow();
-    });
-}
 </script>
+<script type="text/javascript" src="scripts/js/course.js"></script>
 
 <div class="main">
             
@@ -172,14 +135,6 @@ else
         <input class="save_button" type="submit" name="button_preview" id="button_preview" value="Preview" />
     </td>
   </tr>
-
-<!-- No need in tabbed view
-  <tr>
-    <td colspan="13">
-     <input type="button" name="button_save" id="displayText" onClick="javascript:toggle();" value="Show More Info" />
-    </td>
-  </tr>
--->
   </table>
 
 </div> <!-- end of div class tabbertab for first segment-->
@@ -229,8 +184,7 @@ else
 			      title="Knowledge of contemporary issues.">J</th>
                           <th id="k" align="center"
 			      title="Ability to use the techniques, skills and modern engineering tools necessary for engineering practice.">K</th>
-                           <th id="delete" align="center"
-			      title="Ability to use the techniques, skills and modern engineering tools necessary for engineering practice.">Mark For Deletion</th>
+                           <th id="delete" align="center" ></th>
                  
       </tr>
      
@@ -255,7 +209,7 @@ else
         </td>
 
         <td id="assignment_row_tr_<?php $i?>">
-        <select name="number_<?php echo $i; ?>" >
+        <select id="number_<?php echo $i; ?>" name="number_<?php echo $i; ?>" >
           <?php $number = $assignment->number; ?>
           <option <?php if($number == 0) echo "selected"; ?> value="0">Select Number</option>
           <option <?php if($number == 1) echo "selected"; ?> value="1">1</option>
@@ -304,7 +258,7 @@ else
         <td id="assignment_row_tr_<?php echo $i?>"><input type="checkbox" <?php if(in_array('K', $assignment->learningOutcomes)) echo "checked"?> name="checkboxK_<?php echo $i; ?>" />
         </td>
 
-        <td bgcolor="#FFCCCC" align="center"><input type="checkbox" id = "checkbox_delete_<?php echo $i; ?>"  onclick="markAssignmentForDeletion('<?php echo $i?>')" name="checkbox_delete_<?php echo $i; ?>" />
+        <td bgcolor="#FFCCCC" align="center"><button class='delete_button' id="checkbox_delete_<?php echo $i; ?>" type="button">Delete</button>
         </td>
      </tr>
      <?php $i++; endforeach; ?>
