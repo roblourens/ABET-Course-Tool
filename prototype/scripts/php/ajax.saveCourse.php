@@ -58,30 +58,33 @@ for ($i =0; $i < $data['sample_assignment_row_count']; $i++)
     $sample->type = $type;
     $sample->number = $number;
 
+    // the POSTed file name will have some path component BS, ignore that
     if (isset($data['fileToUpload_assignment_'.$i]))
-        $sample->assignmentFileName = $data['fileToUpload_assignment_'.$i];
+        $sample->assignmentFileName = basename($data['fileToUpload_assignment_'.$i]);
 
     if (isset($data['fileToUpload_A_'.$i]))
-        $sample->sampleFileNames[0] = $data['fileToUpload_A_'.$i];
+        $sample->sampleFileNames[0] = basename($data['fileToUpload_A_'.$i]);
 
     if (isset($data['fileToUpload_B_'.$i]))
-        $sample->sampleFileNames[1] = $data['fileToUpload_B_'.$i];
+        $sample->sampleFileNames[1] = basename($data['fileToUpload_B_'.$i]);
 
     if (isset($data['fileToUpload_C_'.$i]))
-        $sample->sampleFileNames[2] = $data['fileToUpload_C_'.$i];
+        $sample->sampleFileNames[2] = basename($data['fileToUpload_C_'.$i]);
 
     $samples[$sampleKey] = $sample;
 }
 
+$courseABETOutcomes = array();
 foreach (learningOutcomesLetters() as $letter)
 {
     $checkboxLetterId = 'course_'.$letter;
     if (array_key_exists($checkboxLetterId, $data) && $data[$checkboxLetterId] == 'on')
-        $course->courseABETOutcomes[] = $letter;
+        $courseABETOutcomes[] = $letter;
 }
 
 $course->assignments = $assignments;
 $course->sampleAssignments = $samples;
+$course->courseABETOutcomes = $courseABETOutcomes;
 updateCourse($course);
 
 echo "Saved successfully!";
