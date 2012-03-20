@@ -81,9 +81,10 @@ function getXML(source)
    document.getElementById("courseNum").value = RegExp.$2;
    if (ReqObject)
    {
-      ReqObject.overrideMimeType("text/xml");
-      ReqObject.open("GET", source + "?code=" + code);
+      if (ReqObject.overrideMimeType)
+        ReqObject.overrideMimeType("text/xml");
 
+      ReqObject.open("GET", source + "?code=" + code);
       ReqObject.onreadystatechange = function()
       {
           if ( (ReqObject.readyState == 4) && (ReqObject.status == 200) )
@@ -91,7 +92,11 @@ function getXML(source)
               if (ReqObject.responseXML==null)
                   alert("responseXML is null");
               console.log(ReqObject.responseXML);
-              parse(ReqObject.responseXML);
+
+              if (ReqObject.responseXML.documentElement.childElementCount == 0)
+                  alert('The catalog did not return a result for that course');
+              else
+                  parse(ReqObject.responseXML);
           }
       }
       ReqObject.send(null);
