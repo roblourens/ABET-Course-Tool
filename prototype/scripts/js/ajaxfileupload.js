@@ -1,7 +1,4 @@
-
 jQuery.extend({
-	
-
     createUploadIframe: function(id, uri)
 	{
 			//create frame
@@ -234,7 +231,7 @@ jQuery.extend({
 							alert(data.error);
 						}else
 						{
-							alert(data.msg);
+							//alert(data.msg);
 							$("#file_upload_box_" + file_type + "_"+number).html("<a href = '"+data.msg+"'>View File</a>");
 						}
 					}
