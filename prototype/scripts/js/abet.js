@@ -1,50 +1,4 @@
-function toggle() {
-	var ele = document.getElementById("toggleText");
-	var text = document.getElementById("displayText");
-	if(ele.style.display == "block") {
-    		ele.style.display = "none";
-		text.value = "Show More Info";
-  	}
-	else {
-		ele.style.display = "block";
-		text.value = "Show Less Info";
-	}
-} 
-
-function get_num_rows()
-{
-	var num_of_rows = document.getElementById('assignment_row_count').defaultValue;
-	
-	return num_of_rows;
-}
-
-function get_num_sample_rows()
-{
-    var num_of_rows = document.getElementById('sample_assignment_row_count').defaultValue;
-    
-    return num_of_rows;
-}
-
-
-function increment_assignment_row_count()
-{
-	var num_of_rows = document.getElementById('assignment_row_count').defaultValue;
-    var new_num = parseInt(num_of_rows) + 1;
-	document.getElementById('assignment_row_count').defaultValue = new_num;
-	
-	return new_num;
-}
-
-function increment_sample_row_count()
-{
-	var num_of_rows = document.getElementById('sample_assignment_row_count').defaultValue;
-    var new_num = parseInt(num_of_rows) + 1;
-	document.getElementById('sample_assignment_row_count').defaultValue = new_num;
-	
-	return new_num;
-}
-
-function add_assignment_row()
+function build_assignment_row()
 {
 	var num = increment_assignment_row_count();
 	str = "";
@@ -54,95 +8,51 @@ function add_assignment_row()
 
     // rows are 0-indexed
     num--;
-return ""+	
-" <tr "+str+" id='assignment_row_tr_"+num+"'>"+
-"        <td id='assignment_row_tr_"+num+"'>"+(num+1)+"</td>"+
-"        <td id='assignment_row_tr_"+num+"'><select name='type_"+num+"'>"+
-"          <option value='0'>Select Value</option>"+
-"          <option value='homework'>Homework</option>"+
-"          <option value='test'>Test</option>"+
-"          <option value='lab'>Lab</option>"+
-"          <option value='quiz'>Quiz</option>"+
-"          <option value='midterm'>Midterm</option>"+
-"          <option value='final'>Final</option>"+
-"          </select></td>"+
-"        <td><select name='number_"+num+"'>"+
-"          <option value='0'>Select Number</option>"+
-"          <option value='1'>1</option>"+
-"          <option value='2'>2</option>"+
-"          <option value='3'>3</option>"+
-"          <option value='4'>4</option>"+
-"          <option value='5'>5</option>"+
-"          <option value='6'>6</option>"+
-"          <option value='7'>7</option>"+
-"          <option value='8'>8</option>"+
-"          <option value='9'>9</option>"+
-"          <option value='10'>10</option>"+
-"          </select></td>"+
-"        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxA_"+num+"'/></td>"+
-"        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxB_"+num+"'/></td>"+
-"        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxC_"+num+"'/></td>"+
-"        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxD_"+num+"'/></td>"+
-"        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxE_"+num+"'/></td>"+
-"        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxF_"+num+"'/></td>"+
-"        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxG_"+num+"'/></td>"+
-"        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxH_"+num+"'/></td>"+
-"        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxI_"+num+"'/></td>"+
-"        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxJ_"+num+"'/></td>"+
-"        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxK_"+num+"'/></td>"+
-"        <td bgcolor='#FFCCCC' align='center'><input type='checkbox' id = 'checkbox_delete_"+num+" onclick='markAssignmentForDeletion('"+num+"')' name='checkbox_delete_"+num+"' /></td>"+
-"      </tr>";
+    return ""+	
+    " <tr "+str+" id='assignment_row_tr_"+num+"'>"+
+    "        <td id='assignment_row_tr_"+num+"'>"+(num+1)+"</td>"+
+    "        <td id='assignment_row_tr_"+num+"'><select name='type_"+num+"'>"+
+    "          <option value='0'>Select Value</option>"+
+    "          <option value='homework'>Homework</option>"+
+    "          <option value='test'>Test</option>"+
+    "          <option value='lab'>Lab</option>"+
+    "          <option value='quiz'>Quiz</option>"+
+    "          <option value='midterm'>Midterm</option>"+
+    "          <option value='final'>Final</option>"+
+    "          </select></td>"+
+    "        <td><select name='number_"+num+"'>"+
+    "          <option value='0'>Select Number</option>"+
+    "          <option value='1'>1</option>"+
+    "          <option value='2'>2</option>"+
+    "          <option value='3'>3</option>"+
+    "          <option value='4'>4</option>"+
+    "          <option value='5'>5</option>"+
+    "          <option value='6'>6</option>"+
+    "          <option value='7'>7</option>"+
+    "          <option value='8'>8</option>"+
+    "          <option value='9'>9</option>"+
+    "          <option value='10'>10</option>"+
+    "          </select></td>"+
+    "        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxA_"+num+"'/></td>"+
+    "        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxB_"+num+"'/></td>"+
+    "        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxC_"+num+"'/></td>"+
+    "        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxD_"+num+"'/></td>"+
+    "        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxE_"+num+"'/></td>"+
+    "        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxF_"+num+"'/></td>"+
+    "        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxG_"+num+"'/></td>"+
+    "        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxH_"+num+"'/></td>"+
+    "        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxI_"+num+"'/></td>"+
+    "        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxJ_"+num+"'/></td>"+
+    "        <td id='assignment_row_tr_"+num+"'><input type='checkbox' name='checkboxK_"+num+"'/></td>"+
+    "        <td bgcolor='#FFCCCC' align='center'><button class='delete_button' id='checkbox_delete_"+num+" type='button'>Delete</button>"+
+    "      </tr>";
 }
 
-function add_new_row(table,rowcontent){
+function add_new_row(table, rowcontent){
 	if ($(table).length>0){
     	if ($(table+' > tbody').length==0) $(table).append('<tbody />');
         ($(table+' > tr').length>0)?$(table).children('tbody:last').children('tr:last').append(rowcontent):$(table).children('tbody:last').append(rowcontent);
     }
-}
-
-
-
-function addNewRow(){
-      "                <tr> "+
-       "                   <td>"+
-		"	    <select>"+
-         "                     <option selected value='none'>Select Type</option>"+
-          "                    <option value='hw'>Homework</option>"+
-           "                   <option value='lab'>Lab</option>"+
-            "                  <option value='test'>Test</option>"+
-             "                 <option value='quiz'>Quiz</option>"+
-              "                <option value='mt'>Midterm</option>"+
-               "               <option value='final'>Final</option>"+
-                "            </select>"+
-                 "           <select>"+
-                  "            <option selected value='none'>Select Number</option>"+
-                   "           <option value='1'>0</option>"+
-                    "          <option value='1'>1</option>"+
-                     "         <option value='1'>2</option>"+
-                      "        <option value='1'>3</option>"+
-                       "       <option value='1'>4</option>"+
-                        "      <option value='1'>5</option>"+
-                         "     <option value='1'>6</option>"+
-                          "    <option value='1'>7</option>"+
-                           "   <option value='1'>8</option>"+
-                            "  <option value='1'>9</option>"+
-                             " <option value='1'>10</option>"+
-                            "</select>            "+
-"                            <input type='button' value='Update information'>"+
- "                         </td>"+
-  "                        <td><input type='checkbox'></td>"+
-   "                       <td><input type='checkbox'></td>"+
-    "                      <td><input type='checkbox'></td>"+
-     "                     <td><input type='checkbox'></td>"+
-      "                    <td><input type='checkbox'></td>"+
-       "                   <td><input type='checkbox'></td>"+
-        "                  <td><input type='checkbox'></td>"+
-         "                 <td><input type='checkbox'></td>"+
-          "                <td><input type='checkbox'></td>"+
-           "               <td><input type='checkbox'></td>"+
-            "              <td><input type='checkbox'></td>"+
-             "         </tr>";
 }
 
 function genNewAssignmentRow()

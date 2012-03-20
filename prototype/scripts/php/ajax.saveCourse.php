@@ -37,34 +37,6 @@ for($i = 0; $i < $data['assignment_row_count']; $i++)
     $assignments[$assignmentKey] = $assignment;
 }
 
-$samples = array();
-
-// save sample info (tab 3)
-for ($i =0; $i < $data['sample_assignment_row_count']; $i++)
-{
-    $type = $data['sample_type_'.$i];
-    $number = $data['sample_number_'.$i];
-    $assignmentKey = $type.$number;
-
-    $sample = new SampleAssignment();
-    $sample->type = $type;
-    $sample->number = $number;
-
-    if (isset($data['fileToUpload_assignment_'.$i]))
-        $sample->assignmentFileName = $data['fileToUpload_assignment_'.$i];
-
-    if (isset($data['fileToUpload_A_'.$i]))
-        $sample->sampleFileNames[0] = $data['fileToUpload_A_'.$i];
-
-    if (isset($data['fileToUpload_B_'.$i]))
-        $sample->sampleFileNames[1] = $data['fileToUpload_B_'.$i];
-
-    if (isset($data['fileToUpload_C_'.$i]))
-        $sample->sampleFileNames[2] = $data['fileToUpload_C_'.$i];
-
-    $samples[$assignmentKey] = $sample;
-}
-
 foreach (learningOutcomesLetters() as $letter)
 {
     $checkboxLetterId = 'course_'.$letter;
@@ -73,7 +45,6 @@ foreach (learningOutcomesLetters() as $letter)
 }
 
 $course->assignments = $assignments;
-$course->sampleAssignments = $samples;
 updateCourse($course);
 
 echo "Saved successfully!";

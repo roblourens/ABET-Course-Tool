@@ -51,7 +51,7 @@ function removeAssignmentKeyFromCourse(assignmentKey, courseID)
 
 function addAssignmentRow()
 {
-    add_new_row('#assignmentsTable', add_assignment_row()); 
+    add_new_row('#assignmentsTable', build_assignment_row()); 
     assignCheckboxFuncs();   
 }
 
@@ -69,4 +69,32 @@ function setCourseOutcome(outcome, checked)
         checkbox.attr('checked', 'true');
     else
         checkbox.removeAttr('checked');
+}
+
+function get_num_rows()
+{
+	return $('#assignment_row_count').val();
+}
+
+function get_num_sample_rows()
+{
+    return $('#sample_assignment_row_count').val();
+}
+
+function increment_assignment_row_count()
+{
+	var num_of_rows = get_num_rows();
+    var new_num = parseInt(num_of_rows) + 1;
+	$('#assignment_row_count').val(new_num);
+	
+	return new_num;
+}
+
+function increment_sample_row_count()
+{
+	var num_of_rows = get_num_sample_rows();
+    var new_num = parseInt(num_of_rows) + 1;
+	$('#sample_assignment_row_count').val(new_num);
+	
+	return new_num;
 }
