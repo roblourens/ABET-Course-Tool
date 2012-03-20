@@ -1,0 +1,84 @@
+Menu
+----
+
+View All Courses
+----------------
+     
+   You can view the courses in different programs. If you want to
+   delete any course from a program, you will be required to provide
+   an administrator access code; if you are not given such access to
+   delete course from a program, contact Samik at sbasu@iastate.edu.
+
+   Click on a course: you will be taken to course data page. The
+   course description, credit hours are taken directly from the course
+   catalog. You can view the data in the course page. If you want to
+   change anything in the course page, you will have to provide an
+   access code; the access code for a course is as follows:
+
+   Course       Access-code
+   -------------------------
+   S E XXX      seXXX
+   CPR E XXX    cpreXXX
+   E E XXX      eeXXX
+
+   There are three tabs in the course page. 
+   
+   Tab 1: provides the general information of the course.
+   
+   Tab 2: provides the mapping of the course to the ABET SOs. It has
+   two segments. The bottom segment presents the mapping of the
+   overall course to each of the outcomes. The top segment presents
+   the mapping of individual assignments to the ABET SOs. Using the
+   course access code, you will be able to update these information.
+   (The ABET SO description is viewable if you bring the mouse over
+   the outcome id)
+
+
+   Tab 3: provides the information regarding student work. For each
+   assignment in a course, the assignment file, the assignment
+   solution file, and sample student work at three different levels
+   (A, B, C) can be upload.
+
+   **If you update any course information, click "Save Course Info"
+   **button at the bottom of the page to save your updates.
+
+Search By Student Outcome
+--------------------------
+
+In this page, you can select any program (SE, EE, CprE) and select one
+or more ABET outcomes (and optionally select "required only") to view
+the mapping of the courses in the selected program to the selected
+ABET outcomes.
+
+View All Student Outcomes
+-------------------------
+
+In this page, you can select a program and view the mapping of all
+courses in the program to the ABET SOs.
+
+Add a course
+------------
+
+In this page, you can add a course to one or more programs as a
+required or elective course. First, you provide course number (e.g., S
+E 319, CPR E 288, E E 330) in the top textfield and click "Retrieve
+course data from ISU Catalog". It will populate the rest of the text
+areas. Then you can select "Required" or "Elective" for one or more
+programs, and finally click "Add Course to Program".
+
+Example: For S E 319 as a required course in Software Engineering.
+
+Type "S E 319" without quotes in the top text field and retrieve
+information form the catalog. Select "Required" corresponding to
+Software Engineering and finally click "Add Course to Program".
+
+**If you try to add a course and do not see the course description
+**textarea automatically populated, check whether you have typed the
+**course name in exactly the same way as it appears in the catalog. If
+**yes, contact Samik at sbasu@iastate.edu. 
+
+
+ReadMe
+------
+
+This file.
