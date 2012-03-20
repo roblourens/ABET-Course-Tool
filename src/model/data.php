@@ -263,7 +263,9 @@ function addCourse($course, $progID)
         }
     }
     else
+    {
         throw new Exception('Could not open '.$path.' for writing');
+    }
 
     return 0;
 }
@@ -300,6 +302,10 @@ function removeCourseIDFromPID($courseID, $progID)
             fwrite($f, json_encode($courseIDs));
             fclose($f);
         }
+    }
+    else
+    {
+        throw new Exception('Could not open '.$path.' for writing');
     }
 
     $course = getCourseForID($courseID);
