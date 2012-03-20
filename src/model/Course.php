@@ -109,7 +109,7 @@ class Course
         // Check whether any of the descProperties have changed
         foreach ($this->descProperties as $descProperty)
         {
-            print("Checking ".$descProperty."\n");
+            //print("Checking ".$descProperty."\n");
             if ($this->$descProperty != $course->$descProperty)
             {
                 $this->descMod = time();
