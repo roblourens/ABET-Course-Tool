@@ -91,7 +91,27 @@ else
   <tr>
   <input name="course_id" type="hidden" value="<?php echo $course->courseID; ?>" />
     <td>Course Description</td>
-																			       <td colspan="10"><textarea name="course_description" cols="80" rows="5"><?php echo getDesignatorDisplayString($course->designatorID);?> <?php echo $course->courseNum.". ".$course->courseName." ".$course->description; ?></textarea></td>
+    <td colspan="10"><textarea name="course_description" cols="80" rows="5"><?php echo getDesignatorDisplayString($course->designatorID);?> <?php echo $course->courseNum.". ".$course->courseName." ".$course->description; ?></textarea></td>
+  </tr>
+  <tr>
+    <td>Course Program Statuses</td>
+    <td colspan="10">
+      <?php
+      $required = array();
+      $elective = array();
+      foreach ($course->reqForProgram as $progID => $status)
+      {
+          if ($status == "R")
+              $required[] = getDesignatorDisplayString($progID);
+          else
+              $elective[] = getDesignatorDisplayString($progID);
+      }
+
+      echo "Required: ".implode(", ", $required);
+      echo "<br />";
+      echo "Elective: ".implode(", ", $elective);
+      ?>
+    </td>
   </tr>
 
   <tr>

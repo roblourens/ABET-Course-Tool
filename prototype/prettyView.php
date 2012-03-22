@@ -29,6 +29,21 @@ $course = getCourseForID($_GET['course']);
 <hr/>
 <table width="100%">
 <?php
+
+$required = array();
+$elective = array();
+foreach ($course->reqForProgram as $progID => $status)
+{
+    if ($status == "R")
+        $required[] = getDesignatorDisplayString($progID);
+    else
+        $elective[] = getDesignatorDisplayString($progID);
+}
+
+$status = "Required: ".implode(", ", $required);
+$status .= "<br />";
+$status .= "Elective: ".implode(", ", $elective);
+
 $lo = "";
 foreach ($course->courseLearningOutcomes as $learningOutcome)
     $lo.=$learningOutcome."<br />";
@@ -39,6 +54,7 @@ $date = getdate(max($course->descMod, $course->outcomesMod, $course->assignMod))
 $rows = array("Instructor/Course Coordinator" => $course->instructors,
               "Credits and Contact Hours" => $course->creditsContact,
               "Course Description" => getDesignatorDisplayString($course->designatorID)." ".$course->courseNum.". ".$course->courseName." ".$course->description,
+              "Course Program Statuses" => $status,
               "Textbook Information" => $course->textbook,
               "List of topics to be covered" => $course->topics,
               "Specific goals for the course" => $lo,
