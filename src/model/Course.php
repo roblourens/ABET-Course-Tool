@@ -83,7 +83,8 @@ class Course
         }
     }
 
-    // Returns true if each outcome is an outcomes for at least one assignment
+    // Returns true if each outcome is an outcomes for at least one assignment,
+    // or the total course outcomes
     public function matchesOutcomes($searchOutcomes)
     {
         $courseOutcomes = $this->allOutcomes();
@@ -96,7 +97,8 @@ class Course
 
     public function matchesOutcome($searchOutcome)
     {
-        return in_array($searchOutcome, $this->allOutcomes());
+        return in_array($searchOutcome, $this->allOutcomes()) || 
+               in_array($searchOutcome, $this->courseABETOutcomes);
     }
 
     // for every mutable variable, check whether it has changed, if so,
@@ -151,12 +153,19 @@ class Course
     public function allOutcomes()
     {
         $outcomes = array();
-        foreach($this->assignments as $assignment)
+
+        // add all outcomes from assignments
+        foreach ($this->assignments as $assignment)
         {
             foreach($assignment->learningOutcomes as $outcome)
                 if (!in_array($outcome, $outcomes))
                     $outcomes[] = $outcome;
         }
+
+        // add outcomes from course
+        foreach ($this->courseABETOutcomes as $outcome)
+            if (!in_array($outcome, $outcomes))
+                $outcomes[] = $outcome;
 
         sort($outcomes);
         return $outcomes;
