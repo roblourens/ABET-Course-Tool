@@ -14,191 +14,100 @@ body
     font-size:"12pt";
 }
 </style>
+
 <?php
 require_once("../src/include.php");
 if(!isset($_GET['course']))die("ERROR: Course name not given.");
 $course = getCourseForID($_GET['course']);
 ?>
-<center>
-<h2>
-<?php echo getDesignatorDisplayString($course->designatorID); ?>&nbsp;<?php echo $course->courseNum; ?>&nbsp;<?php echo str_replace(".", "", $course->courseName); ?>
+
+<center><h2>
+<?php echo getDesignatorDisplayString($course->designatorID)."&nbsp;".$course->courseNum."&nbsp;".str_replace(".", "", $course->courseName); ?>
 </h2></center>
 
-<h3>Course Information</h3>
+<h3>General Course Information</h3>
 <hr/>
-
 <table width="100%">
-  <tr align="left" valign="top">
-    <th width="22%">
-    	Instructor/Course Coordinator
-    </th>
-    <td>
-		<?php echo $course->instructors; ?>
-    </td>
-  </tr>
-  <tr align="left" valign="top">
-    <th>Course Description</th>
-    <td>
-		<?php echo getDesignatorDisplayString($course->designatorID);?> <?php echo $course->courseNum.". ".$course->courseName." ".$course->description; ?>
-    </td>
-  </tr>
-  <tr align="left" valign="top">
-    <th>
-    	Textbook Information
-    </th>
-    <td>
-		<?php echo $course->textbook; ?>
-    </td>
-  </tr>
-  <tr align="left" valign="top">
-    <th>
-    	List of topics to be covered
-    </th>
-    <td>
-		<?php echo $course->topics; ?>
-    </td>
-  </tr>
-  <tr align="left" valign="top">
-    <th>
-    	Specific Goals for the course
-    </th>
-    <td>
-      <?php 
-         $lo = "";
-         foreach ($course->courseLearningOutcomes as $learningOutcome)
-             $lo.=$learningOutcome."<br />";
-         echo $lo; ?>
-    </td>
-  </tr>
-  <tr align="left" valign="top">
-    <th>
-    	Date of Modification [MM/DD/YY]
-    </th>
-    <td>
-		<?php 
-            // Just use the most recent mod time
-            $date = getdate(max($course->descMod, $course->outcomesMod, $course->assignMod));
-            echo $date['mon']."/".$date['mday']."/".$date['year'];  
-        ?>
-    </td>
-  </tr>
+<?php
+$lo = "";
+foreach ($course->courseLearningOutcomes as $learningOutcome)
+    $lo.=$learningOutcome."<br />";
+
+// Just use the most recent mod time
+$date = getdate(max($course->descMod, $course->outcomesMod, $course->assignMod));
+
+$rows = array("Instructor/Course Coordinator" => $course->instructors,
+              "Credits and Contact Hours" => $course->creditsContact,
+              "Course Description" => getDesignatorDisplayString($course->designatorID)." ".$course->courseNum.". ".$course->courseName." ".$course->description,
+              "Textbook Information" => $course->textbook,
+              "List of topics to be covered" => $course->topics,
+              "Specific goals for the course" => $lo,
+              "Date of Modification [MM/DD/YY]" => $date['mon']."/".$date['mday']."/".$date['year'],
+              );
+foreach ($rows as $title=>$data)
+{
+    echo <<<EOL
+    <tr align="left" valign="top">
+        <th width="22%">
+            $title
+        </th>
+        <td>
+            $data
+        </td>
+    </tr>
+EOL;
+}
+?>
 </table>
 <h3>ABET Student Outcomes</h3>
 <hr />
 <table>
+    <tr align="left" valign="top">
+        <?php
+        foreach (array("Assignment Type", "Assignment #") as $header)
+            echo "<th>$header</th>";
 
-  <tr align="left" valign="top">
-    <td>
-    <table>
-      <tr align="left" valign="top">
-        <th>
-        	Index
-        </th>
-        <th>
-        	Assignment Type
-        </th>
-        <th>
-        	Assignment#
-        </th>
-		<th>
-        	A
-        </th>
-		<th>
-        	B
-        </th>
-		<th>
-        	C
-        </th>
-		<th>
-        	D
-        </th>
-		<th>
-        	E
-        </th>
-		<th>
-        	F
-        </th>
-		<th>
-        	G
-        </th>
-		<th>
-        	H
-        </th>
-		<th>
-        	I
-        </th>
-		<th>
-        	J
-        </th>
-		<th>
-        	K
-        </th>
-	</tr>
-      <?php $i=0;
+        for ($i=ord("A"); $i<=ord("K"); $i++)
+            echo "<th>".chr($i)."</th>";
+        ?>
+    </tr>
+    <?php $i=0;
       foreach ($course->assignments as $assignmentKey=>$assignment):?>
-      <tr align="left" valign="top">
+    <tr align="left" valign="top">
         <td>
-			<?php echo $i+1; ?>
+            <?php echo $assignment->type; ?>
         </td>
         <td>
-          <?php echo $assignment->type; ?>
+            <?php echo $assignment->number; ?>
         </td>
-        <td>
-          <?php echo $assignment->number; ?>
-        </td>
-        <td>
-        <?php if(in_array('A', $assignment->learningOutcomes)) echo "X"?> 
-        </td>
-        <td>
-        <?php if(in_array('B', $assignment->learningOutcomes)) echo "X"?> 
-        </td>
-        <td>
-        <?php if(in_array('C', $assignment->learningOutcomes)) echo "X"?> 
-        </td>
-        <td>
-        <?php if(in_array('D', $assignment->learningOutcomes)) echo "X"?> 
-        </td>
-        <td>
-        <?php if(in_array('E', $assignment->learningOutcomes)) echo "X"?> 
-        </td>
-        <td>
-        <?php if(in_array('F', $assignment->learningOutcomes)) echo "X"?> 
-        </td>
-        <td>
-        <?php if(in_array('G', $assignment->learningOutcomes)) echo "X"?> 
-        </td>
-        <td>
-        <?php if(in_array('H', $assignment->learningOutcomes)) echo "X"?> 
-        </td>
-        <td>
-        <?php if(in_array('I', $assignment->learningOutcomes)) echo "X"?> 
-        </td>
-        <td>
-        <?php if(in_array('J', $assignment->learningOutcomes)) echo "X"?> 
-        </td>
-        <td>
-        <?php if(in_array('K', $assignment->learningOutcomes)) echo "X"?> 
-        </td>
-     </tr>
-     <?php $i++; endforeach; ?>
+        <?php
+            for ($i=ord("A"); $i<=ord("K"); $i++)
+            {
+                echo "<td>";
 
-     <!-- summary row -->
-     <tr>
-        <td colspan="3">Summary of course outcomes</td>
-        <td><?php if ($course->matchesOutcome('A')) echo "X"; ?></td>
-        <td><?php if ($course->matchesOutcome('B')) echo "X"; ?></td>
-        <td><?php if ($course->matchesOutcome('C')) echo "X"; ?></td>
-        <td><?php if ($course->matchesOutcome('D')) echo "X"; ?></td>
-        <td><?php if ($course->matchesOutcome('E')) echo "X"; ?></td>
-        <td><?php if ($course->matchesOutcome('F')) echo "X"; ?></td>
-        <td><?php if ($course->matchesOutcome('G')) echo "X"; ?></td>
-        <td><?php if ($course->matchesOutcome('H')) echo "X"; ?></td>
-        <td><?php if ($course->matchesOutcome('I')) echo "X"; ?></td>
-        <td><?php if ($course->matchesOutcome('J')) echo "X"; ?></td>
-        <td><?php if ($course->matchesOutcome('K')) echo "X"; ?></td>
-     </tr>
-    </table>
-  </td>
-</tr>
+                if (in_array(chr($i), $assignment->learningOutcomes))
+                    echo "X";
+
+                echo "</td>";
+            }
+        ?>
+    </tr>
+    <?php endforeach; ?>
+
+    <!-- summary row -->
+    <tr>
+        <td colspan="2">Summary of course outcomes</td>
+        <?php
+            for ($i=ord("A"); $i<=ord("K"); $i++)
+            {
+                echo "<td>";
+
+                if ($course->matchesOutcome(chr($i)))
+                    echo "X";
+
+                echo "</td>";
+            }
+        ?>
+    </tr>
 </table>
 </html>
