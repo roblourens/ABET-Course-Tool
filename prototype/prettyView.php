@@ -20,16 +20,16 @@ if(!isset($_GET['course']))die("ERROR: Course name not given.");
 $course = getCourseForID($_GET['course']);
 ?>
 <center>
-<h1>
-<?php echo getDesignatorDisplayString($course->designatorID); ?>&nbsp;<?php echo $course->courseNum; ?>&nbsp;<?php echo $course->courseName; ?>
+<h2>
+<?php echo getDesignatorDisplayString($course->designatorID); ?>&nbsp;<?php echo $course->courseNum; ?>&nbsp;<?php echo str_replace(".", "", $course->courseName); ?>
+</h2></center>
 
-</h1></center>
 <h3>Course Information</h3>
 <hr/>
 
-<table>
+<table width="100%">
   <tr align="left" valign="top">
-    <th>
+    <th width="22%">
     	Instructor/Course Coordinator
     </th>
     <td>
@@ -39,7 +39,7 @@ $course = getCourseForID($_GET['course']);
   <tr align="left" valign="top">
     <th>Course Description</th>
     <td>
-		<?php echo $course->description; ?>
+		<?php echo getDesignatorDisplayString($course->designatorID);?> <?php echo $course->courseNum.". ".$course->courseName." ".$course->description; ?>
     </td>
   </tr>
   <tr align="left" valign="top">

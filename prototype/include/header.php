@@ -21,9 +21,9 @@
         </div>
 <table width="100%" border="0" bgcolor="#CCCCCC">
   <tr>
-    <td width="20%" align="center"><a href="viewAllCourses.php">View All Courses</a></td>
-    <td width="20%" align="center"><a href="search.php">Search By Learning Outcome</a></td>
-    <td width="20%" align="center"><a href="table.php">View All Learning Outcomes</a></td>
+    <td width="20%" align="center"><a href="viewAllCourses.php">View all Courses</a></td>
+    <td width="20%" align="center"><a href="search.php">Search by Student Outcome</a></td>
+    <td width="20%" align="center"><a href="table.php">View all Student Outcomes</a></td>
     <td width="20%" align="center"><a href="addCourse.php">Add a course</a></td>
     <td width="20%" align="center"><a href="ReadMe">Help</a></td>
   </tr>

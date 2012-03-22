@@ -40,10 +40,10 @@ var authorized = <?php echo $authorized; ?>;
 <div class="main">
             
 <h1 class="course_header">
-<?php echo getDesignatorDisplayString($course->designatorID)." ".$course->courseNum." - ".$course->courseName; ?>
+  <?php echo getDesignatorDisplayString($course->designatorID)." ".$course->courseNum."  ".str_replace(".", "", $course->courseName); ?>
 </h1>
 
-<h3>Course Information &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="prettyView.php?course=<?php echo $_GET['course']; ?>&print">Print</a>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 
+<h3>Course Information &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="prettyView.php?course=<?php echo $_GET['course']; ?>&print" target="_blank">Print</a>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 
 <?php
 if ($authorized == 0)
     echo "Unlocked</h3>";
@@ -72,8 +72,9 @@ else
 
   <tr>
     <td width="317">Course</td>
-    <td width="487" colspan="10"><?php echo getDesignatorDisplayString($course->designatorID); ?>&nbsp;<?php echo $course->courseNum." - "; ?>
-    <?php echo $course->courseName; ?> 
+    <td width="487" colspan="10"><?php echo getDesignatorDisplayString($course->designatorID); ?>&nbsp;<?php echo $course->courseNum."  "; ?>
+
+    <?php echo str_replace(".", "", $course->courseName); ?> 
       <input name="course_number" type="hidden" value="<?php echo $course->courseNum; ?>"/></td> 
   </tr>
 
@@ -90,20 +91,20 @@ else
   <tr>
   <input name="course_id" type="hidden" value="<?php echo $course->courseID; ?>" />
     <td>Course Description</td>
-    <td colspan="10"><textarea name="course_description" cols="80" rows="5"><?php echo $course->description; ?></textarea></td>
+																			       <td colspan="10"><textarea name="course_description" cols="80" rows="5"><?php echo getDesignatorDisplayString($course->designatorID);?> <?php echo $course->courseNum.". ".$course->courseName." ".$course->description; ?></textarea></td>
   </tr>
 
   <tr>
     <td>Textbook Information 
        <ul>
-         <li>Text Book, title, author and year</li>
+         <li>Textbook, title, author and year</li>
        </ul>
     </td>
     <td colspan="10"><textarea name="textbook" cols="80" rows="5"><?php echo $course->textbook; ?></textarea></td>
   </tr>
 
   <tr>
-    <td>Brief list of topics to be covered 
+    <td>List of topics to be covered 
     </td>
     <td colspan="10"><textarea name="topics" cols="80" rows="5"><?php echo $course->topics; ?></textarea></td>
   </tr>
@@ -112,7 +113,7 @@ else
     <td>Specific Goals for the course 
        <ul>
           <li>Specific outcomes of instruction<br/> 
-              (Each outcome separated by ";")
+              (each outcome separated by ";")
           </li>
        </ul>
     </td>

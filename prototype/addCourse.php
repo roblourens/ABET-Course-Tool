@@ -115,13 +115,23 @@ function parse(xml)
    var courseName = RegExp.$1;
 
    // course description
-   var ret = /\<em\>([\s\S]*)\<\/p\>/.test(desc);
+   var ret = /\<p class=\"courseblockdesc\"\>([\s\S]*)\<\/p\>/.test(desc);
    var courseDesc = RegExp.$1;
    if (courseDesc == courseName)
    {
        ret = /\<br \/\>([\s\S]*)\<\/p\>/.test(desc);
        courseDesc = RegExp.$1;
    }
+   // removing unwanted new lines
+   //alert(courseDesc.match(/\r|\r\n|\n|\n\r/));
+   courseDesc = courseDesc.replace(/\r/, " ");
+   courseDesc = courseDesc.replace(/\n/, " ");
+   courseDesc = courseDesc.replace(/\r\n|\n\r/, " ");
+   // removing unwanted space 
+   courseDesc = courseDesc.replace(/\&\#160;/, " ");
+   // removing unwanted <em>
+   courseDesc = courseDesc.replace(/\<em\>/, ""); 
+   // removing unwanted <em/><br/ >
    courseDesc = courseDesc.replace(/\<\/em\>\<br \/\>/, ". "); 
 
    // credits
@@ -176,7 +186,7 @@ This is a strange block!!!
 </strong>
 
 <form action="javascript:getXML('readCatalog.php');">
-Course (As it appears in ISU Catalog): 
+Course (as it appears in ISU Catalog): 
 <input type="text" id="deptcourse" name="deptcourse">
 <input type="submit" value="Retrieve course data from ISU Catalog" /><br /><br/>
 </form>
