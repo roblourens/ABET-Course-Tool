@@ -180,7 +180,6 @@ else
     
     <table id="assignmentsTable" border="0">
       <tr width="100%">
-        <th width="*">Index</th>
         <th width="*">Assignment Type</th>
         <th>Assignment#</th>
 		<th id="a" align="center"  
@@ -211,10 +210,7 @@ else
      
       <?php $i=0;
       foreach ($course->assignments as $assignmentKey=>$assignment):?>
-      <tr id="assignment_row_tr_<?php echo $i?>" <?php if($i % 2 == 1)echo "bgcolor=\"#b6b7bc\"" ?>>
-
-        <td id="assignment_row_tr_<?php echo $i?>"><?php echo $i+1; ?>
-        </td>
+      <tr id="assignment_row_tr_<?php echo $i?>">
 
         <td id="assignment_row_tr_<?php echo $i?>">
         <select id = "type_<?php echo $i; ?>" name="type_<?php echo $i; ?>">
@@ -383,7 +379,7 @@ else
       
       <?php $i=0;
       foreach ($course->sampleAssignments as $assignmentKey=>$assignment): ?>
-      <tr class="sample_row_tr_<?php echo $i;?>" <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
+      <tr class="sample_row_tr_<?php echo $i;?>">
 
         <td width="33%" height="103">Assignment Type:<br />
           <select id = "sample_type_<?php echo $i; ?>" name="sample_type_<?php echo $i; ?>">
@@ -432,7 +428,7 @@ else
         <td rowspan=2><button type="button" class="delete_sample_button" id="delete_sample_button_<?php echo $i; ?>">Delete</button></td>
       </tr >
 
-      <tr class="sample_row_tr_<?php echo $i; ?>" <?php //if($i % 2 == 0)echo "bgcolor=\"#b6b7bc\"" ?>>
+      <tr class="sample_row_tr_<?php echo $i; ?>">
         <td width="33%">
                   <div id="<?php echo "file_upload_box_A_".$i?>">
                            <?php

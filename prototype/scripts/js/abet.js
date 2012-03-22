@@ -1,16 +1,11 @@
 function build_assignment_row()
 {
 	var num = increment_assignment_row_count();
-	str = "";
-	if(num % 2 == 0){
-		str = "bgcolor=\"#b6b7bc\"";
-	}
 
     // rows are 0-indexed
     num--;
     return ""+	
-    " <tr "+str+" id='assignment_row_tr_"+num+"'>"+
-    "        <td id='assignment_row_tr_"+num+"'>"+(num+1)+"</td>"+
+    " <tr id='assignment_row_tr_"+num+"'>"+
     "        <td id='assignment_row_tr_"+num+"'><select id='type_"+num+"' name='type_"+num+"'>"+
     "          <option value='0'>Select Value</option>"+
     "          <option value='homework'>Homework</option>"+

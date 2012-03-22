@@ -3,6 +3,7 @@ $(document).ready(function() {
     // set new assignment button handler
     $('#add_another_assignment').click(function() {
         add_new_row('#assignmentsTable', build_assignment_row()); 
+        syncRowBgColors();
     });
 
     // set new sample button handler
@@ -24,8 +25,9 @@ $(document).ready(function() {
     // assignment rows checkboxes (not summary row)
     $('#assignmentsTable').on('click', 'input[type=checkbox][class!=sum]', syncSummaryRow);
 
-    // do initial summary row sync
+    // do initial summary row and color sync
     syncSummaryRow();
+    syncRowBgColors();
 
     // assign summary checkbox handlers
     $('input[type=checkbox][class=sum]').click(function(e) {
@@ -75,6 +77,7 @@ function assignmentDeleteButtonClicked(e)
     {
         $('#assignment_row_tr_'+i).remove();
         syncSummaryRow();
+        syncRowBgColors();
     }
 }
 
@@ -113,6 +116,18 @@ function increment_sample_row_count()
 	$('#sample_assignment_row_count').val(new_num);
 	
 	return new_num;
+}
+
+function syncRowBgColors()
+{
+    // skip header
+    for (var i=1; i<$('#assignmentsTable tr').length; i++)
+    {
+        if (i % 2 == 1)
+            $('#assignmentsTable tr:eq('+i+')').attr('bgcolor', '#fff');
+        else
+            $('#assignmentsTable tr:eq('+i+')').attr('bgcolor', '#b6b7bc');
+    }
 }
 
 function syncSummaryRow()
