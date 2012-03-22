@@ -94,7 +94,7 @@ else
     <td colspan="10"><textarea name="course_description" cols="80" rows="5"><?php echo getDesignatorDisplayString($course->designatorID);?> <?php echo $course->courseNum.". ".$course->courseName." ".$course->description; ?></textarea></td>
   </tr>
   <tr>
-    <td>Course Program Statuses</td>
+    <td>Required/Elective</td>
     <td colspan="10">
       <?php
       $required = array();

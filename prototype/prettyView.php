@@ -54,7 +54,7 @@ $date = getdate(max($course->descMod, $course->outcomesMod, $course->assignMod))
 $rows = array("Instructor/Course Coordinator" => $course->instructors,
               "Credits and Contact Hours" => $course->creditsContact,
               "Course Description" => getDesignatorDisplayString($course->designatorID)." ".$course->courseNum.". ".$course->courseName." ".$course->description,
-              "Course Program Statuses" => $status,
+              "Required/Elective" => $status,
               "Textbook Information" => $course->textbook,
               "List of topics to be covered" => $course->topics,
               "Specific goals for the course" => $lo,
