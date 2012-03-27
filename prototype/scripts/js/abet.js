@@ -9,10 +9,12 @@ function build_assignment_row()
     "        <td id='assignment_row_tr_"+num+"'><select id='type_"+num+"' name='type_"+num+"'>"+
     "          <option value='0'>Select Value</option>"+
     "          <option value='homework'>Homework</option>"+
+    "          <option value='exercise'>Exercise</option>"+
     "          <option value='test'>Test</option>"+
     "          <option value='lab'>Lab</option>"+
     "          <option value='quiz'>Quiz</option>"+
     "          <option value='midterm'>Midterm</option>"+
+    "          <option value='Project'>Project</option>"+
     "          <option value='final'>Final</option>"+
     "          </select></td>"+
     "        <td><select id='number_"+num+"' name='number_"+num+"'>"+
@@ -61,10 +63,12 @@ function genNewSampleRow(course)
                 "<select id = 'sample_type_"+num+"' name='sample_type_"+num+"'>"+
                 "<option selected value='0' selected='selected'>Select Value</option>"+
                 "<option  value='homework'>Homework</option>"+
+                "<option  value='exercise'>Exercise</option>"+
                 "<option  value='test'>Test</option>"+
                 "<option  value='lab'>Lab</option>"+
                 "<option  value='quiz'>Quiz</option>"+
                 "<option  value='midterm'>Midterm</option>"+
+                "<option  value='project'>Project</option>"+
                 "<option  value='final'>Final</option>"+
                 "</select></td>"+
             "<td width='33%'>Assignment Number:<br />"+

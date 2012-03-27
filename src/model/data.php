@@ -243,6 +243,8 @@ function addCourse($course, $progID)
             if (!in_array($course->courseID, $courseIDs))
                 $courseIDs[] = $course->courseID;
             else
+	      // Samik: Assuming that any course added to a program will have it required/elective
+	      // otherwise you will have to "writeCourse" before returning.
                 return 1;
 
             fseek($f, 0);
@@ -255,6 +257,8 @@ function addCourse($course, $progID)
             if (!is_null($existingCourse))
             {
                 $existingCourse->reqForProgram[$progID] = $course->reqForProgram[$progID];
+                // Samik: adding to update course, when course is added to new programs
+                writeCourse($existingCourse);
                 return 2;
             }
 

@@ -91,7 +91,7 @@ else
   <tr>
   <input name="course_id" type="hidden" value="<?php echo $course->courseID; ?>" />
     <td>Course Description</td>
-    <td colspan="10"><textarea name="course_description" cols="80" rows="5"><?php echo $course->description; ?></textarea></td>
+    <td colspan="10"><textarea name="course_description" cols="80" rows="5"><?php echo getDesignatorDisplayString($course->designatorID);?> <?php echo $course->courseNum.". ".$course->courseName." ".$course->description; ?></textarea></td>
   </tr>
   <tr>
     <td>Required/Elective</td>
@@ -217,11 +217,9 @@ else
           <?php $assignmentType = $assignment->type; ?>
           <option <?php if($assignmentType == 0) echo "selected"; ?> value="0">Select Value</option>
           <option <?php if($assignmentType == "homework") echo "selected"; ?> value="homework">Homework</option>
-          <option <?php if($assignmentType == "exercise") echo "selected"; ?> value="exercise">Exercise</option>
           <option <?php if($assignmentType == "test") echo "selected"; ?> value="test">Test</option>
           <option <?php if($assignmentType == "lab") echo "selected"; ?> value="lab">Lab</option>
           <option <?php if($assignmentType == "quiz") echo "selected"; ?> value="quiz">Quiz</option>
-          <option <?php if($assignmentType == "project") echo "selected"; ?> value="project">Project</option>
           <option <?php if($assignmentType == "midterm") echo "selected"; ?> value="midterm">Midterm</option>
           <option <?php if($assignmentType == "final") echo "selected"; ?> value="final">Final</option>
         </select>
@@ -387,11 +385,9 @@ else
           <select id = "sample_type_<?php echo $i; ?>" name="sample_type_<?php echo $i; ?>">
             <option <?php if($assignment->type == 0) echo "selected"; ?> value="0" selected="selected">Select Value</option>
             <option <?php if($assignment->type == "homework") echo "selected"; ?> value="homework">Homework</option>
-            <option <?php if($assignment->type == "exercise") echo "selected"; ?> value="exercise">Exercise</option>
             <option <?php if($assignment->type == "test") echo "selected"; ?> value="test">Test</option>
             <option <?php if($assignment->type == "lab") echo "selected"; ?> value="lab">Lab</option>
             <option <?php if($assignment->type == "quiz") echo "selected"; ?> value="quiz">Quiz</option>
-            <option <?php if($assignment->type == "project") echo "selected"; ?> value="project">Project</option>
             <option <?php if($assignment->type == "midterm") echo "selected"; ?> value="midterm">Midterm</option>
             <option <?php if($assignment->type == "final") echo "selected"; ?> value="final">Final</option>
           </select></td>

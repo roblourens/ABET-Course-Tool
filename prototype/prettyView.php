@@ -13,6 +13,11 @@ body
     font-family:"Times New Roman";
     font-size:"12pt";
 }
+
+p:first-letter
+{
+  text-transform: uppercase;
+}
 </style>
 
 <?php
@@ -75,23 +80,24 @@ EOL;
 }
 ?>
 </table>
-<h3>ABET Student Outcomes</h3>
+
 <hr />
-<table>
+<h4>ABET Student Outcomes</h4>
+<table border="2" width="50%">
     <tr align="left" valign="top">
         <?php
         foreach (array("Assignment Type", "Assignment #") as $header)
-            echo "<th>$header</th>";
+            echo "<th width='1000'>$header</th>";
 
         for ($i=ord("A"); $i<=ord("K"); $i++)
-            echo "<th>".chr($i)."</th>";
+            echo "<th width='200'>".chr($i)."</th>";
         ?>
     </tr>
     <?php $i=0;
       foreach ($course->assignments as $assignmentKey=>$assignment):?>
     <tr align="left" valign="top">
         <td>
-            <?php echo $assignment->type; ?>
+            <p><?php echo $assignment->type; ?></p>
         </td>
         <td>
             <?php echo $assignment->number; ?>
@@ -110,9 +116,17 @@ EOL;
     </tr>
     <?php endforeach; ?>
 
+    <!-- when there is no assignment -->
+    <?php 
+    if ($i==0) 
+      {
+	echo "<td colspan='13'>Specific assignment is not associated to outcomes</td>";
+      }
+    ?>
+
     <!-- summary row -->
-    <tr>
-        <td colspan="2">Summary of course outcomes</td>
+    <tr bgcolor="grey">
+        <td colspan="2">Association of course to outcomes</td>
         <?php
             for ($i=ord("A"); $i<=ord("K"); $i++)
             {
