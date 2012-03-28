@@ -34,8 +34,8 @@ function compareCourses($c1, $c2, $progID)
 </script>
 
 <div class="main">
-    <blink><b background-color="red"><font color="red">Please read the "Help" (Top menu) before proceeding. This software is tested on FF (v11), Safari (v5) and Chrome (v17). 
-    </font></b></blink>
+  <center><marquee behavior="slide" scrollamount="2" style="background:red; text-transform:uppercase"><font color="white">Please read the "Help" (Top menu) before proceeding. This software is tested on FireFox:v11, Safari:v5 and Chrome:v17. 
+    </font></marquee></center>
 
     <h2>
     View All Courses

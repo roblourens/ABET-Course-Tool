@@ -21,11 +21,11 @@
         </div>
 <table width="100%" border="0" bgcolor="#CCCCCC">
   <tr>
-    <td width="20%" align="center"><a href="viewAllCourses.php">View all Courses</a></td>
+    <td width="25%" align="center"><a href="viewAllCourses.php">View all courses</a></td>
     <td width="20%" align="center"><a href="search.php">Search by Student Outcome</a></td>
     <td width="20%" align="center"><a href="table.php">View all Student Outcomes</a></td>
     <td width="20%" align="center"><a href="addCourse.php">Add a course</a></td>
-    <td width="20%" align="center"><a href="ReadMe">Help</a></td>
+    <td width="20%" align="center"><a href="ReadMe" target="_blank"><b>Help</b></a></td>
   </tr>
 </table>
 <div id="notice_bar_wrapper">
